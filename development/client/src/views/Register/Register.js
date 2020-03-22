@@ -1,12 +1,12 @@
 /*
 *=============================================================================
-* Title: MainLayout.js
-* Created on: 17/03/2020  by Acua
+* Title: Register.js
+* Created on: 22/03/2020  by Acua
 * Copyright: Acua. All Rights Reserved.
 *==============================================================================
-* Description: Render the main view and routes; and control where the user goes
+* Description: Render the register form
 *==============================================================================
-* Constant: MainLayout
+* Constant: Register
 *==============================================================================
 */
 
@@ -15,7 +15,7 @@
 * Functions: None
 *------------------------------------------------------------------------------
 * Variables:
-*   -htmlRoutes: Contains the HTML of the routes
+*
 *------------------------------------------------------------------------------
 * Props Variables:
 *   -classes: Object that contains all the classes from the jsx file
@@ -32,10 +32,11 @@
   import React, {Fragment} from 'react';
   import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
   import injectSheet from 'react-jss';
+  import {Icon} from 'semantic-ui-react';
   /* End React's packages */
 
   /* JSS */
-  import styles from './MainLayoutStyles';
+  import styles from './RegisterStyles';
   /* END JSS */
 
   /* Routes */
@@ -48,42 +49,34 @@
 
 /*========== END IMPORTS ====================================================*/
 
-const MainLayout = props => {
+const Register = props => {
 
   const {classes} = props;
 
-  /*========== VARIABLES ======================================================*/
-
-    /*
-    *-------------------------------------------------------------------------
-    * Name: htmlRoutes
-    *--------------------------------------------------------------------------
-    * Description: Contains the HTML of the routes
-    *--------------------------------------------------------------------------
-    * Created on: 21/03/2020 by Acua
-    *--------------------------------------------------------------------------
-    */
-
-    const htmlRoutes = routes.map((route, index) => {
-        return <Route key={index} path={route.path} component={route.component}/>
-    });
-
-  /*========== END VARIABLES ==================================================*/
-
   return(
-    <div className={classes.mainLayout}>
-      <main>
-        <Switch>
-          {htmlRoutes}
-          <Redirect to='/login'/>
-        </Switch>
-      </main>
-      <footer>
-        <img src="/storage/acua.png" alt="logo-acua" title="Acua"/>
-        <p>Developed by Alejandro Acuaviva Plazuelo</p>
-      </footer>
+    <div className={classes.register}>
+      <form>
+        <h1>Registro</h1>
+        <div className={classes.field}>
+          <label for="username"><Icon name='user' className={classes.icon} size="large"/></label>
+          <input type="text" name="username" id="username" placeholder="Nick" required/>
+        </div>
+        <div className={classes.field}>
+          <label for="email"><Icon name='at' className={classes.icon} size="large"/></label>
+          <input type="text" name="email" id="email" placeholder="Email" required/>
+        </div>
+        <div className={classes.field}>
+          <label for="password"><Icon name='lock' className={classes.icon} size="large"/></label>
+          <input type="password" name="password" id="password" placeholder="Contraseña" required/>
+        </div>
+        <div className={classes.field}>
+          <label for="password2"><Icon name='lock' className={classes.icon} size="large"/></label>
+          <input type="password2" name="password2" id="password2" placeholder="Repetir contraseña" required/>
+        </div>
+        <input type="submit" value="Registrar"/>
+      </form>
     </div>
   );
 }
 
-export default injectSheet(styles)(MainLayout);
+export default injectSheet(styles)(Register);
