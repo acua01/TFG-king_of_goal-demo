@@ -4,11 +4,18 @@ import 'semantic-ui-css/semantic.min.css';
 import MainLayout from './views/MainLayout/MainLayout';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom';
+import {StoreProvider} from './context/StoreContext';
+import axios from 'axios';
+import {urlServer} from './shared/variables';
+
+axios.defaults.baseURL = urlServer;
 
 ReactDOM.render(
-  <BrowserRouter>
-	   <MainLayout />
-	</BrowserRouter>
+  <StoreProvider>
+    <BrowserRouter>
+  	   <MainLayout />
+  	</BrowserRouter>
+  </StoreProvider>
   , document.getElementById('root')
 );
 

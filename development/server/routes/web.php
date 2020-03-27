@@ -11,6 +11,8 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->get('/{any:.*}', function () {
+  return view('index');
 });
+
+$router->post('/register', 'AuthenticationController@register');

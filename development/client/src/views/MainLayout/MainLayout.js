@@ -29,10 +29,13 @@
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {Fragment} from 'react';
+  import React, {Fragment, useContext} from 'react';
   import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
+  import {Dimmer, Loader, Image, Segment} from 'semantic-ui-react';
   import injectSheet from 'react-jss';
   /* End React's packages */
+
+  import {StoreContext} from '../../context/StoreContext';
 
   /* JSS */
   import styles from './MainLayoutStyles';
@@ -50,6 +53,8 @@
 
 const MainLayout = props => {
 
+  const {state, actions} = useContext(StoreContext);
+
   const {classes} = props;
 
   /*========== VARIABLES ======================================================*/
@@ -65,13 +70,16 @@ const MainLayout = props => {
     */
 
     const htmlRoutes = routes.map((route, index) => {
-        return <Route key={index} path={route.path} component={route.component}/>
+        return <Route key={index} path={route.path} render={() => <route.component state={state} actions={actions}/>}/>
     });
 
   /*========== END VARIABLES ==================================================*/
 
   return(
     <div className={classes.mainLayout}>
+      <Dimmer active={state.app.loader.isLoading}>
+        <Loader>{state.app.loader.message}</Loader>
+      </Dimmer>
       <main>
         <Switch>
           {htmlRoutes}

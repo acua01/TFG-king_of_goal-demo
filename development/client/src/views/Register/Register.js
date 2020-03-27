@@ -29,7 +29,7 @@
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {Fragment} from 'react';
+  import React, {Fragment, useState} from 'react';
   import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
   import injectSheet from 'react-jss';
   import {Icon} from 'semantic-ui-react';
@@ -51,29 +51,44 @@
 
 const Register = props => {
 
-  const {classes} = props;
+  const {classes, state, actions} = props;
+
+  const [usernameState, setUsernameState] = useState('');
+  const [emailState, setEmailState] = useState('');
+  const [passwordState, setPasswordState] = useState('');
+  const [password2State, setPassword2State] = useState('');
+
+  const onSubmitRegisterFormHandler = event => {
+    event.preventDefault();
+    actions.sendRequestToRegisterUser({
+      username: usernameState,
+      email: emailState,
+      password: passwordState,
+      password2: password2State
+    });
+  }
 
   return(
     <div className={classes.register}>
-      <form>
+      <form onSubmit={onSubmitRegisterFormHandler}>
         <h1>Registro</h1>
         <div className={classes.field}>
           <label for="username"><Icon name='user' className={classes.icon} size="large"/></label>
-          <input type="text" name="username" id="username" placeholder="Nick" required/>
+          <input type="text" id="username" placeholder="Nick" value={usernameState} onChange={(event) => setUsernameState(event.target.value)} required/>
         </div>
         <div className={classes.field}>
           <label for="email"><Icon name='at' className={classes.icon} size="large"/></label>
-          <input type="text" name="email" id="email" placeholder="Email" required/>
+          <input type="text" id="email" placeholder="Email" value={emailState} onChange={(event) => setEmailState(event.target.value)} required/>
         </div>
         <div className={classes.field}>
           <label for="password"><Icon name='lock' className={classes.icon} size="large"/></label>
-          <input type="password" name="password" id="password" placeholder="Contraseña" required/>
+          <input type="password" id="password" placeholder="Contraseña" value={passwordState} onChange={(event) => setPasswordState(event.target.value)} required/>
         </div>
         <div className={classes.field}>
           <label for="password2"><Icon name='lock' className={classes.icon} size="large"/></label>
-          <input type="password2" name="password2" id="password2" placeholder="Repetir contraseña" required/>
+          <input type="password" id="password2" placeholder="Repetir contraseña" value={password2State} onChange={(event) => setPassword2State(event.target.value)} required/>
         </div>
-        <input type="submit" value="Registrar"/>
+        <input type="submit" value="Registrar" />
       </form>
     </div>
   );

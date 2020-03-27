@@ -106,6 +106,14 @@ $app->configure('app');
 |
 */
 
+$app->configure('cors');
+
+$app->middleware([
+    Spatie\Cors\Cors::class,
+]);
+
+$app->register(Spatie\Cors\CorsServiceProvider::class);
+
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
