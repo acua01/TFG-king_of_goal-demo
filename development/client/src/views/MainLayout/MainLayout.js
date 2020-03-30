@@ -22,20 +22,21 @@
 *------------------------------------------------------------------------------
 * Props Functions: None
 *------------------------------------------------------------------------------
-* Hooks: None
+* Hooks:
+*   -state, actions: useContext from the StoreContext
 *========== END SUMMARY =======================================================
 */
 
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {Fragment, useContext} from 'react';
+  import React, {Fragment, useContext, useEffect} from 'react';
   import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
   import {Dimmer, Loader, Image, Segment} from 'semantic-ui-react';
+  import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
   import injectSheet from 'react-jss';
   /* End React's packages */
-
-  import {StoreContext} from '../../context/StoreContext';
 
   /* JSS */
   import styles from './MainLayoutStyles';
@@ -46,21 +47,63 @@
   /* End Routes */
 
   /* Custom Components */
-  // Aquí los imports de los componentes que tú te crees
+
   /* End Custom Components */
+
+  /* Custom Modules */
+  import {StoreContext} from '../../context/StoreContext';
+  /* End Custom Modules */
+
+  /* Custom Styles Variables */
+
+  /* End Custom Styles Variables */
 
 /*========== END IMPORTS ====================================================*/
 
 const MainLayout = props => {
 
-  const {state, actions} = useContext(StoreContext);
+  const {classes, history} = props;
 
-  const {classes} = props;
-
-  /*========== VARIABLES ======================================================*/
+  /*========== HOOKS ========================================================*/
 
     /*
-    *-------------------------------------------------------------------------
+    *--------------------------------------------------------------------------
+    * Name: state, actions
+    *--------------------------------------------------------------------------
+    * Description: useContext from the StoreContext
+    *--------------------------------------------------------------------------
+    * Created on: 24/03/2020 by Acua
+    *--------------------------------------------------------------------------
+    */
+
+    const {state, actions} = useContext(StoreContext);
+
+  /*========== END HOOKS ====================================================*/
+
+  /*========== USE EFFECT ===================================================*/
+
+  useEffect(() => {
+    actions.checkAuth();
+  },[]);
+
+  useEffect(() => {
+    if(state.app.authentication.auth){
+      history.push('/');
+    }else{
+      history.push('/login');
+    }
+  },[state.app.authentication.auth]);
+
+  /*========== END USE EFFECT ===============================================*/
+
+  /*========== FUNCTIONS ====================================================*/
+
+  /*========== END FUNCTIONS ================================================*/
+
+  /*========== VARIABLES ====================================================*/
+
+    /*
+    *--------------------------------------------------------------------------
     * Name: htmlRoutes
     *--------------------------------------------------------------------------
     * Description: Contains the HTML of the routes
@@ -70,28 +113,48 @@ const MainLayout = props => {
     */
 
     const htmlRoutes = routes.map((route, index) => {
-        return <Route key={index} path={route.path} render={() => <route.component state={state} actions={actions}/>}/>
+        return <Route
+                  key={index}
+                  path={route.path}
+                  render={() => <route.component state={state} actions={actions} history={history}/>}
+                />
     });
 
-  /*========== END VARIABLES ==================================================*/
+  /*========== END VARIABLES ================================================*/
 
   return(
     <div className={classes.mainLayout}>
+
       <Dimmer active={state.app.loader.isLoading}>
         <Loader>{state.app.loader.message}</Loader>
       </Dimmer>
+
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnVisibilityChange
+        draggable
+        pauseOnHover
+      />
+
       <main>
         <Switch>
           {htmlRoutes}
           <Redirect to='/login'/>
         </Switch>
       </main>
+
       <footer>
         <img src="/storage/acua.png" alt="logo-acua" title="Acua"/>
         <p>Developed by Alejandro Acuaviva Plazuelo</p>
       </footer>
+
     </div>
   );
 }
 
-export default injectSheet(styles)(MainLayout);
+export default injectSheet(styles)(withRouter(MainLayout));

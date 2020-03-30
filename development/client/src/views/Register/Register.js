@@ -51,7 +51,7 @@
 
 const Register = props => {
 
-  const {classes, state, actions} = props;
+  const {classes, state, actions, history} = props;
 
   const [usernameState, setUsernameState] = useState('');
   const [emailState, setEmailState] = useState('');
@@ -60,14 +60,47 @@ const Register = props => {
 
   const onSubmitRegisterFormHandler = event => {
     event.preventDefault();
-    actions.sendRequestToRegisterUser({
+    actions.showSnackbar();
+    /*
+    // Validar nombre
+
+		if(usernameState == '' || !/^[a-zA-Z0-9]+$/i.test(usernameState)){
+			errors.push('Introduce un nombre de usuario válido');
+		}
+
+    // Validar email
+
+		if(emailState == '' || !/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(emailState)){
+			errors.push('Introduce un email válido');
+		}
+
+    // Validar la contraseña
+		if(passwordState == ''){
+			errors.push('Introduce una contraseña');
+		}
+
+		if(passwordState != password2State){
+			errors.push('Las contraseñas no coinciden');
+		}
+    if(errors.length == 0){
+
+    }
+    */
+
+    actions.sendRequestToRegisterUser(history,{
       username: usernameState,
       email: emailState,
       password: passwordState,
       password2: password2State
     });
   }
+  /*
+  let errors = [];
 
+  const htmlErrors = errors.map((error, index) => {
+    return <p>{error}</p>
+  });
+  */
   return(
     <div className={classes.register}>
       <form onSubmit={onSubmitRegisterFormHandler}>

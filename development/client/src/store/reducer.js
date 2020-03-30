@@ -12,7 +12,9 @@ const initialStateMain = {
 
 const types = {
   START_LOADING: 'START_LOADING',
-  END_LOADING: 'END_LOADING'
+  END_LOADING: 'END_LOADING',
+  SET_AUTH: 'SET_AUTH',
+  REMOVE_AUTH: 'REMOVE_AUTH'
 };
 
 const updateState = (state, action, section) => {
@@ -27,6 +29,8 @@ const reducerMain = (state, action) => {
   switch(action.type){
     case types.START_LOADING: newState = updateState(state, action, 'loader'); break;
     case types.END_LOADING: newState = updateState(state, action, 'loader'); break;
+    case types.SET_AUTH: newState = updateState(state, action, 'authentication'); break;
+    case types.REMOVE_AUTH: newState = updateState(state, action, 'authentication'); break;
   }
 
   return newState;

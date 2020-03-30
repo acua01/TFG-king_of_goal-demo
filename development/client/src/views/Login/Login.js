@@ -13,8 +13,8 @@
 /*========== IMPORTS ========================================================*/
 
 /* React's packages */
-import React, {Fragment} from 'react';
-import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
+import React, {Fragment, useState} from 'react';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import injectSheet from 'react-jss';
 import {Icon, Responsive} from 'semantic-ui-react';
 /* End React's packages */
@@ -35,7 +35,18 @@ import {routes} from '../../routes/routes';
 
 const Login = props => {
 
-  const {classes} = props;
+  const {classes, state, actions, history} = props;
+
+  const [emailState, setEmailState] = useState('');
+  const [passwordState, setPasswordState] = useState('');
+
+  const onSubmitLoginFormHandler = event => {
+    event.preventDefault();
+    actions.sendRequestToLoginUser({
+      email: emailState,
+      password: passwordState
+    });
+  }
 
   return(
     <div className={classes.login}>
@@ -44,15 +55,15 @@ const Login = props => {
           <img src="/storage/logo/logo_light.png" alt="logo-king-of-goal" title="King of Goal"/>
         </div>
         <div className={classes.rightSide}>
-          <form>
+          <form onSubmit={onSubmitLoginFormHandler}>
             <h1>Iniciar sesión</h1>
             <div className={classes.field}>
               <label for="email"><Icon name='at' className={classes.icon} size="large"/></label>
-              <input type="text" name="email" id="email" placeholder="Email" required/>
+              <input type="text" name="email" id="email" placeholder="Email" value={emailState} onChange={(event) => setEmailState(event.target.value)} required/>
             </div>
             <div className={classes.field}>
               <label for="password"><Icon name='lock' className={classes.icon} size="large"/></label>
-              <input type="password" name="password" id="password" placeholder="Contraseña" required/>
+              <input type="password" name="password" id="password" placeholder="Contraseña" value={passwordState} onChange={(event) => setPasswordState(event.target.value)} required/>
             </div>
             <input type="submit" value="Entrar"/>
             <p>¿No tienes cuenta aún? <a onClick={() => props.history.push('/registro')}>Regístrate</a></p>
@@ -61,18 +72,18 @@ const Login = props => {
       </Responsive>
       <Responsive minWidth={0} maxWidth={643} as={Fragment}>
         <div className={classes.smallerScreen}>
-          <form>
+          <form onSubmit={onSubmitLoginFormHandler}>
             <h1>Iniciar sesión</h1>
             <div className={classes.field}>
               <label for="email"><Icon name='at' className={classes.icon} size="large"/></label>
-              <input type="text" name="email" id="email" placeholder="Email" required/>
+              <input type="text" name="email" id="email" placeholder="Email" value={emailState} onChange={(event) => setEmailState(event.target.value)} required/>
             </div>
             <div className={classes.field}>
               <label for="password"><Icon name='lock' className={classes.icon} size="large"/></label>
-              <input type="password" name="password" id="password" placeholder="Contraseña" required/>
+              <input type="password" name="password" id="password" placeholder="Contraseña" value={passwordState} onChange={(event) => setPasswordState(event.target.value)} required/>
             </div>
             <input type="submit" value="Entrar"/>
-            <p>¿No tienes cuenta aún? <a onClick={() => props.history.push('/registro')}>Regístrate</a></p>
+            <p>¿No tienes cuenta aún? <a onClick={() => history.push('/registro')}>Regístrate</a></p>
           </form>
         </div>
       </Responsive>
@@ -80,4 +91,4 @@ const Login = props => {
   );
 }
 
-export default injectSheet(styles)(withRouter(Login));
+export default injectSheet(styles)(Login);

@@ -16,3 +16,4 @@ $router->get('/{any:.*}', function () {
 });
 
 $router->post('/register', 'AuthenticationController@register');
+$router->post('/login', 'AuthenticationController@login');

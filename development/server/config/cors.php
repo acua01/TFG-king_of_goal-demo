@@ -27,9 +27,6 @@ return [
             'POST',
             'GET',
             'OPTIONS',
-            'PUT',
-            'PATCH',
-            'DELETE',
         ],
 
         'allow_headers' => [
@@ -37,6 +34,7 @@ return [
             'X-Auth-Token',
             'Origin',
             'Authorization',
+            'api_token'
         ],
 
         'expose_headers' => [

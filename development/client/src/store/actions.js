@@ -18,8 +18,20 @@ export const useActionsClient = (state, dispatch) => {
     });
   }
 
+  const checkAuth = () => {
+    const token = sessionStorage.getItem('token');
+
+    if(token){
+      dispatch({
+        type: types.SET_AUTH,
+        auth: true
+      });
+    }
+  }
+
   return {
     startLoading,
-    endLoading
+    endLoading,
+    checkAuth
   };
 };

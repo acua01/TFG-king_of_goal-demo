@@ -7,16 +7,47 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class AuthenticationController extends Controller {
+
+  // Register users
+
   public function register(Request $request){
 
     $messages = [
-      'username.required'=>'tonto'
+
+      // username
+
+      'username.required'=>'Introduce un nick.',
+      'username.string'=>'El nick debe ser una cadena.',
+      'username.min'=>'El nick debe tener un mínimo de 5 caracteres.',
+      'username.max'=>'El nick debe tener un máximo de 20 caracteres.',
+      'username.unique'=>'El nick no está disponible.',
+
+      // email
+
+      'email.required'=>'Introduce un email.',
+      'email.string'=>'El email debe ser una cadena.',
+      'email.unique'=>'El email no está disponible.',
+      'email.email'=>'Introduce un email válido.',
+
+      // password
+
+      'password.required'=>'Introduce una contraseña.',
+      'password.string'=>'La contraseña debe ser una cadena.',
+      'password.min'=>'La contraseña debe tener un mínimo de 5 caracteres.',
+      'password.max'=>'La contraseña debe tener un máximo de 20 caracteres.',
+
+      // password 2
+
+      'password.required'=>'Las contraseñas no coinciden.',
+      'password.string'=>'Las contraseñas no coinciden.',
+      'password.same'=>'Las contraseñas no coinciden.'
     ];
 
     $this->validate($request, [
-      'username'=>'required|min:10|unique:users,username|string',
-      'password'=>'required|',
-      'password2'=>'required|same:password'
+      'username'=>'required|string|min:5|max:20|unique:users,username',
+      'email'=>'required|string|unique:users,email|email',
+      'password'=>'required|string|min:5|max:20',
+      'password2'=>'required|string|same:password'
     ], $messages);
 
     $username = $request['username'];
@@ -34,6 +65,56 @@ class AuthenticationController extends Controller {
     }catch(\Exception $e){
       return response()->json(['message'=>$this->getErrorMessage($e)], 500);
     }
+  }
 
+  // Login users
+
+  public function login(Request $request){
+
+    $messages = [
+
+      // email
+
+      'email.required'=>'Introduce el email.',
+      'email.string'=>'El email debe ser una cadena.',
+
+      // password
+
+      'password.required'=>'Introduce la contraseña.',
+      'password.string'=>'La contraseña debe ser una cadena.',
+    ];
+
+    $this->validate($request, [
+      'email'=>'required|string',
+      'password'=>'required|string',
+    ], $messages);
+
+    $username = $request['username'];
+    $email = $request['email'];
+    $password = $request['password'];
+
+    try{
+      $user = DB::select(DB::raw(
+        "SELECT id, password FROM users WHERE email = :email"
+      ), ['email'=>$email])[0];
+
+      if($user){
+        if(Hash::check($password, $user->password)) {
+          $token = Str::random(60).uniqid();
+
+          DB::statement("UPDATE users SET api_token = :token WHERE id = :id", ['token'=>$token ,'id'=>$user->id]);
+
+          return response()->json(['token'=>$token], 200);
+        }else{
+          return response()->json(['message'=>'El usuario y la contraseña no coincide'], 400);
+        }
+      }else{
+        return response()->json(['message'=>'El usuario y la contraseña no coincide'], 400);
+      }
+
+      return response()->json(['message'=>'Usuario logueado'], 200);
+    }catch(\Exception $e){
+      return response()->json(['message'=>$this->getErrorMessage($e)], 500);
+    }
   }
 }
