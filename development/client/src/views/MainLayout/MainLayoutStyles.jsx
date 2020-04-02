@@ -21,7 +21,8 @@ const styles = {
 
     '@global':{
       body:{
-        margin:0
+        margin:0,
+        //backgroundImage: 'url("./storage/background.png")'
       },
       main:{
         width:'100%'

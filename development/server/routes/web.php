@@ -15,5 +15,11 @@ $router->get('/{any:.*}', function () {
   return view('index');
 });
 
+Route::group(['middleware' => ['auth:api']], function () {
+    //
+});
+
 $router->post('/register', 'AuthenticationController@register');
 $router->post('/login', 'AuthenticationController@login');
+
+//$router->post('/add', ['middleware' => 'permission:add ability', 'uses' => 'AbilitiesController@addAbility']);

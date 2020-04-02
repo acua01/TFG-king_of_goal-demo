@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableUsers extends Migration
+class CreateTableClubs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,14 @@ class CreateTableUsers extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('clubs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->string('username', 30);
-            $table->string('email', 60);
-            $table->string('password');
 
-            // Authentication
-
-            $table->string('api_token', 80)->nullable(true);
-            $table->timestamp('api_token_expiration_date')->nullable(true);
+            //php artisan make:migration add_relationships_to_clubs --table=clubs
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *
@@ -34,6 +28,6 @@ class CreateTableUsers extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('clubs');
     }
 }

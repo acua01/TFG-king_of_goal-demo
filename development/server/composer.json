@@ -7,7 +7,8 @@
     "require": {
         "php": "^7.2.5",
         "laravel/lumen-framework": "^6.0",
-        "spatie/laravel-cors": "^1.6"
+        "spatie/laravel-cors": "^1.6",
+        "spatie/laravel-permission": "^3.11"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9.1",
