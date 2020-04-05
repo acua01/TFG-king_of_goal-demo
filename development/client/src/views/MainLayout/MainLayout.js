@@ -41,7 +41,7 @@
   /* END JSS */
 
   /* Routes */
-  import {routes} from '../../routes/routes';
+  import {mainLayoutRoutes} from '../../routes/routes';
   /* End Routes */
 
   /* Custom Components */
@@ -97,7 +97,7 @@ const MainLayout = props => {
         history.push('/login');
       }
     },[state.app.authentication.auth]);
-    
+
   /*========== END USE EFFECT ===============================================*/
 
   /*========== FUNCTIONS ====================================================*/
@@ -116,7 +116,7 @@ const MainLayout = props => {
     *--------------------------------------------------------------------------
     */
 
-    const htmlRoutes = routes.map((route, index) => {
+    const htmlRoutes = mainLayoutRoutes.map((route, index) => {
       return(
         <Route
           key={index}

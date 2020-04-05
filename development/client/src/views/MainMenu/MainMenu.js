@@ -42,7 +42,7 @@
   /* END JSS */
 
   /* Routes */
-
+  import {mainMenuItems} from '../../routes/routes';
   /* End Routes */
 
   /* Custom Components */
@@ -63,98 +63,43 @@ const MainMenu = props => {
 
   const {classes, history, actions, state} = props;
 
-  const [sidebarDisplayState, setSidebarDisplayState] = useState(false);
-
   /*========== USE EFFECT ===================================================*/
 
   /*========== END USE EFFECT ===============================================*/
 
   /*========== FUNCTIONS ====================================================*/
 
-    /*
-    *--------------------------------------------------------------------------
-    * Name: onClickShowSidebarHandler
-    *--------------------------------------------------------------------------
-    * Description: Shows the sidebar
-    *--------------------------------------------------------------------------
-    * Created on: 01/04/2020 by Acua
-    *--------------------------------------------------------------------------
-    */
-
-    const onClickShowSidebarHandler = () => {
-      setSidebarDisplayState(true);
-    }
-
   /*========== END FUNCTIONS ================================================*/
 
   /*========== VARIABLES ====================================================*/
 
-  /*========== END VARIABLES ================================================*/
+    /*
+    *--------------------------------------------------------------------------
+    * Name: htmlMainMenuItems
+    *--------------------------------------------------------------------------
+    * Description: Contains the HTML of the main menu items
+    *--------------------------------------------------------------------------
+    * Created on: 04/04/2020 by Acua
+    *--------------------------------------------------------------------------
+    */
 
-  const onClickLogoutHandler = event => {
-    event.preventDefault();
-    actions.logout(history);
-  }
+    const htmlMainMenuItems = mainMenuItems.map((item, index) => {
+      return(
+        <div className={classes.menuItem}>
+          <h2>{item.title}</h2>
+          <div>
+            <p>{item.description}</p>
+            <Icon className={classes.menuItemIcon} name={item.icon} size="massive"/>
+          </div>
+        </div>
+      )
+    });
+
+  /*========== END VARIABLES ================================================*/
 
   return(
     <div className={classes.mainMenu}>
-
-      <Sidebar.Pushable as={Segment}>
-        <Sidebar
-          as={Menu}
-          animation='overlay'
-          icon='labeled'
-          inverted
-          onHide={() => setSidebarDisplayState(false)}
-          vertical
-          visible={sidebarDisplayState}
-          width='thin'
-        >
-          <img className={classes.sidebarLogo} src="./storage/icon/icon_new_light.png"/>
-          <Menu.Item as='a'>
-            <Icon name='home' />
-            Inicio
-          </Menu.Item>
-          <Menu.Item as='a' onClick={onClickLogoutHandler}>
-            <Icon name='log out' />
-            Cerrar sesión
-          </Menu.Item>
-        </Sidebar>
-
-        <Sidebar.Pusher dimmed={sidebarDisplayState}>
-          <header>
-            <div>
-              <button onClick={onClickShowSidebarHandler}>
-                <Icon name="bars" size="large"/>
-              </button>
-              <div className={classes.userData}>
-                <img src="/storage/cadiz.png"/>
-                <div className={classes.userDataNames}>
-                  <p>Cádiz C.F.</p>
-                  <p>acua01</p>
-                </div>
-                <div className={classes.userDataCoins}>
-                  <img src="/storage/coins.png"/>
-                  <p>500</p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <img src="/storage/logo/logo_light.png" alt="logo-king-of-goal" title="King of Goal"/>
-            </div>          
-          </header>
-          <div className={classes.breadCrumb}>
-            <span>Inicio</span>
-          </div>
-          <div className={classes.menuItem}>
-            <h2>Ver jugadores</h2>
-            <div>
-              <p>Aquí podrás ver la información de todos los jugadores.</p>
-              <Icon className={classes.menuItemIcon} name="users" size="massive"/>
-            </div>
-          </div>
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
+      {htmlMainMenuItems}
     </div>
   )
 }

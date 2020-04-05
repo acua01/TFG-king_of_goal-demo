@@ -22,7 +22,9 @@ const styles = {
     '@global':{
       body:{
         margin:0,
-        //backgroundImage: 'url("./storage/background.png")'
+        backgroundImage: 'url("./storage/background.png") !important',
+        //backgroundSize: 'cover !important',
+        backgroundAttachment: 'fixed !important'
       },
       main:{
         width:'100%'
