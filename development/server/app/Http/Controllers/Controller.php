@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Laravel\Lumen\Routing\Controller as BaseController;
+use DB;
 
 class Controller extends BaseController
 {
@@ -12,5 +12,13 @@ class Controller extends BaseController
       }else{
           return 'There was an internal error';
       }
+  }
+
+  protected function getAllPermissions(){
+    $permissions = DB::select(DB::raw(
+      "SELECT id, name FROM permissions"
+    ));
+
+    return $permissions;
   }
 }

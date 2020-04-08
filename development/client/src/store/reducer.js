@@ -9,7 +9,7 @@ const initialStateMain = {
     message: ''
   },
   permissions:{
-    all:[]
+    all:[],
   }
 };
 
@@ -18,7 +18,8 @@ const types = {
   END_LOADING: 'END_LOADING',
   SET_AUTH: 'SET_AUTH',
   REMOVE_AUTH: 'REMOVE_AUTH',
-  SET_PERMISSIONS: 'SET_PERMISSIONS'
+  SET_PERMISSIONS: 'SET_PERMISSIONS',
+  SET_SELECTED_PERMISSION: 'SET_SELECTED_PERMISSION'
 };
 
 const updateState = (state, action, section) => {
@@ -36,6 +37,7 @@ const reducerMain = (state, action) => {
     case types.SET_AUTH: newState = updateState(state, action, 'authentication'); break;
     case types.REMOVE_AUTH: newState = updateState(state, action, 'authentication'); break;
     case types.SET_PERMISSIONS: newState = updateState(state, action, 'permissions'); break;
+    case types.SET_SELECTED_PERMISSION: newState = updateState(state, action, 'permissions'); break;
   }
 
   return newState;

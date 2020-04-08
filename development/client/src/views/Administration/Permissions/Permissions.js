@@ -65,6 +65,7 @@ const Permissions = props => {
 
   const [viewState, setViewState] = useState('table');
   const [nameState, setNameState] = useState('');
+  const [activePermissionState, setActivePermissionState] = useState('');
 
   /*========== USE EFFECT ===================================================*/
 
@@ -82,6 +83,24 @@ const Permissions = props => {
       actions.askForAllPermissions();
     },[]);
 
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Set form fields states when active permission state changes
+    *--------------------------------------------------------------------------
+    * Parameters: activePermissionState
+    *--------------------------------------------------------------------------
+    * Created on: 08/04/2020 by Acua
+    *--------------------------------------------------------------------------
+    */
+
+    useEffect(() => {
+      if(activePermissionState){
+        setNameState(activePermissionState.name);
+      }else{
+        setNameState('');
+      }
+    },[activePermissionState]);
+
   /*========== END USE EFFECT ===============================================*/
 
   /*========== FUNCTIONS ====================================================*/
@@ -97,6 +116,7 @@ const Permissions = props => {
     */
 
     const onClickAddButtonHandler = () => {
+      setActivePermissionState('');
       setViewState('form');
     }
 
@@ -111,6 +131,7 @@ const Permissions = props => {
     */
 
     const onClickGoToListButtonHandler = () => {
+      setActivePermissionState('');
       setViewState('table');
     }
 
@@ -133,6 +154,25 @@ const Permissions = props => {
 
     /*
     *--------------------------------------------------------------------------
+    * Name: onSubmitInsertPermissionFormHandler
+    *--------------------------------------------------------------------------
+    * Description: Validates the form and sends data to server
+    *--------------------------------------------------------------------------
+    * Created on: 07/04/2020 by Acua
+    *--------------------------------------------------------------------------
+    */
+
+    const onSubmitUpdatePermissionFormHandler = event => {
+      event.preventDefault();
+      actions.sendRequestToUpdatePermission({
+        id:activePermissionState.id,
+        name:nameState
+      });
+      setViewState('table');
+    }
+
+    /*
+    *--------------------------------------------------------------------------
     * Name: onClickDeleteButtonHandler
     *--------------------------------------------------------------------------
     * Description: Delete the permission
@@ -142,7 +182,29 @@ const Permissions = props => {
     */
 
     const onClickDeleteButtonHandler = idPermission => {
-      alert(idPermission);
+      actions.sendRequestToDeletePermission({
+        id:idPermission
+      });
+    }
+
+    /*
+    *--------------------------------------------------------------------------
+    * Name: onClickUpdateButtonHandler
+    *--------------------------------------------------------------------------
+    * Description: Change the view to the form to update de permission
+    *--------------------------------------------------------------------------
+    * Created on: 08/04/2020 by Acua
+    *--------------------------------------------------------------------------
+    */
+
+    const onClickUpdateButtonHandler = idPermission => {
+      state.app.permissions.all.find((permission) => {
+        if(permission.id == idPermission){
+          setActivePermissionState(permission);
+        }
+      });
+
+      setViewState('form');
     }
 
   /*========== END FUNCTIONS ================================================*/
@@ -164,7 +226,7 @@ const Permissions = props => {
         <tr>
           <td>{permission.name}</td>
           <td className={classes.actions}>
-            <div>
+            <div onClick={() => onClickUpdateButtonHandler(permission.id)}>
               <Icon name='edit'/>
               <span>Editar</span>
             </div>
@@ -205,8 +267,8 @@ const Permissions = props => {
             <Icon name='angle left'/>
             <span>Volver a la lista</span>
           </button>
-          <form onSubmit={onSubmitInsertPermissionFormHandler}>
-            <h1>Insertar permiso</h1>
+          <form onSubmit={(event) => {activePermissionState ? onSubmitUpdatePermissionFormHandler(event) : onSubmitInsertPermissionFormHandler(event)}}>
+            <h1>{activePermissionState ? <Fragment>Modificar permiso</Fragment> : <Fragment>Insertar permiso</Fragment>}</h1>
             <div className={classes.field}>
               <label for="name"><Icon name='user' className={classes.icon} size="large"/></label>
               <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} required/>

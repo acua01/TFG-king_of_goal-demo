@@ -91,7 +91,7 @@ export const useActionsServerRequests = (state, dispatch) => {
 
       dispatch({
         type: types.SET_PERMISSIONS,
-        all: response.data
+        all: response.data.permissions
       });
 
       dispatch({
@@ -120,6 +120,11 @@ export const useActionsServerRequests = (state, dispatch) => {
 
       const response = await axios.post('/insert_permission', data);
 
+      dispatch({
+        type: types.SET_PERMISSIONS,
+        all: response.data.permissions
+      });
+
       showSnackbar('success', response.data.message);
 
       dispatch({
@@ -146,7 +151,45 @@ export const useActionsServerRequests = (state, dispatch) => {
         message: 'Cargando...'
       });
 
-      const response = await axios.post('/insert_permission', data);
+      const response = await axios.post('/delete_permission', data);
+
+      dispatch({
+        type: types.SET_PERMISSIONS,
+        all: response.data.permissions
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.END_LOADING,
+        isLoading: false,
+        message: ''
+      });
+    }catch(e) {
+      dispatch({
+        type: types.END_LOADING,
+        isLoading: false,
+        message: ''
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToUpdatePermission = async(data) => {
+    try{
+      dispatch({
+        type: types.START_LOADING,
+        isLoading: true,
+        message: 'Cargando...'
+      });
+
+      const response = await axios.post('/update_permission', data);
+
+      dispatch({
+        type: types.SET_PERMISSIONS,
+        all: response.data.permissions
+      });
 
       showSnackbar('success', response.data.message);
 
@@ -169,9 +212,21 @@ export const useActionsServerRequests = (state, dispatch) => {
   /*========== END PERMISSIONS ==============================================*/
 
   return {
+
+    /*---------- Authentication ---------------------------------------------*/
+
     sendRequestToRegisterUser,
     sendRequestToLoginUser,
+
+    /*---------- End Authentication -----------------------------------------*/
+
+    /*---------- Permissions ------------------------------------------------*/
+
     askForAllPermissions,
-    sendRequestToInsertPermission
+    sendRequestToInsertPermission,
+    sendRequestToDeletePermission,
+    sendRequestToUpdatePermission
+
+    /*---------- End Permissions --------------------------------------------*/
   };
 };
