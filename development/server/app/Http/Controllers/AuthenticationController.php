@@ -6,7 +6,7 @@ use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class AuthenticationController extends Controller {
+class AuthenticationController extends Controller{
 
   // Register users
 

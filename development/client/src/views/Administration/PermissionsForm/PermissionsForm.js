@@ -1,12 +1,12 @@
 /*
 *=============================================================================
-* Title: MainMenu.js
-* Created on: 30/03/2020  by Acua
+* Title: PermissionsForm.js
+* Created on: 07/04/2020  by Acua
 * Copyright: Acua. All Rights Reserved.
 *==============================================================================
-* Description: Render the main menu of the app
+* Description: Render the view of the form to insert and update permissions
 *==============================================================================
-* Constant: MainMenu
+* Constant: PermissionsForm
 *==============================================================================
 */
 
@@ -31,22 +31,22 @@
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {Fragment, useState} from 'react';
+  import React, {Fragment, useState, useEffect} from 'react';
   import {Route} from 'react-router-dom';
   import injectSheet from 'react-jss';
   import {Header, Icon, Image, Menu, Segment, Sidebar} from 'semantic-ui-react'
   /* End React's packages */
 
   /* JSS */
-  import styles from './MainMenuStyles';
+  import styles from './PermissionsFormStyles';
   /* END JSS */
 
   /* Routes */
-  import {mainMenuItems} from '../../routes/routes';
+
   /* End Routes */
 
   /* Custom Components */
-  import MenuItem from '../../components/MenuItem/MenuItem';
+
   /* End Custom Components */
 
   /* Custom Modules */
@@ -59,7 +59,7 @@
 
 /*========== END IMPORTS ====================================================*/
 
-const MainMenu = props => {
+const PermissionsForm = props => {
 
   const {classes, history, actions, state} = props;
 
@@ -69,37 +69,26 @@ const MainMenu = props => {
 
   /*========== FUNCTIONS ====================================================*/
 
+    
+
   /*========== END FUNCTIONS ================================================*/
 
   /*========== VARIABLES ====================================================*/
 
-    /*
-    *--------------------------------------------------------------------------
-    * Name: htmlMainMenuItems
-    *--------------------------------------------------------------------------
-    * Description: Contains the HTML of the main menu items
-    *--------------------------------------------------------------------------
-    * Created on: 04/04/2020 by Acua
-    *--------------------------------------------------------------------------
-    */
-
-    const htmlMainMenuItems = mainMenuItems.map((item, index) => {
-      return(
-        <MenuItem
-          title={item.title}
-          description={item.description}
-          icon={item.icon}
-          route={item.route}
-        />
-      )
-    });
   /*========== END VARIABLES ================================================*/
 
   return(
-    <div className={classes.mainMenu}>
-      {htmlMainMenuItems}
+    <div className={classes.permissionsForm}>
+      <form>
+        <h1>Insertar permiso</h1>
+        <div className={classes.field}>
+          <label for="name"><Icon name='user' className={classes.icon} size="large"/></label>
+          <input type="text" id="name" placeholder="Nombre" required/>
+        </div>
+        <input type="submit" value="Guardar"/>
+      </form>
     </div>
   )
 }
 
-export default injectSheet(styles)(MainMenu);
+export default injectSheet(styles)(PermissionsForm);

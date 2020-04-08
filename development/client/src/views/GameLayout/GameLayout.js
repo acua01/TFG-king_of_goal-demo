@@ -46,15 +46,15 @@
   /* End Routes */
 
   /* Custom Components */
-    // Aquí los imports de los componentes que tú te crees
+
   /* End Custom Components */
 
   /* Custom Modules */
-    // Aquí los imports de los componentes que tú te crees
+
   /* End Custom Modules */
 
   /* Custom Styles Variables */
-    // Aquí van las variables de estilos alojadas en /share/styles
+
   /* End Custom Styles Variables */
 
 /*========== END IMPORTS ====================================================*/
@@ -121,7 +121,7 @@ const GameLayout = props => {
 
     const htmlSidebarItems = sidebarItems.map((item, index) => {
       return(
-        <Menu.Item as='a'>
+        <Menu.Item as='a' className={classes.sidebarItem} onClick={() => history.push(item.route)}>
           <Icon name={item.icon} />
           {item.title}
         </Menu.Item>
@@ -154,12 +154,12 @@ const GameLayout = props => {
             <p>Cádiz C.F.</p>
             <p>acua01</p>
           </div>
-          <Menu.Item as='a'>
+          <Menu.Item as='a' className={classes.sidebarItem} onClick={() => history.push('/')}>
             <Icon name='home' />
             Inicio
           </Menu.Item>
           {htmlSidebarItems}
-          <Menu.Item as='a' onClick={onClickLogoutHandler}>
+          <Menu.Item as='a' className={classes.sidebarItem} onClick={onClickLogoutHandler}>
             <Icon name='log out' />
             Cerrar sesión
           </Menu.Item>
@@ -196,7 +196,7 @@ const GameLayout = props => {
 
           <Switch>
             {htmlRoutes}
-            <Redirect to='/'/>
+            <Redirect to='inicio'/>
           </Switch>
 
         </Sidebar.Pusher>

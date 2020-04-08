@@ -31,7 +31,7 @@
   import React, {Fragment, useContext, useEffect} from 'react';
   import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
   import {Dimmer, Loader, Image, Segment} from 'semantic-ui-react';
-  import { ToastContainer, toast } from 'react-toastify';
+  import {ToastContainer, toast} from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
   import injectSheet from 'react-jss';
   /* End React's packages */
@@ -89,7 +89,7 @@ const MainLayout = props => {
     * Created on: 30/03/2020 by Acua
     *--------------------------------------------------------------------------
     */
-
+    /*
     useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/');
@@ -97,7 +97,7 @@ const MainLayout = props => {
         history.push('/login');
       }
     },[state.app.authentication.auth]);
-
+    */
   /*========== END USE EFFECT ===============================================*/
 
   /*========== FUNCTIONS ====================================================*/

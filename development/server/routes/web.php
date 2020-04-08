@@ -21,5 +21,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 $router->post('/register', 'AuthenticationController@register');
 $router->post('/login', 'AuthenticationController@login');
+$router->post('/permissions', 'PermissionsController@getAll');
+$router->post('/insert_permission', 'PermissionsController@insert');
 
 //$router->post('/add', ['middleware' => 'permission:add ability', 'uses' => 'AbilitiesController@addAbility']);

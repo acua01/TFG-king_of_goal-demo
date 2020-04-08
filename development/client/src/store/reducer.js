@@ -7,6 +7,9 @@ const initialStateMain = {
   loader:{
     isLoading: false,
     message: ''
+  },
+  permissions:{
+    all:[]
   }
 };
 
@@ -14,7 +17,8 @@ const types = {
   START_LOADING: 'START_LOADING',
   END_LOADING: 'END_LOADING',
   SET_AUTH: 'SET_AUTH',
-  REMOVE_AUTH: 'REMOVE_AUTH'
+  REMOVE_AUTH: 'REMOVE_AUTH',
+  SET_PERMISSIONS: 'SET_PERMISSIONS'
 };
 
 const updateState = (state, action, section) => {
@@ -31,6 +35,7 @@ const reducerMain = (state, action) => {
     case types.END_LOADING: newState = updateState(state, action, 'loader'); break;
     case types.SET_AUTH: newState = updateState(state, action, 'authentication'); break;
     case types.REMOVE_AUTH: newState = updateState(state, action, 'authentication'); break;
+    case types.SET_PERMISSIONS: newState = updateState(state, action, 'permissions'); break;
   }
 
   return newState;

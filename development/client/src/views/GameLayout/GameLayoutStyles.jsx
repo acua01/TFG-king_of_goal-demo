@@ -139,7 +139,7 @@ const styles = {
     'sidebarUserData':{
       padding:'20px 0',
       '& > img':{
-        width:'60%',
+        width:'45%',
         margin:'10px 0'
       },
       '& > p':{
@@ -150,6 +150,12 @@ const styles = {
       '& > p:nth-child(2)':{
         fontSize:'20px',
         color:'#ff6600'
+      }
+    },
+
+    'sidebarItem':{
+      '&:hover':{
+        backgroundColor:'#ff6600 !important'
       }
     },
 

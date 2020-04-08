@@ -1,12 +1,12 @@
 /*
 *=============================================================================
-* Title: MainMenu.js
-* Created on: 30/03/2020  by Acua
+* Title: AdminMenu.js
+* Created on: 06/04/2020  by Acua
 * Copyright: Acua. All Rights Reserved.
 *==============================================================================
-* Description: Render the main menu of the app
+* Description: Render the main menu of the administration
 *==============================================================================
-* Constant: MainMenu
+* Constant: AdminMenu
 *==============================================================================
 */
 
@@ -38,15 +38,15 @@
   /* End React's packages */
 
   /* JSS */
-  import styles from './MainMenuStyles';
+  import styles from './AdminMenuStyles';
   /* END JSS */
 
   /* Routes */
-  import {mainMenuItems} from '../../routes/routes';
+  import {adminMenuItems} from '../../../routes/routes';
   /* End Routes */
 
   /* Custom Components */
-  import MenuItem from '../../components/MenuItem/MenuItem';
+  import MenuItem from '../../../components/MenuItem/MenuItem';
   /* End Custom Components */
 
   /* Custom Modules */
@@ -59,7 +59,7 @@
 
 /*========== END IMPORTS ====================================================*/
 
-const MainMenu = props => {
+const AdminMenu = props => {
 
   const {classes, history, actions, state} = props;
 
@@ -75,15 +75,15 @@ const MainMenu = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Name: htmlMainMenuItems
+    * Name: htmlAdminMenuItems
     *--------------------------------------------------------------------------
-    * Description: Contains the HTML of the main menu items
+    * Description: Contains the HTML of the menu
     *--------------------------------------------------------------------------
-    * Created on: 04/04/2020 by Acua
+    * Created on: 06/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const htmlMainMenuItems = mainMenuItems.map((item, index) => {
+    const htmlAdminMenuItems = adminMenuItems.map((item, index) => {
       return(
         <MenuItem
           title={item.title}
@@ -96,10 +96,10 @@ const MainMenu = props => {
   /*========== END VARIABLES ================================================*/
 
   return(
-    <div className={classes.mainMenu}>
-      {htmlMainMenuItems}
+    <div className={classes.adminMenu}>
+      {htmlAdminMenuItems}
     </div>
   )
 }
 
-export default injectSheet(styles)(MainMenu);
+export default injectSheet(styles)(AdminMenu);

@@ -23,6 +23,7 @@ const styles = {
       body:{
         margin:0,
         backgroundImage: 'url("./storage/background.png") !important',
+        backgroundColor:'#C6C6C6',
         //backgroundSize: 'cover !important',
         backgroundAttachment: 'fixed !important'
       },

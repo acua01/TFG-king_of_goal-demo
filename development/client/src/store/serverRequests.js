@@ -4,6 +4,8 @@ import {showSnackbar, showMessages} from '../shared/utils';
 
 export const useActionsServerRequests = (state, dispatch) => {
 
+  /*========== AUTHENTICATION ===============================================*/
+
   const sendRequestToRegisterUser = async(history, data) => {
     try{
       dispatch({
@@ -73,8 +75,103 @@ export const useActionsServerRequests = (state, dispatch) => {
     }
   }
 
+  /*========== END AUTHENTICATION ===========================================*/
+
+  /*========== PERMISSIONS ==================================================*/
+
+  const askForAllPermissions = async(data) => {
+    try{
+      dispatch({
+        type: types.START_LOADING,
+        isLoading: true,
+        message: 'Cargando...'
+      });
+
+      const response = await axios.post('/permissions');
+
+      dispatch({
+        type: types.SET_PERMISSIONS,
+        all: response.data
+      });
+
+      dispatch({
+        type: types.END_LOADING,
+        isLoading: false,
+        message: ''
+      });
+    }catch(e){
+      dispatch({
+        type: types.END_LOADING,
+        isLoading: false,
+        message: ''
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToInsertPermission = async(data) => {
+    try{
+      dispatch({
+        type: types.START_LOADING,
+        isLoading: true,
+        message: 'Cargando...'
+      });
+
+      const response = await axios.post('/insert_permission', data);
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.END_LOADING,
+        isLoading: false,
+        message: ''
+      });
+    }catch(e) {
+      dispatch({
+        type: types.END_LOADING,
+        isLoading: false,
+        message: ''
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToDeletePermission = async(data) => {
+    try{
+      dispatch({
+        type: types.START_LOADING,
+        isLoading: true,
+        message: 'Cargando...'
+      });
+
+      const response = await axios.post('/insert_permission', data);
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.END_LOADING,
+        isLoading: false,
+        message: ''
+      });
+    }catch(e) {
+      dispatch({
+        type: types.END_LOADING,
+        isLoading: false,
+        message: ''
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  /*========== END PERMISSIONS ==============================================*/
+
   return {
     sendRequestToRegisterUser,
-    sendRequestToLoginUser
+    sendRequestToLoginUser,
+    askForAllPermissions,
+    sendRequestToInsertPermission
   };
 };
