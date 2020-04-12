@@ -4,35 +4,49 @@ export const useActionsClient = (state, dispatch) => {
 
   const startLoading = message => {
     dispatch({
-      type: types.START_LOADING,
-      isLoading: true,
-      message
+      type: types.GENERAL_TYPE,
+      section: 'loader',
+      data: {
+        isLoading: true,
+        message
+      }
     });
   }
 
   const endLoading = () => {
     dispatch({
-      type: types.END_LOADING,
-      isLoading: false,
-      message: ''
+      type: types.GENERAL_TYPE,
+      section: 'loader',
+      data: {
+        isLoading: false,
+        message: ''
+      }
     });
   }
 
   const checkAuth = () => {
     const token = sessionStorage.getItem('token');
+    const admin = sessionStorage.getItem('admin');
 
     if(token){
       dispatch({
-        type: types.SET_AUTH,
-        auth: true
+        type: types.GENERAL_TYPE,
+        section: 'authentication',
+        data: {
+          auth: true,
+          admin
+        }
       });
     }
   }
 
   const logout = history => {
     dispatch({
-      type: types.REMOVE_AUTH,
-      auth: false
+      type: types.GENERAL_TYPE,
+      section: 'authentication',
+      data: {
+        auth: false
+      }
     });
 
     sessionStorage.setItem('token', '');

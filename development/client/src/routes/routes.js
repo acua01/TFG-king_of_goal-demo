@@ -5,41 +5,47 @@ import GameLayout from '../views/GameLayout/GameLayout';
 // GameLayout views
 
 import MainMenu from '../views/MainMenu/MainMenu';
+import Admin from '../views/Administration/Admin/Admin';
 import AdminMenu from '../views/Administration/AdminMenu/AdminMenu';
 import Permissions from '../views/Administration/Permissions/Permissions';
-import PermissionsForm from '../views/Administration/PermissionsForm/PermissionsForm';
 
 export const mainLayoutRoutes = [
   {
-    path: '/login',
-    component: Login
+    path: '/',
+    component: Login,
+    exact:true
   },
   {
     path: '/registro',
     component: Register
   },
   {
-    path: '/',
+    path: '/inicio',
     component: GameLayout
-  }
+  },
 ];
 
 export const gameLayoutRoutes = [
   {
-    path: '/inicio',
-    component: MainMenu
+    path: '/',
+    component: MainMenu,
+    exact:true
   },
   {
     path: '/admin',
-    component: AdminMenu
+    component: Admin
+  },
+];
+
+export const adminRoutes = [
+  {
+    path: '/',
+    component: AdminMenu,
+    exact:true
   },
   {
     path: '/permisos',
     component: Permissions
-  },
-  {
-    path: '/formulario_permisos',
-    component: PermissionsForm
   },
 ];
 
@@ -76,7 +82,7 @@ export const mainMenuItems = [
     title: 'Ver jugadores',
     description: 'Aquí podrás ver la información de todos los jugadores.',
     icon: 'users',
-    route: '/login'
+    route: '/inicio'
   },
   {
     title: 'Tienda',
@@ -100,7 +106,7 @@ export const mainMenuItems = [
     title: 'Administración',
     description: 'Administración.',
     icon: 'chess king',
-    route: '/admin'
+    route: '/inicio/admin'
   },
 ];
 
@@ -109,6 +115,6 @@ export const adminMenuItems = [
     title: 'Permisos',
     description: 'Permisos.',
     icon: 'chess',
-    route: '/permisos'
+    route: '/inicio/admin/permisos'
   },
 ];

@@ -34,7 +34,7 @@
   import React, {Fragment, useState, useEffect} from 'react';
   import {Route} from 'react-router-dom';
   import injectSheet from 'react-jss';
-  import {Header, Icon, Image, Menu, Segment, Sidebar} from 'semantic-ui-react'
+  import {Icon, Pagination, Message, Button, Modal} from 'semantic-ui-react'
   /* End React's packages */
 
   /* JSS */
@@ -50,7 +50,7 @@
   /* End Custom Components */
 
   /* Custom Modules */
-
+  import {showSnackbar} from '../../../shared/utils';
   /* End Custom Modules */
 
   /* Custom Styles Variables */
@@ -65,6 +65,9 @@ const Permissions = props => {
 
   const [viewState, setViewState] = useState('table');
   const [nameState, setNameState] = useState('');
+  const [activePageState, setActivePageState] = useState(1);
+  const [itemsPerPageState, setItemsPerPageState] = useState(10);
+  const [deleteModalState, setDeleteModalState] = useState(false);
   const [activePermissionState, setActivePermissionState] = useState('');
 
   /*========== USE EFFECT ===================================================*/
@@ -116,6 +119,7 @@ const Permissions = props => {
     */
 
     const onClickAddButtonHandler = () => {
+      window.scrollTo(0,0);
       setActivePermissionState('');
       setViewState('form');
     }
@@ -131,15 +135,47 @@ const Permissions = props => {
     */
 
     const onClickGoToListButtonHandler = () => {
+      window.scrollTo(0,0);
       setActivePermissionState('');
+      setNameState('');
       setViewState('table');
+    }
+
+    /*
+    *--------------------------------------------------------------------------
+    * Name: fnValidateForm
+    *--------------------------------------------------------------------------
+    * Description: Validates the form and returns an array with the errors
+    *--------------------------------------------------------------------------
+    * Created on: 09/04/2020 by Acua
+    *--------------------------------------------------------------------------
+    */
+
+    const fnValidateForm = () => {
+      let errors = [];
+
+      // Email validation
+
+  		if(nameState == ''){
+  			errors.push('Introduce el nombre.');
+  		}
+
+      if(nameState.length > 30){
+  			errors.push('El nombre debe tener un máximo de 30 caracteres.');
+  		}
+
+      if(!/^[a-zA-Z0-9\ ]+$/i.test(nameState)){
+  			errors.push('El nombre debe tener caracteres alfanuméricos.');
+  		}
+
+      return errors;
     }
 
     /*
     *--------------------------------------------------------------------------
     * Name: onSubmitInsertPermissionFormHandler
     *--------------------------------------------------------------------------
-    * Description: Validates the form and sends data to server
+    * Description: Validates the form and sends data to server to insert
     *--------------------------------------------------------------------------
     * Created on: 07/04/2020 by Acua
     *--------------------------------------------------------------------------
@@ -147,16 +183,27 @@ const Permissions = props => {
 
     const onSubmitInsertPermissionFormHandler = event => {
       event.preventDefault();
-      actions.sendRequestToInsertPermission({
-        name:nameState
-      });
+
+      window.scrollTo(0,0);
+
+      const errors = fnValidateForm();
+
+      if(errors.length === 0){
+        actions.sendRequestToInsertPermission({
+          name:nameState
+        });
+      }else{
+        errors.map(error => {
+          showSnackbar('error', error);
+        });
+      }
     }
 
     /*
     *--------------------------------------------------------------------------
-    * Name: onSubmitInsertPermissionFormHandler
+    * Name: onSubmitUpdatePermissionFormHandler
     *--------------------------------------------------------------------------
-    * Description: Validates the form and sends data to server
+    * Description: Validates the form and sends data to server to update
     *--------------------------------------------------------------------------
     * Created on: 07/04/2020 by Acua
     *--------------------------------------------------------------------------
@@ -164,10 +211,22 @@ const Permissions = props => {
 
     const onSubmitUpdatePermissionFormHandler = event => {
       event.preventDefault();
-      actions.sendRequestToUpdatePermission({
-        id:activePermissionState.id,
-        name:nameState
-      });
+
+      window.scrollTo(0,0);
+
+      const errors = fnValidateForm();
+
+      if(errors.length === 0){
+        actions.sendRequestToUpdatePermission({
+          id:activePermissionState.id,
+          name:nameState
+        });
+      }else{
+        errors.map(error => {
+          showSnackbar('error', error);
+        });
+      }
+
       setViewState('table');
     }
 
@@ -182,8 +241,22 @@ const Permissions = props => {
     */
 
     const onClickDeleteButtonHandler = idPermission => {
+      state.app.permissions.all.find((permission) => {
+        if(permission.id == idPermission){
+          setActivePermissionState(permission);
+        }
+      });
+
+      setDeleteModalState(true);
+    }
+
+    const onClickConfirmDeleteButtonHandler = idPermission => {
+      window.scrollTo(0,0);
+
+      setDeleteModalState(false);
+
       actions.sendRequestToDeletePermission({
-        id:idPermission
+        id:activePermissionState.id
       });
     }
 
@@ -198,6 +271,8 @@ const Permissions = props => {
     */
 
     const onClickUpdateButtonHandler = idPermission => {
+      window.scrollTo(0,0);
+
       state.app.permissions.all.find((permission) => {
         if(permission.id == idPermission){
           setActivePermissionState(permission);
@@ -221,18 +296,16 @@ const Permissions = props => {
     *--------------------------------------------------------------------------
     */
 
-    const htmlPermissions = state.app.permissions.all.map((permission, index) => {
+    const htmlPermissions = state.app.permissions.all.slice(itemsPerPageState * activePageState - itemsPerPageState, itemsPerPageState * activePageState).map((permission, index) => {
       return(
         <tr>
           <td>{permission.name}</td>
           <td className={classes.actions}>
-            <div onClick={() => onClickUpdateButtonHandler(permission.id)}>
+            <div title="Editar" onClick={() => onClickUpdateButtonHandler(permission.id)}>
               <Icon name='edit'/>
-              <span>Editar</span>
             </div>
-            <div onClick={() => onClickDeleteButtonHandler(permission.id)}>
+            <div title="Eliminar" onClick={() => onClickDeleteButtonHandler(permission.id)}>
               <Icon name='delete'/>
-              <span>Eliminar</span>
             </div>
           </td>
         </tr>
@@ -245,17 +318,51 @@ const Permissions = props => {
     <div className={classes.permissions}>
       {viewState == 'table' ?
         <div className={classes.permissionsTableView}>
-          <table>
-            <thead>
-              <tr>
-                <th>Permiso</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {htmlPermissions}
-            </tbody>
-          </table>
+          <h1>Permisos del super-admin</h1>
+
+          {state.app.permissions.all.length > 0 ?
+            <Fragment>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Permiso</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {htmlPermissions}
+                </tbody>
+              </table>
+
+              {Math.ceil(state.app.permissions.all.length / itemsPerPageState) > 1 ?
+                <Pagination
+                  className={classes.pagination}
+                  defaultActivePage={activePageState}
+                  totalPages={Math.ceil(state.app.permissions.all.length / itemsPerPageState)}
+                  onClick={() => window.scrollTo(0,0)}
+                  onPageChange={(event, {activePage}) => setActivePageState(activePage)}
+                />
+              :
+                null
+              }
+              <Modal className={classes.modal} size='mini' open={deleteModalState} onClose={() => setDeleteModalState(false)}>
+                <Modal.Content>
+                  <p>¿Seguro que quieres eliminar este permiso?</p>
+                </Modal.Content>
+                <Modal.Actions>
+                  <button onClick={onClickConfirmDeleteButtonHandler}>Sí</button>
+                  <button onClick={() => setDeleteModalState(false)}>No</button>
+                </Modal.Actions>
+              </Modal>
+            </Fragment>
+          :
+            <Message
+              className={classes.message}
+              icon='info'
+              header='No se ha encontrado ningún permiso.'
+              color='blue'
+            />
+          }
           <button onClick={onClickAddButtonHandler}>
             <Icon name='add'/>
             <span>Añadir</span>
@@ -267,18 +374,29 @@ const Permissions = props => {
             <Icon name='angle left'/>
             <span>Volver a la lista</span>
           </button>
+          <h1>{activePermissionState ? <Fragment>Modificar permiso</Fragment> : <Fragment>Insertar permiso</Fragment>}</h1>
           <form onSubmit={(event) => {activePermissionState ? onSubmitUpdatePermissionFormHandler(event) : onSubmitInsertPermissionFormHandler(event)}}>
-            <h1>{activePermissionState ? <Fragment>Modificar permiso</Fragment> : <Fragment>Insertar permiso</Fragment>}</h1>
             <div className={classes.field}>
               <label for="name"><Icon name='user' className={classes.icon} size="large"/></label>
-              <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} required/>
+              <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="30"/>
             </div>
-            <input type="submit" value="Guardar"/>
+            <button type="submit">
+              {activePermissionState ?
+                <Fragment>
+                  <Icon name='save'/>
+                  <span>Actualizar</span>
+                </Fragment>
+              :
+                <Fragment>
+                  <Icon name='add'/>
+                  <span>Insertar</span>
+                </Fragment>
+              }
+            </button>
           </form>
         </div>
       :null
       }
-
     </div>
   )
 }

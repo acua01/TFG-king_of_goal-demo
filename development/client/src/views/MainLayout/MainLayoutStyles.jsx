@@ -22,13 +22,12 @@ const styles = {
     '@global':{
       body:{
         margin:0,
-        backgroundImage: 'url("./storage/background.png") !important',
+        backgroundImage: 'url("/storage/background.png") !important',
         backgroundColor:'#C6C6C6',
-        //backgroundSize: 'cover !important',
         backgroundAttachment: 'fixed !important'
       },
       main:{
-        width:'100%'
+        width:'100%',
       },
       footer:{
         textAlign: 'center',

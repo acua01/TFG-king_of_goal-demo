@@ -9,9 +9,12 @@ export const useActionsServerRequests = (state, dispatch) => {
   const sendRequestToRegisterUser = async(history, data) => {
     try{
       dispatch({
-        type: types.START_LOADING,
-        isLoading: true,
-        message: 'Cargando...'
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
       });
 
       const response = await axios.post('/register', data);
@@ -21,15 +24,21 @@ export const useActionsServerRequests = (state, dispatch) => {
       showSnackbar('success', 'Te has registrado correctamente.');
 
       dispatch({
-        type: types.END_LOADING,
-        isLoading: false,
-        message: ''
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
       });
     }catch(e){
       dispatch({
-        type: types.END_LOADING,
-        isLoading: false,
-        message: ''
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
       });
 
       showMessages('error', e);
@@ -39,9 +48,12 @@ export const useActionsServerRequests = (state, dispatch) => {
   const sendRequestToLoginUser = async(history, data) => {
     try{
       dispatch({
-        type: types.START_LOADING,
-        isLoading: true,
-        message: 'Cargando...'
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
       });
 
       const response = await axios.post('/login', data);
@@ -49,26 +61,37 @@ export const useActionsServerRequests = (state, dispatch) => {
       axios.defaults.headers.common['api_token'] = response.data.token;
 
       sessionStorage.setItem('token', response.data.token);
+      sessionStorage.setItem('admin', response.data.is_admin);
 
       dispatch({
-        type: types.SET_AUTH,
-        auth: true
+        type: types.GENERAL_TYPE,
+        section: 'authentication',
+        data:{
+          auth: true,
+          admin: response.data.is_admin
+        }
       });
 
-      history.push('/');
+      history.push('/inicio');
 
       showSnackbar('success', 'Has iniciado sesión correctamente.');
 
       dispatch({
-        type: types.END_LOADING,
-        isLoading: false,
-        message: ''
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
       });
     }catch(e){
       dispatch({
-        type: types.END_LOADING,
-        isLoading: false,
-        message: ''
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
       });
 
       showMessages('error', e);
@@ -82,28 +105,40 @@ export const useActionsServerRequests = (state, dispatch) => {
   const askForAllPermissions = async(data) => {
     try{
       dispatch({
-        type: types.START_LOADING,
-        isLoading: true,
-        message: 'Cargando...'
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
       });
 
       const response = await axios.post('/permissions');
 
       dispatch({
-        type: types.SET_PERMISSIONS,
-        all: response.data.permissions
+        type: types.GENERAL_TYPE,
+        section:'permissions',
+        data:{
+          all: response.data.permissions
+        }
       });
 
       dispatch({
-        type: types.END_LOADING,
-        isLoading: false,
-        message: ''
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
       });
     }catch(e){
       dispatch({
-        type: types.END_LOADING,
-        isLoading: false,
-        message: ''
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
       });
 
       showMessages('error', e);
@@ -113,30 +148,42 @@ export const useActionsServerRequests = (state, dispatch) => {
   const sendRequestToInsertPermission = async(data) => {
     try{
       dispatch({
-        type: types.START_LOADING,
-        isLoading: true,
-        message: 'Cargando...'
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
       });
 
       const response = await axios.post('/insert_permission', data);
 
       dispatch({
-        type: types.SET_PERMISSIONS,
-        all: response.data.permissions
+        type: types.GENERAL_TYPE,
+        section:'permissions',
+        data:{
+          all: response.data.permissions
+        }
       });
 
       showSnackbar('success', response.data.message);
 
       dispatch({
-        type: types.END_LOADING,
-        isLoading: false,
-        message: ''
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
       });
     }catch(e) {
       dispatch({
-        type: types.END_LOADING,
-        isLoading: false,
-        message: ''
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
       });
 
       showMessages('error', e);
@@ -146,30 +193,42 @@ export const useActionsServerRequests = (state, dispatch) => {
   const sendRequestToDeletePermission = async(data) => {
     try{
       dispatch({
-        type: types.START_LOADING,
-        isLoading: true,
-        message: 'Cargando...'
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
       });
 
       const response = await axios.post('/delete_permission', data);
 
       dispatch({
-        type: types.SET_PERMISSIONS,
-        all: response.data.permissions
+        type: types.GENERAL_TYPE,
+        section:'permissions',
+        data:{
+          all: response.data.permissions
+        }
       });
 
       showSnackbar('success', response.data.message);
 
       dispatch({
-        type: types.END_LOADING,
-        isLoading: false,
-        message: ''
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
       });
     }catch(e) {
       dispatch({
-        type: types.END_LOADING,
-        isLoading: false,
-        message: ''
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
       });
 
       showMessages('error', e);
@@ -179,30 +238,42 @@ export const useActionsServerRequests = (state, dispatch) => {
   const sendRequestToUpdatePermission = async(data) => {
     try{
       dispatch({
-        type: types.START_LOADING,
-        isLoading: true,
-        message: 'Cargando...'
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
       });
 
       const response = await axios.post('/update_permission', data);
 
       dispatch({
-        type: types.SET_PERMISSIONS,
-        all: response.data.permissions
+        type: types.GENERAL_TYPE,
+        section:'permissions',
+        data:{
+          all: response.data.permissions
+        }
       });
 
       showSnackbar('success', response.data.message);
 
       dispatch({
-        type: types.END_LOADING,
-        isLoading: false,
-        message: ''
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
       });
     }catch(e) {
       dispatch({
-        type: types.END_LOADING,
-        isLoading: false,
-        message: ''
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
       });
 
       showMessages('error', e);

@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\User;
 
 class AuthenticationController extends Controller{
 
@@ -95,17 +96,17 @@ class AuthenticationController extends Controller{
     $password = $request['password'];
 
     try{
-      $user = DB::select(DB::raw(
-        "SELECT id, password FROM users WHERE email = :email"
-      ), ['email'=>$email])[0];
+      $user = User::select('id', 'password')->where('email', $email)->first();
 
       if($user){
         if(Hash::check($password, $user->password)) {
           $token = Str::random(60).uniqid();
 
+          $is_admin = $user->hasRole('super-admin');
+
           DB::statement("UPDATE users SET api_token = :token WHERE id = :id", ['token'=>$token ,'id'=>$user->id]);
 
-          return response()->json(['token'=>$token], 200);
+          return response()->json(['token'=>$token, 'is_admin'=>$is_admin], 200);
         }else{
           return response()->json(['message'=>'El usuario y la contraseña no coinciden.'], 400);
         }

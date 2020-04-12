@@ -29,7 +29,7 @@
 
   /* React's packages */
   import React, {Fragment, useContext, useEffect} from 'react';
-  import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
+  import {Route, Switch, Redirect, useHistory, useRouteMatch} from 'react-router-dom';
   import {Dimmer, Loader, Image, Segment} from 'semantic-ui-react';
   import {ToastContainer, toast} from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
@@ -60,9 +60,9 @@
 
 const MainLayout = props => {
 
-  const {classes, history} = props;
+  const {classes} = props;
   const {state, actions} = useContext(StoreContext);
-
+  const history = useHistory();
 
   /*========== USE EFFECT ===================================================*/
 
@@ -91,10 +91,10 @@ const MainLayout = props => {
     */
     /*
     useEffect(() => {
-      if(state.app.authentication.auth){
+      if(state.app.authentication.auth && url === '/'){
+        history.push('/inicio');
+      }else if(!state.app.authentication.auth){
         history.push('/');
-      }else{
-        history.push('/login');
       }
     },[state.app.authentication.auth]);
     */
@@ -121,6 +121,7 @@ const MainLayout = props => {
         <Route
           key={index}
           path={route.path}
+          exact={route.exact}
           render={() => <route.component state={state} actions={actions} history={history}/>}
         />
       )
@@ -130,7 +131,6 @@ const MainLayout = props => {
 
   return(
     <div className={classes.mainLayout}>
-
       <Dimmer active={state.app.loader.isLoading}>
         <Loader>{state.app.loader.message}</Loader>
       </Dimmer>
@@ -150,7 +150,7 @@ const MainLayout = props => {
       <main>
         <Switch>
           {htmlRoutes}
-          <Redirect to='/login'/>
+          <Redirect to='/'/>
         </Switch>
       </main>
 
@@ -163,4 +163,4 @@ const MainLayout = props => {
   );
 }
 
-export default injectSheet(styles)(withRouter(MainLayout));
+export default injectSheet(styles)(MainLayout);

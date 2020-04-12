@@ -11,7 +11,7 @@ class PermissionsController extends Controller{
   public function getAll(){
     try{
       $permissions = DB::select(DB::raw(
-        "SELECT id, name FROM permissions"
+        "SELECT id, name FROM permissions ORDER BY name ASC"
       ));
 
       return response()->json(['permissions'=>$permissions], 200);
@@ -21,6 +21,15 @@ class PermissionsController extends Controller{
   }
 
   public function getById(Request $request){
+    $messages = [
+      'id.required'=>'Introduce el id.',
+      'id.integer'=>'El id debe ser un integer.',
+    ];
+
+    $this->validate($request, [
+      'id'=>'required|integer',
+    ], $messages);
+
     $id = $request['id'];
 
     try{
@@ -35,6 +44,18 @@ class PermissionsController extends Controller{
   }
 
   public function insert(Request $request){
+    $messages = [
+      'name.required'=>'Introduce el nombre.',
+      'name.string'=>'El nombre debe ser una cadena.',
+      'name.max'=>'El nombre debe tener un máximo de 20 caracteres.',
+      'name.unique'=>'El nombre introducido ya existe.',
+      'username.regex'=>'El nombre debe tener caracteres alfanuméricos.',
+    ];
+
+    $this->validate($request, [
+      'name'=>'required|string|max:20|unique:permissions,name|regex:/^[a-zA-Z0-9\ ]+$/i',
+    ], $messages);
+
     $name = $request['name'];
 
     try{
@@ -54,6 +75,15 @@ class PermissionsController extends Controller{
   }
 
   public function delete(Request $request){
+    $messages = [
+      'id.required'=>'Introduce el id.',
+      'id.integer'=>'El id debe ser un integer.',
+    ];
+
+    $this->validate($request, [
+      'id'=>'required|integer',
+    ], $messages);
+
     $id = $request['id'];
 
     try{
@@ -71,6 +101,22 @@ class PermissionsController extends Controller{
   }
 
   public function update(Request $request){
+    $messages = [
+      'name.required'=>'Introduce el nombre.',
+      'name.string'=>'El nombre debe ser una cadena.',
+      'name.max'=>'El nombre debe tener un máximo de 20 caracteres.',
+      'name.unique'=>'El nombre introducido ya existe.',
+      'username.regex'=>'El nombre debe tener caracteres alfanuméricos.',
+
+      'id.required'=>'Introduce el id.',
+      'id.integer'=>'El id debe ser un integer.',
+    ];
+
+    $this->validate($request, [
+      'name'=>'required|string|max:20|unique:permissions,name|regex:/^[a-zA-Z0-9\ ]+$/i',
+      'id'=>'required|integer',
+    ], $messages);
+
     $id = $request['id'];
     $name = $request['name'];
 

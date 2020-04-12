@@ -2,7 +2,8 @@ import {updateObject} from '../shared/utils';
 
 const initialStateMain = {
   authentication: {
-    auth:false
+    auth:false,
+    admin:false
   },
   loader:{
     isLoading: false,
@@ -14,30 +15,20 @@ const initialStateMain = {
 };
 
 const types = {
-  START_LOADING: 'START_LOADING',
-  END_LOADING: 'END_LOADING',
-  SET_AUTH: 'SET_AUTH',
-  REMOVE_AUTH: 'REMOVE_AUTH',
-  SET_PERMISSIONS: 'SET_PERMISSIONS',
-  SET_SELECTED_PERMISSION: 'SET_SELECTED_PERMISSION'
+  GENERAL_TYPE: 'GENERAL_TYPE',
 };
 
-const updateState = (state, action, section) => {
+const updateState = (state, action) => {
   delete action.type;
 
-  return updateObject(state, {[section]:{...action}});
+  return updateObject(state, {[action.section]:{...state[action.section],...action.data}});
 }
 
 const reducerMain = (state, action) => {
   let newState = state;
 
   switch(action.type){
-    case types.START_LOADING: newState = updateState(state, action, 'loader'); break;
-    case types.END_LOADING: newState = updateState(state, action, 'loader'); break;
-    case types.SET_AUTH: newState = updateState(state, action, 'authentication'); break;
-    case types.REMOVE_AUTH: newState = updateState(state, action, 'authentication'); break;
-    case types.SET_PERMISSIONS: newState = updateState(state, action, 'permissions'); break;
-    case types.SET_SELECTED_PERMISSION: newState = updateState(state, action, 'permissions'); break;
+    case types.GENERAL_TYPE: newState = updateState(state, action); break;
   }
 
   return newState;

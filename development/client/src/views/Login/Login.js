@@ -66,7 +66,9 @@ const Login = props => {
 
     const onSubmitLoginFormHandler = event => {
       event.preventDefault();
-      console.log(emailState, passwordState);
+
+      window.scrollTo(0,0);
+
       let errors = [];
 
       // Email validation

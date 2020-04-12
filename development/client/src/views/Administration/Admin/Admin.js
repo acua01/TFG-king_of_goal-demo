@@ -1,12 +1,12 @@
 /*
 *=============================================================================
-* Title: PermissionsForm.js
-* Created on: 07/04/2020  by Acua
+* Title: Admin.js
+* Created on: 11/04/2020  by Acua
 * Copyright: Acua. All Rights Reserved.
 *==============================================================================
-* Description: Render the view of the form to insert and update permissions
+* Description: Render the administration section
 *==============================================================================
-* Constant: PermissionsForm
+* Constant: Admin
 *==============================================================================
 */
 
@@ -31,18 +31,18 @@
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {Fragment, useState, useEffect} from 'react';
-  import {Route} from 'react-router-dom';
+  import React, {Fragment, useState} from 'react';
+  import {Route, Switch, Redirect, useRouteMatch} from 'react-router-dom';
   import injectSheet from 'react-jss';
   import {Header, Icon, Image, Menu, Segment, Sidebar} from 'semantic-ui-react'
   /* End React's packages */
 
   /* JSS */
-  import styles from './PermissionsFormStyles';
+  import styles from './AdminStyles';
   /* END JSS */
 
   /* Routes */
-
+  import {adminRoutes} from '../../../routes/routes';
   /* End Routes */
 
   /* Custom Components */
@@ -59,9 +59,11 @@
 
 /*========== END IMPORTS ====================================================*/
 
-const PermissionsForm = props => {
+const Admin = props => {
 
   const {classes, history, actions, state} = props;
+
+  const {url, path} = useRouteMatch();
 
   /*========== USE EFFECT ===================================================*/
 
@@ -69,26 +71,41 @@ const PermissionsForm = props => {
 
   /*========== FUNCTIONS ====================================================*/
 
-    
-
   /*========== END FUNCTIONS ================================================*/
 
   /*========== VARIABLES ====================================================*/
 
+    /*
+    *--------------------------------------------------------------------------
+    * Name: htmlRoutes
+    *--------------------------------------------------------------------------
+    * Description: Contains the HTML of the routes of this view
+    *--------------------------------------------------------------------------
+    * Created on: 11/04/2020 by Acua
+    *--------------------------------------------------------------------------
+    */
+
+    const htmlRoutes = adminRoutes.map((route, index) => {
+      return(
+        <Route
+          key={index}
+          path={url + route.path}
+          exact={route.exact}
+          render={() => <route.component state={state} actions={actions} history={history} url={url} path={path}/>}
+        />
+      )
+    });
+
   /*========== END VARIABLES ================================================*/
 
   return(
-    <div className={classes.permissionsForm}>
-      <form>
-        <h1>Insertar permiso</h1>
-        <div className={classes.field}>
-          <label for="name"><Icon name='user' className={classes.icon} size="large"/></label>
-          <input type="text" id="name" placeholder="Nombre" required/>
-        </div>
-        <input type="submit" value="Guardar"/>
-      </form>
+    <div className={classes.admin}>
+      <Switch>
+        {htmlRoutes}
+        <Redirect to={path}/>
+      </Switch>
     </div>
   )
 }
 
-export default injectSheet(styles)(PermissionsForm);
+export default injectSheet(styles)(Admin);

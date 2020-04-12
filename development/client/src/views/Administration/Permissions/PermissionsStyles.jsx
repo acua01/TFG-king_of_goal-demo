@@ -3,7 +3,7 @@ const styles = {
   /*========== STYLES =======================================================*/
 
   'permissions':{
-    padding:'20px 0',
+    padding:'20px 0 60px 0',
     width:'85%',
     display:'flex',
     flexDirection:'column',
@@ -13,10 +13,24 @@ const styles = {
     /*---------- Table View -------------------------------------------------*/
 
     'permissionsTableView':{
+      backgroundColor:'white',
       width:'100%',
+      margin:'20px 0',
+      padding:'20px 0',
       display:'flex',
       flexDirection:'column',
       alignItems:'center',
+      '& > h1':{
+        width:'100%',
+        textAlign:'center',
+        backgroundColor:'#f2f2f2',
+        color:'#333333',
+        margin:'20px 0',
+        padding:'10px 0',
+        fontFamily:'Bebas',
+        letterSpacing:'2px',
+        fontSize:'35px'
+      },
       '& table':{
         margin:'20px 0'
       },
@@ -31,15 +45,15 @@ const styles = {
         fontSize:'16px'
       },
       '& table td':{
-        backgroundColor: 'white'
+        backgroundColor: '#cccccc'
       },
       '& > button':{
         fontFamily:'Anelize',
         margin:'20px 0',
-        border:'none',
+        border:'2px solid #33cc33',
         backgroundColor: '#33cc33',
         color:'white',
-        padding:'10px 20px',
+        padding:'8px 20px',
         cursor:'pointer',
       },
       '& > button:hover':{
@@ -50,10 +64,9 @@ const styles = {
 
     'actions':{
       display:'flex',
-      flexDirection:'column',
       alignItems:'center',
       '& > div':{
-        width:'100px',
+        padding:'3px 5px',
         cursor:'pointer'
       },
       '& > div:first-child':{
@@ -76,25 +89,77 @@ const styles = {
       }
     },
 
+    'pagination':{
+      margin:'20px 0 !important',
+      border:'2 solid #ff6600 !important',
+      boxShadow:'none !important',
+      backgroundColor:'#ff6600 !important',
+      '& > a':{
+        color:'white !important',
+        '&:hover':{
+          backgroundColor:'white !important',
+          color:'#ff6600 !important'
+        }
+      },
+      '& > a.active':{
+        backgroundColor:'white !important',
+        color:'#ff6600 !important'
+      }
+    },
+
+    'message':{
+      width:'80% !important',
+      border:'0 solid white !important'
+    },
+
+    'modal':{
+      '& button':{
+        fontFamily:'Anelize',
+        color:'white',
+        padding:'8px 20px',
+        cursor:'pointer',
+        margin:'5px'
+      },
+      '& button:first-child':{
+        border:'2px solid #33cc33',
+        backgroundColor: '#33cc33',
+      },
+      '& button:last-child':{
+        border:'2px solid #ff1a1a',
+        backgroundColor: '#ff1a1a',
+      }
+    },
+
     /*---------- Table View -------------------------------------------------*/
 
     /*---------- Form View --------------------------------------------------*/
 
     'permissionsFormView':{
-      width:'80%',
+      backgroundColor:'white',
+      width:'100%',
+      margin:'20px 0',
       padding:'20px 0',
       display:'flex',
       flexDirection:'column',
       alignItems:'center',
+      '& > h1':{
+        width:'100%',
+        textAlign:'center',
+        backgroundColor:'#f2f2f2',
+        color:'#333333',
+        margin:'20px 0',
+        padding:'10px 0',
+        fontFamily:'Bebas',
+        letterSpacing:'2px',
+        fontSize:'35px'
+      },
       '& > button':{
         backgroundColor: '#ff6600',
         color:'white',
         padding:'8px 20px',
         width:'auto',
-        marginTop:'30px',
-        fontSize:'17px',
         cursor:'pointer',
-        border:'none',
+        border:'2px solid #ff6600',
         fontFamily:'Anelize',
         alignSelf:'flex-start'
       },
@@ -103,36 +168,25 @@ const styles = {
         color:'#ff6600',
       },
       '& form':{
-        backgroundColor: 'white',
-        padding:'40px 0',
-        width:'60%',
+        marginTop:'20px',
         minWidth:'600px',
-        margin:'20px 0 60px 0',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
       },
-      '& form h1':{
-        color:'#333333',
-        marginBottom:'60px',
-        fontFamily:'Bebas',
-        letterSpacing:'2px',
-        fontSize:'35px'
-      },
-      '& form input[type="submit"]':{
-        backgroundColor: '#ff6600',
+
+      '& form button[type="submit"]':{
+        fontFamily:'Anelize',
+        margin:'20px 0',
+        border:'2px solid #33cc33',
+        backgroundColor: '#33cc33',
         color:'white',
         padding:'8px 20px',
-        width:'auto',
-        marginTop:'30px',
-        fontSize:'17px',
         cursor:'pointer',
-        border:'none',
-        fontFamily:'Anelize'
       },
-      '& form input[type="submit"]:hover':{
-        backgroundColor: '#333333',
-        color:'white',
+      '& form button[type="submit"]:hover':{
+        backgroundColor: 'white',
+        color:'#33cc33',
       },
     },
 

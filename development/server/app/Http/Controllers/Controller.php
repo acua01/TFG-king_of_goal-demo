@@ -16,7 +16,7 @@ class Controller extends BaseController
 
   protected function getAllPermissions(){
     $permissions = DB::select(DB::raw(
-      "SELECT id, name FROM permissions"
+      "SELECT id, name FROM permissions ORDER BY name ASC"
     ));
 
     return $permissions;

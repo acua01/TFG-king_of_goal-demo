@@ -32,7 +32,7 @@
 
   /* React's packages */
   import React, {Fragment, useState} from 'react';
-  import {Route, Switch, Redirect} from 'react-router-dom';
+  import {Route, Switch, Redirect, useRouteMatch, useParams} from 'react-router-dom';
   import injectSheet from 'react-jss';
   import {Header, Icon, Image, Menu, Segment, Sidebar} from 'semantic-ui-react'
   /* End React's packages */
@@ -57,11 +57,15 @@
 
   /* End Custom Styles Variables */
 
+  import MainMenu from '../MainMenu/MainMenu';
+
 /*========== END IMPORTS ====================================================*/
 
 const GameLayout = props => {
 
   const {classes, history, actions, state} = props;
+
+  const {url, path} = useRouteMatch();
 
   const [sidebarDisplayState, setSidebarDisplayState] = useState(false);
 
@@ -103,7 +107,8 @@ const GameLayout = props => {
       return(
         <Route
           key={index}
-          path={route.path}
+          path={url + route.path}
+          exact={route.exact}
           render={() => <route.component state={state} actions={actions} history={history}/>}
         />
       )
@@ -134,6 +139,8 @@ const GameLayout = props => {
     event.preventDefault();
     actions.logout(history);
   }
+
+  let { topicId } = useParams();
 
   return(
     <div className={classes.gameLayout}>
@@ -196,7 +203,7 @@ const GameLayout = props => {
 
           <Switch>
             {htmlRoutes}
-            <Redirect to='inicio'/>
+            <Redirect to={path}/>
           </Switch>
 
         </Sidebar.Pusher>
