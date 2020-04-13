@@ -10,31 +10,13 @@
 *==============================================================================
 */
 
-/*
-*========== SUMMARY CONTENT ===================================================
-* Functions: None
-*------------------------------------------------------------------------------
-* Variables: None
-*------------------------------------------------------------------------------
-* Props Variables:
-*   -classes: Object that contains all the classes from the jsx file
-*   -history: Object that contains the properties of the routes
-*   -actions: Object that contains the actions of the store
-*   -state: Object that contains the state of the app in the store
-*------------------------------------------------------------------------------
-* Props Functions: None
-*------------------------------------------------------------------------------
-* Hooks: None
-*========== END SUMMARY =======================================================
-*/
-
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {Fragment, useState} from 'react';
-  import {Route, Switch, Redirect, useRouteMatch, useParams} from 'react-router-dom';
+  import React, {useState} from 'react';
+  import {Route, Switch, Redirect, useRouteMatch} from 'react-router-dom';
   import injectSheet from 'react-jss';
-  import {Header, Icon, Image, Menu, Segment, Sidebar} from 'semantic-ui-react'
+  import {Icon, Menu, Segment, Sidebar} from 'semantic-ui-react'
   /* End React's packages */
 
   /* JSS */
@@ -42,7 +24,7 @@
   /* END JSS */
 
   /* Routes */
-  import {gameLayoutRoutes, sidebarItems} from '../../routes/routes';
+  import {gameLayoutRoutes, sidebarItems} from '../../../routes/routes';
   /* End Routes */
 
   /* Custom Components */
@@ -53,11 +35,17 @@
 
   /* End Custom Modules */
 
+  /* Custom Functions */
+
+  /* End Custom Functions */
+
+  /* Custom Variables */
+
+  /* End Custom Variables */
+
   /* Custom Styles Variables */
 
   /* End Custom Styles Variables */
-
-  import MainMenu from '../MainMenu/MainMenu';
 
 /*========== END IMPORTS ====================================================*/
 
@@ -71,22 +59,36 @@ const GameLayout = props => {
 
   /*========== USE EFFECT ===================================================*/
 
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Change the breadcrumb
+    *--------------------------------------------------------------------------
+    * Parameters: state.app.breadcrumb.route
+    *--------------------------------------------------------------------------
+    * Created on: 12/04/2020 by Acua
+    *--------------------------------------------------------------------------
+    */
+    /*
+    useEffect(() => {
+    },[state.app.breadcrumb.route]);
+    */
   /*========== END USE EFFECT ===============================================*/
 
   /*========== FUNCTIONS ====================================================*/
 
     /*
     *--------------------------------------------------------------------------
-    * Name: onClickShowSidebarHandler
+    * Name: onClickLogoutHandler
     *--------------------------------------------------------------------------
-    * Description: Shows the sidebar
+    * Description: Logouts
     *--------------------------------------------------------------------------
-    * Created on: 01/04/2020 by Acua
+    * Created on: 13/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const onClickShowSidebarHandler = () => {
-      setSidebarDisplayState(true);
+    const onClickLogoutHandler = event => {
+      event.preventDefault();
+      actions.logout(history);
     }
 
   /*========== END FUNCTIONS ================================================*/
@@ -125,27 +127,31 @@ const GameLayout = props => {
     */
 
     const htmlSidebarItems = sidebarItems.map((item, index) => {
-      return(
-        <Menu.Item as='a' className={classes.sidebarItem} onClick={() => history.push(item.route)}>
+      const htmlItem = (
+        <Menu.Item as='a' className={classes.sidebarItem} onClick={() => {window.scrollTo(0,0);history.push(item.route)}}>
           <Icon name={item.icon} />
           {item.title}
         </Menu.Item>
-      )
+      );
+
+      if(item.admin){
+        if(state.app.authentication.admin){
+          return htmlItem;
+        }
+      }else{
+        return htmlItem;
+      }
     });
 
   /*========== END VARIABLES ================================================*/
-
-  const onClickLogoutHandler = event => {
-    event.preventDefault();
-    actions.logout(history);
-  }
-
-  let { topicId } = useParams();
 
   return(
     <div className={classes.gameLayout}>
 
       <Sidebar.Pushable as={Segment}>
+
+        {/*---------- Sidebar ----------------------------------------------*/}
+
         <Sidebar
           as={Menu}
           animation='overlay'
@@ -157,7 +163,7 @@ const GameLayout = props => {
           width='thin'
         >
           <div className={classes.sidebarUserData}>
-            <img src="/storage/cadiz.png"/>
+            <img src="/storage/cadiz.png" alt="Cádiz C.F."/>
             <p>Cádiz C.F.</p>
             <p>acua01</p>
           </div>
@@ -172,21 +178,27 @@ const GameLayout = props => {
           </Menu.Item>
         </Sidebar>
 
+        {/*---------- End Sidebar ------------------------------------------*/}
+
+        {/*---------- Sidebar Content --------------------------------------*/}
+
         <Sidebar.Pusher dimmed={sidebarDisplayState}>
+
+          {/*---------- Header ---------------------------------------------*/}
 
           <header>
             <div>
-              <button onClick={onClickShowSidebarHandler}>
+              <button onClick={() => setSidebarDisplayState(true)}>
                 <Icon name="bars" size="large"/>
               </button>
               <div className={classes.userData}>
-                <img src="/storage/cadiz.png"/>
+                <img src="/storage/cadiz.png" alt="Cádiz C.F."/>
                 <div className={classes.userDataNames}>
                   <p>Cádiz C.F.</p>
                   <p>acua01</p>
                 </div>
                 <div className={classes.userDataCoins}>
-                  <img src="/storage/coins.png"/>
+                  <img src="/storage/coins.png" alt="coins"/>
                   <p>1.000.000</p>
                 </div>
               </div>
@@ -196,10 +208,16 @@ const GameLayout = props => {
             </div>
           </header>
 
+          {/*---------- End Header -----------------------------------------*/}
+
+          {/*---------- BreadCrumb -----------------------------------------*/}
+
           <div className={classes.breadCrumb}>
             <span>Inicio</span>
             <Icon name="angle right" size="large"/>
           </div>
+
+          {/*---------- End BreadCrumb -------------------------------------*/}
 
           <Switch>
             {htmlRoutes}
@@ -207,6 +225,8 @@ const GameLayout = props => {
           </Switch>
 
         </Sidebar.Pusher>
+
+        {/*---------- End Sidebar Content ----------------------------------*/}
 
       </Sidebar.Pushable>
     </div>

@@ -1,57 +1,46 @@
 /*
 *=============================================================================
-* Title: MainMenu.js
-* Created on: 30/03/2020  by Acua
+* Title: Admin.js
+* Created on: 11/04/2020  by Acua
 * Copyright: Acua. All Rights Reserved.
 *==============================================================================
-* Description: Render the main menu of the app
+* Description: Render the administration section
 *==============================================================================
-* Constant: MainMenu
+* Constant: Admin
 *==============================================================================
-*/
-
-/*
-*========== SUMMARY CONTENT ===================================================
-* Functions: None
-*------------------------------------------------------------------------------
-* Variables: None
-*------------------------------------------------------------------------------
-* Props Variables:
-*   -classes: Object that contains all the classes from the jsx file
-*   -history: Object that contains the properties of the routes
-*   -actions: Object that contains the actions of the store
-*   -state: Object that contains the state of the app in the store
-*------------------------------------------------------------------------------
-* Props Functions: None
-*------------------------------------------------------------------------------
-* Hooks: None
-*========== END SUMMARY =======================================================
 */
 
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {Fragment, useState} from 'react';
-  import {Route} from 'react-router-dom';
+  import React from 'react';
+  import {Route, Switch, Redirect, useRouteMatch} from 'react-router-dom';
   import injectSheet from 'react-jss';
-  import {Header, Icon, Image, Menu, Segment, Sidebar} from 'semantic-ui-react'
   /* End React's packages */
 
   /* JSS */
-  import styles from './MainMenuStyles';
+  import styles from './AdminStyles';
   /* END JSS */
 
   /* Routes */
-  import {mainMenuItems} from '../../routes/routes';
+  import {adminRoutes} from '../../../routes/routes';
   /* End Routes */
 
   /* Custom Components */
-  import MenuItem from '../../components/MenuItem/MenuItem';
+
   /* End Custom Components */
 
   /* Custom Modules */
 
   /* End Custom Modules */
+
+  /* Custom Functions */
+
+  /* End Custom Functions */
+
+  /* Custom Variables */
+
+  /* End Custom Variables */
 
   /* Custom Styles Variables */
 
@@ -59,9 +48,11 @@
 
 /*========== END IMPORTS ====================================================*/
 
-const MainMenu = props => {
+const Admin = props => {
 
   const {classes, history, actions, state} = props;
+
+  const {url, path} = useRouteMatch();
 
   /*========== USE EFFECT ===================================================*/
 
@@ -75,31 +66,35 @@ const MainMenu = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Name: htmlMainMenuItems
+    * Name: htmlRoutes
     *--------------------------------------------------------------------------
-    * Description: Contains the HTML of the main menu items
+    * Description: Contains the HTML of the routes of this view
     *--------------------------------------------------------------------------
-    * Created on: 04/04/2020 by Acua
+    * Created on: 11/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const htmlMainMenuItems = mainMenuItems.map((item, index) => {
+    const htmlRoutes = adminRoutes.map((route, index) => {
       return(
-        <MenuItem
-          title={item.title}
-          description={item.description}
-          icon={item.icon}
-          route={item.route}
+        <Route
+          key={index}
+          path={url + route.path}
+          exact={route.exact}
+          render={() => <route.component state={state} actions={actions} history={history} url={url} path={path}/>}
         />
       )
     });
+
   /*========== END VARIABLES ================================================*/
 
   return(
-    <div className={classes.mainMenu}>
-      {htmlMainMenuItems}
+    <div className={classes.admin}>
+      <Switch>
+        {htmlRoutes}
+        <Redirect to={path}/>
+      </Switch>
     </div>
   )
 }
 
-export default injectSheet(styles)(MainMenu);
+export default injectSheet(styles)(Admin);
