@@ -8,6 +8,7 @@ import MainMenu from '../views/Game/MainMenu/MainMenu';
 import Admin from '../views/Administration/Admin/Admin';
 import AdminMenu from '../views/Administration/AdminMenu/AdminMenu';
 import Permissions from '../views/Administration/Permissions/Permissions';
+import Players from '../views/Administration/Players/Players';
 
 export const mainLayoutRoutes = [
   {
@@ -46,6 +47,10 @@ export const adminRoutes = [
   {
     path: '/permisos',
     component: Permissions
+  },
+  {
+    path: '/jugadores',
+    component: Players
   },
 ];
 
@@ -118,6 +123,13 @@ export const adminMenuItems = [
     description: 'Permisos.',
     icon: 'chess',
     route: '/inicio/admin/permisos',
+    admin:true
+  },
+  {
+    title: 'Jugadores',
+    description: 'Jugadores.',
+    icon: 'users',
+    route: '/inicio/admin/jugadores',
     admin:true
   },
 ];

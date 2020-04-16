@@ -1,4 +1,5 @@
 import {types} from './reducer';
+import axios from 'axios';
 
 export const useActionsClient = (state, dispatch) => {
 
@@ -26,6 +27,7 @@ export const useActionsClient = (state, dispatch) => {
 
   const checkAuth = () => {
     const token = sessionStorage.getItem('token');
+    axios.defaults.headers.common['api_token'] = token;
 
     let admin;
 

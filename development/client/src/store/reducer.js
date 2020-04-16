@@ -14,7 +14,10 @@ const initialStateMain = {
   },
   breadcrumb: {
     route: ''
-  }
+  },
+  players: {
+    all: []
+  },
 };
 
 const types = {

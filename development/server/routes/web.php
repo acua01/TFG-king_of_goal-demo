@@ -23,6 +23,14 @@ $router->group(['middleware' => 'auth:api'], function () use($router) {
     $router->post('/delete_permission', 'PermissionsController@delete');
     $router->post('/update_permission', 'PermissionsController@update');
   });
+
+  $router->group(['middleware' => 'permission:manage players'], function () use($router) {
+    $router->post('/players', 'PlayersController@getAll');
+    $router->post('/player_by_id', 'PlayersController@getById');
+    $router->post('/insert_player', 'PlayersController@insert');
+    $router->post('/delete_player', 'PlayersController@delete');
+    $router->post('/update_player', 'PlayersController@update');
+  });
 });
 
 $router->post('/register', 'AuthenticationController@register');

@@ -284,6 +284,188 @@ export const useActionsServerRequests = (state, dispatch) => {
 
   /*========== END PERMISSIONS ==============================================*/
 
+  /*========== PLAYERS ======================================================*/
+
+  const askForAllPlayers = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/players');
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'players',
+        data:{
+          all: response.data.players
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e){
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToInsertPlayer = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/insert_player', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'players',
+        data:{
+          all: response.data.players
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToDeletePlayer = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/delete_player', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'players',
+        data:{
+          all: response.data.players
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToUpdatePlayer = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/update_player', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'players',
+        data:{
+          all: response.data.players
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  /*========== END PLAYERS ==================================================*/
+
   return {
 
     /*---------- Authentication ---------------------------------------------*/
@@ -298,8 +480,17 @@ export const useActionsServerRequests = (state, dispatch) => {
     askForAllPermissions,
     sendRequestToInsertPermission,
     sendRequestToDeletePermission,
-    sendRequestToUpdatePermission
+    sendRequestToUpdatePermission,
 
     /*---------- End Permissions --------------------------------------------*/
+
+    /*---------- Players ----------------------------------------------------*/
+
+    askForAllPlayers,
+    sendRequestToInsertPlayer,
+    sendRequestToDeletePlayer,
+    sendRequestToUpdatePlayer,
+
+    /*---------- End Players ------------------------------------------------*/
   };
 };

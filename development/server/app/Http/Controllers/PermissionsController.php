@@ -49,7 +49,7 @@ class PermissionsController extends Controller{
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 20 caracteres.',
       'name.unique'=>'El nombre introducido ya existe.',
-      'username.regex'=>'El nombre debe tener caracteres alfanuméricos.',
+      'name.regex'=>'El nombre debe tener caracteres alfanuméricos.',
     ];
 
     $this->validate($request, [
@@ -105,15 +105,14 @@ class PermissionsController extends Controller{
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 20 caracteres.',
-      'name.unique'=>'El nombre introducido ya existe.',
-      'username.regex'=>'El nombre debe tener caracteres alfanuméricos.',
+      'name.regex'=>'El nombre debe tener caracteres alfanuméricos.',
 
       'id.required'=>'Introduce el id.',
       'id.integer'=>'El id debe ser un integer.',
     ];
 
     $this->validate($request, [
-      'name'=>'required|string|max:20|unique:permissions,name|regex:/^[a-zA-Z0-9\ ]+$/i',
+      'name'=>'required|string|max:20|regex:/^[a-zA-Z0-9\ ]+$/i',
       'id'=>'required|integer',
     ], $messages);
 
