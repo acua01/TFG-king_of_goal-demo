@@ -39,6 +39,14 @@ $router->group(['middleware' => 'auth:api'], function () use($router) {
     $router->post('/delete_country', 'CountriesController@delete');
     $router->post('/update_country', 'CountriesController@update');
   });
+
+  $router->group(['middleware' => 'permission:manage leagues'], function () use($router) {
+    $router->post('/leagues', 'LeaguesController@getAll');
+    $router->post('/league_by_id', 'LeaguesController@getById');
+    $router->post('/insert_league', 'LeaguesController@insert');
+    $router->post('/delete_league', 'LeaguesController@delete');
+    $router->post('/update_league', 'LeaguesController@update');
+  });
 });
 
 $router->post('/register', 'AuthenticationController@register');

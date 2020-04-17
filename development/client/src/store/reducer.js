@@ -21,6 +21,9 @@ const initialStateMain = {
   countries: {
     all: []
   },
+  leagues: {
+    all: []
+  },
 };
 
 const types = {

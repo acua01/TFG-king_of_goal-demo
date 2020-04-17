@@ -43,6 +43,7 @@
 
   /* Custom Variables */
   import {StoreContext} from '../../context/StoreContext';
+  import {urlServer} from '../../shared/variables';
   /* End Custom Variables */
 
   /* Custom Styles Variables */
@@ -145,7 +146,7 @@ const MainLayout = props => {
       {/*---------- Footer -------------------------------------------------*/}
 
       <footer>
-        <img src="/storage/acua.png" alt="logo-acua" title="Acua"/>
+        <img src={urlServer + '/storage/acua.png'} alt="logo-acua" title="Acua"/>
         <p>Developed by Alejandro Acuaviva Plazuelo</p>
       </footer>
 

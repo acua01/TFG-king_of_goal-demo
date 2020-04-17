@@ -54,4 +54,12 @@ class Controller extends BaseController
 
     return $countries;
   }
+
+  protected function getAllLeagues(){
+    $leagues = DB::select(DB::raw(
+      "SELECT * FROM leagues ORDER BY name ASC"
+    ));
+
+    return $leagues;
+  }
 }

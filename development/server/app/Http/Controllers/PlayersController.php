@@ -178,7 +178,7 @@ class PlayersController extends Controller{
             $file_name = $response['file'];
             $url = '/storage/players/' . $file_name;
           }else{
-            return response()->json(['message'=>$response['message'], 'hola'=>$hola], 500);
+            return response()->json(['message'=>$response['message']], 500);
           }
         }
       }else{

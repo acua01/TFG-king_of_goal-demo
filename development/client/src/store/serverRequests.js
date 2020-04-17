@@ -648,6 +648,188 @@ export const useActionsServerRequests = (state, dispatch) => {
 
   /*========== END COUNTRIES ================================================*/
 
+  /*========== LEAGUES ====================================================*/
+
+  const askForAllLeagues = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/leagues');
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'leagues',
+        data:{
+          all: response.data.leagues
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e){
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToInsertLeague = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/insert_league', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'leagues',
+        data:{
+          all: response.data.leagues
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToDeleteLeague = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/delete_league', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'leagues',
+        data:{
+          all: response.data.leagues
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToUpdateLeague = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/update_league', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'leagues',
+        data:{
+          all: response.data.leagues
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  /*========== END LEAGUES ================================================*/
+
   return {
 
     /*---------- Authentication ---------------------------------------------*/
@@ -683,5 +865,14 @@ export const useActionsServerRequests = (state, dispatch) => {
     sendRequestToUpdateCountry,
 
     /*---------- End Countries ----------------------------------------------*/
+
+    /*---------- Leagues --------------------------------------------------*/
+
+    askForAllLeagues,
+    sendRequestToInsertLeague,
+    sendRequestToDeleteLeague,
+    sendRequestToUpdateLeague,
+
+    /*---------- End Leagues ----------------------------------------------*/
   };
 };

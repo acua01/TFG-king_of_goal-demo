@@ -40,7 +40,7 @@
   /* End Custom Functions */
 
   /* Custom Variables */
-
+  import {urlServer} from '../../../shared/variables';
   /* End Custom Variables */
 
   /* Custom Styles Variables */
@@ -163,7 +163,7 @@ const GameLayout = props => {
           width='thin'
         >
           <div className={classes.sidebarUserData}>
-            <img src="/storage/cadiz.png" alt="Cádiz C.F."/>
+            <img src={urlServer + '/storage/cadiz.png'} alt="Cádiz C.F."/>
             <p>Cádiz C.F.</p>
             <p>acua01</p>
           </div>
@@ -192,19 +192,19 @@ const GameLayout = props => {
                 <Icon name="bars" size="large"/>
               </button>
               <div className={classes.userData}>
-                <img src="/storage/cadiz.png" alt="Cádiz C.F."/>
+                <img src={urlServer + '/storage/cadiz.png'} alt="Cádiz C.F."/>
                 <div className={classes.userDataNames}>
                   <p>Cádiz C.F.</p>
                   <p>acua01</p>
                 </div>
                 <div className={classes.userDataCoins}>
-                  <img src="/storage/coins.png" alt="coins"/>
+                  <img src={urlServer + '/storage/coins.png'} alt="coins"/>
                   <p>1.000.000</p>
                 </div>
               </div>
             </div>
             <div>
-              <img src="/storage/logo/logo_light.png" alt="logo-king-of-goal" title="King of Goal"/>
+              <img src={urlServer + '/storage/logo/logo_light.png'} alt="logo-king-of-goal" title="King of Goal"/>
             </div>
           </header>
 

@@ -1,3 +1,5 @@
+import {urlServer} from '../../shared/variables';
+
 const styles = {
 
   /*========== FONTS ========================================================*/
@@ -22,7 +24,7 @@ const styles = {
     '@global':{
       body:{
         margin:0,
-        backgroundImage: 'url("/storage/background.png") !important',
+        backgroundImage: 'url("' + urlServer + '/storage/background.png") !important',
         backgroundColor:'#C6C6C6',
         backgroundAttachment: 'fixed !important'
       },

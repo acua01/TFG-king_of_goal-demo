@@ -39,7 +39,7 @@
   /* End Custom Functions */
 
   /* Custom Variables */
-
+  import {urlServer} from '../../shared/variables';
   /* End Custom Variables */
 
   /* Custom Styles Variables */
@@ -129,7 +129,7 @@ const Login = props => {
 
       <Responsive minWidth={644} as={Fragment}>
         <div className={classes.leftSide}>
-          <img src="/storage/logo/logo_light.png" alt="logo-king-of-goal" title="King of Goal"/>
+          <img src={urlServer + '/storage/logo/logo_light.png'} alt="logo-king-of-goal" title="King of Goal"/>
         </div>
         <div className={classes.rightSide}>
           <form onSubmit={onSubmitLoginFormHandler}>

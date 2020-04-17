@@ -39,7 +39,7 @@
   /* End Custom Functions */
 
   /* Custom Variables */
-
+  
   /* End Custom Variables */
 
   /* Custom Styles Variables */
@@ -342,7 +342,7 @@ const Permissions = props => {
               <div title="Eliminar" onClick={() => onClickDeleteButtonHandler(permission.id)}>
                 <Icon name='delete'/>
               </div>
-            </div>          
+            </div>
           </td>
         </tr>
       );

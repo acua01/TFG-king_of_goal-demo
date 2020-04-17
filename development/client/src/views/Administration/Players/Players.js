@@ -208,10 +208,6 @@ const Players = props => {
   			errors.push('El nombre debe tener un máximo de 30 caracteres.');
   		}
 
-      if(!/^[a-zA-Z0-9\ ]+$/i.test(nameState)){
-  			errors.push('El nombre debe tener caracteres alfanuméricos.');
-  		}
-
       // Full name validation
 
       if(fullNameState === ''){
@@ -220,10 +216,6 @@ const Players = props => {
 
       if(fullNameState.length > 255){
   			errors.push('El nombre completo debe tener un máximo de 255 caracteres.');
-  		}
-
-      if(!/^[a-zA-Z0-9\ ]+$/i.test(fullNameState)){
-  			errors.push('El nombre completo debe tener caracteres alfanuméricos.');
   		}
 
       // Image
@@ -396,7 +388,7 @@ const Players = props => {
           {player.image ?
             <img src={urlServer + player.image} width="60" alt={player.name}/>
           :
-            <img src="/storage/player.png" width="50" alt={player.name}/>
+            <img src={urlServer + '/storage/player.png'} width="50" alt={player.name}/>
           }
 
           </td>
