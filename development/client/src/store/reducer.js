@@ -18,6 +18,9 @@ const initialStateMain = {
   players: {
     all: []
   },
+  countries: {
+    all: []
+  },
 };
 
 const types = {

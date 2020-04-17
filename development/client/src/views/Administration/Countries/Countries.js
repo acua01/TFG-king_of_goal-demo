@@ -1,12 +1,12 @@
 /*
 *=============================================================================
-* Title: Players.js
-* Created on: 13/04/2020  by Acua
+* Title: Countries.js
+* Created on: 16/04/2020  by Acua
 * Copyright: Acua. All Rights Reserved.
 *==============================================================================
-* Description: Render the view of the players control
+* Description: Render the view of the countries control
 *==============================================================================
-* Constant: Players
+* Constant: Countries
 *==============================================================================
 */
 
@@ -20,7 +20,7 @@
   /* End React's packages */
 
   /* JSS */
-  import styles from './PlayersStyles';
+  import styles from './CountriesStyles';
   /* END JSS */
 
   /* Routes */
@@ -49,21 +49,19 @@
 
 /*========== END IMPORTS ====================================================*/
 
-const Players = props => {
+const Countries = props => {
 
   const {classes, history, actions, state} = props;
 
   const [viewState, setViewState] = useState('table');
 
   const [nameState, setNameState] = useState('');
-  const [fullNameState, setFullNameState] = useState('');
   const [imageState, setImageState] = useState('');
-  const [heightState, setHeightState] = useState('');
 
   const [activePageState, setActivePageState] = useState(1);
   const [itemsPerPageState, setItemsPerPageState] = useState(10);
   const [deleteModalState, setDeleteModalState] = useState(false);
-  const [activePlayerState, setActivePlayerState] = useState('');
+  const [activeCountryState, setActiveCountryState] = useState('');
 
   /*========== USE EFFECT ===================================================*/
 
@@ -73,13 +71,13 @@ const Players = props => {
     *--------------------------------------------------------------------------
     * Parameters: state.app.authentication.auth
     *--------------------------------------------------------------------------
-    * Created on: 13/04/2020 by Acua
+    * Created on: 16/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
     useEffect(() => {
       if(state.app.authentication.auth){
-        history.push('/inicio/admin/jugadores');
+        history.push('/inicio/admin/paises');
       }else{
         history.push('/');
       }
@@ -91,13 +89,13 @@ const Players = props => {
     *--------------------------------------------------------------------------
     * Parameters: state.app.authentication.auth, state.app.authentication.admin
     *--------------------------------------------------------------------------
-    * Created on: 13/04/2020 by Acua
+    * Created on: 16/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
     useEffect(() => {
       if(state.app.authentication.admin){
-        history.push('/inicio/admin/jugadores');
+        history.push('/inicio/admin/paises');
       }else{
         history.push('/');
       }
@@ -105,41 +103,37 @@ const Players = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Load players when players state change
+    * Description: Load countries when countries state change
     *--------------------------------------------------------------------------
     * Parameters: None
     *--------------------------------------------------------------------------
-    * Created on: 13/04/2020 by Acua
+    * Created on: 16/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
     useEffect(() => {
-      actions.askForAllPlayers();
+      actions.askForAllCountries();
     },[]);
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Set form fields states when active player state changes
+    * Description: Set form fields states when active country state changes
     *--------------------------------------------------------------------------
-    * Parameters: activePlayerState
+    * Parameters: activeCountryState
     *--------------------------------------------------------------------------
     * Created on: 13/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
     useEffect(() => {
-      if(activePlayerState){
-        setNameState(activePlayerState.name);
-        setFullNameState(activePlayerState.full_name);
-        setImageState(activePlayerState.image);
-        setHeightState(activePlayerState.height);
+      if(activeCountryState){
+        setNameState(activeCountryState.name);
+        setImageState(activeCountryState.image);
       }else{
         setNameState('');
-        setFullNameState('');
         setImageState('');
-        setHeightState('');
       }
-    },[activePlayerState]);
+    },[activeCountryState]);
 
   /*========== END USE EFFECT ===============================================*/
 
@@ -151,17 +145,15 @@ const Players = props => {
     *--------------------------------------------------------------------------
     * Description: Change to the form view
     *--------------------------------------------------------------------------
-    * Created on: 13/04/2020 by Acua
+    * Created on: 16/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
     const onClickAddButtonHandler = () => {
       window.scrollTo(0,0);
-      setActivePlayerState('');
+      setActiveCountryState('');
       setNameState('');
-      setFullNameState('');
       setImageState('');
-      setHeightState('');
       setViewState('form');
     }
 
@@ -171,17 +163,15 @@ const Players = props => {
     *--------------------------------------------------------------------------
     * Description: Change to the form view
     *--------------------------------------------------------------------------
-    * Created on: 13/04/2020 by Acua
+    * Created on: 16/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
     const onClickGoToListButtonHandler = () => {
       window.scrollTo(0,0);
-      setActivePlayerState('');
+      setActiveCountryState('');
       setNameState('');
-      setFullNameState('');
       setImageState('');
-      setHeightState('');
       setViewState('table');
     }
 
@@ -191,7 +181,7 @@ const Players = props => {
     *--------------------------------------------------------------------------
     * Description: Validates the form and returns an array with the errors
     *--------------------------------------------------------------------------
-    * Created on: 13/04/2020 by Acua
+    * Created on: 16/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
@@ -208,42 +198,20 @@ const Players = props => {
   			errors.push('El nombre debe tener un máximo de 30 caracteres.');
   		}
 
-      if(!/^[a-zA-Z0-9\ ]+$/i.test(nameState)){
-  			errors.push('El nombre debe tener caracteres alfanuméricos.');
-  		}
-
-      // Full name validation
-
-      if(fullNameState === ''){
-  			errors.push('Introduce el nombre completo.');
-  		}
-
-      if(fullNameState.length > 255){
-  			errors.push('El nombre completo debe tener un máximo de 255 caracteres.');
-  		}
-
-      if(!/^[a-zA-Z0-9\ ]+$/i.test(fullNameState)){
-  			errors.push('El nombre completo debe tener caracteres alfanuméricos.');
-  		}
-
-      // Image
-
-      // Height
-
       return errors;
     }
 
     /*
     *--------------------------------------------------------------------------
-    * Name: onSubmitInsertPlayerFormHandler
+    * Name: onSubmitInsertCountryFormHandler
     *--------------------------------------------------------------------------
     * Description: Validates the form and sends data to server to insert
     *--------------------------------------------------------------------------
-    * Created on: 13/04/2020 by Acua
+    * Created on: 16/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const onSubmitInsertPlayerFormHandler = event => {
+    const onSubmitInsertCountryFormHandler = event => {
       event.preventDefault();
 
       window.scrollTo(0,0);
@@ -251,11 +219,9 @@ const Players = props => {
       const errors = fnValidateForm();
 
       if(errors.length === 0){
-        actions.sendRequestToInsertPlayer({
+        actions.sendRequestToInsertCountry({
           name:nameState,
-          full_name:fullNameState,
           image:imageState,
-          height:heightState,
         });
       }else{
         errors.map(error => {
@@ -266,35 +232,31 @@ const Players = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Name: onSubmitUpdatePlayerFormHandler
+    * Name: onSubmitUpdateCountryFormHandler
     *--------------------------------------------------------------------------
     * Description: Validates the form and sends data to server to update
     *--------------------------------------------------------------------------
-    * Created on: 13/04/2020 by Acua
+    * Created on: 16/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const onSubmitUpdatePlayerFormHandler = event => {
+    const onSubmitUpdateCountryFormHandler = event => {
       event.preventDefault();
-
       window.scrollTo(0,0);
 
       const errors = fnValidateForm();
 
       if(errors.length === 0){
-        actions.sendRequestToUpdatePlayer({
-          id:activePlayerState.id,
+        actions.sendRequestToUpdateCountry({
+          id:activeCountryState.id,
           name:nameState,
-          full_name:fullNameState,
           image:imageState,
-          height:heightState,
         });
       }else{
         errors.map(error => {
           showSnackbar('error', error);
         });
       }
-
       setViewState('table');
     }
 
@@ -302,16 +264,16 @@ const Players = props => {
     *--------------------------------------------------------------------------
     * Name: onClickDeleteButtonHandler
     *--------------------------------------------------------------------------
-    * Description: Shows the modal to delete the player
+    * Description: Shows the modal to delete the country
     *--------------------------------------------------------------------------
-    * Created on: 13/04/2020 by Acua
+    * Created on: 16/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const onClickDeleteButtonHandler = idPlayer => {
-      state.app.players.all.find((player) => {
-        if(player.id === idPlayer){
-          setActivePlayerState(player);
+    const onClickDeleteButtonHandler = idCountry => {
+      state.app.countries.all.find((country) => {
+        if(country.id === idCountry){
+          setActiveCountryState(country);
         }
       });
 
@@ -322,18 +284,18 @@ const Players = props => {
     *--------------------------------------------------------------------------
     * Name: onClickConfirmDeleteButtonHandler
     *--------------------------------------------------------------------------
-    * Description: Delete the player
+    * Description: Delete the country
     *--------------------------------------------------------------------------
-    * Created on: 13/04/2020 by Acua
+    * Created on: 16/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const onClickConfirmDeleteButtonHandler = idPlayer => {
+    const onClickConfirmDeleteButtonHandler = idCountry => {
       window.scrollTo(0,0);
       setDeleteModalState(false);
 
-      actions.sendRequestToDeletePlayer({
-        id:activePlayerState.id
+      actions.sendRequestToDeleteCountry({
+        id:activeCountryState.id
       });
     }
 
@@ -341,18 +303,18 @@ const Players = props => {
     *--------------------------------------------------------------------------
     * Name: onClickUpdateButtonHandler
     *--------------------------------------------------------------------------
-    * Description: Change the view to the form to update the player
+    * Description: Change the view to the form to update the country
     *--------------------------------------------------------------------------
-    * Created on: 13/04/2020 by Acua
+    * Created on: 16/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const onClickUpdateButtonHandler = idPlayer => {
+    const onClickUpdateButtonHandler = idCountry => {
       window.scrollTo(0,0);
 
-      state.app.players.all.find((player) => {
-        if(player.id === idPlayer){
-          setActivePlayerState(player);
+      state.app.countries.all.find((country) => {
+        if(country.id === idCountry){
+          setActiveCountryState(country);
         }
       });
 
@@ -365,7 +327,7 @@ const Players = props => {
     *--------------------------------------------------------------------------
     * Description: Manage the files updates
     *--------------------------------------------------------------------------
-    * Created on: 14/04/2020 by Acua
+    * Created on: 16/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
@@ -380,35 +342,33 @@ const Players = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Name: htmlPlayers
+    * Name: htmlCountries
     *--------------------------------------------------------------------------
-    * Description: Contains the HTML of the players
+    * Description: Contains the HTML of the countries
     *--------------------------------------------------------------------------
-    * Created on: 14/04/2020 by Acua
+    * Created on: 16/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const htmlPlayers = state.app.players.all.slice(itemsPerPageState * activePageState - itemsPerPageState, itemsPerPageState * activePageState).map((player, index) => {
+    const htmlCountries = state.app.countries.all.slice(itemsPerPageState * activePageState - itemsPerPageState, itemsPerPageState * activePageState).map((country, index) => {
       return(
         <tr>
           <td>
 
-          {player.image ?
-            <img src={urlServer + player.image} width="60" alt={player.name}/>
+          {country.image ?
+            <img src={urlServer + country.image} width="60" alt={country.name}/>
           :
-            <img src="/storage/player.png" width="50" alt={player.name}/>
+            <img src="/storage/country.png" width="60" alt={country.name}/>
           }
 
           </td>
-          <td>{player.name}</td>
-          <td>{player.full_name}</td>
-          <td>{player.height + ' m'}</td>
+          <td>{country.name}</td>
           <td>
             <div className={classes.actions}>
-              <div title="Editar" onClick={() => onClickUpdateButtonHandler(player.id)}>
+              <div title="Editar" onClick={() => onClickUpdateButtonHandler(country.id)}>
                 <Icon name='edit'/>
               </div>
-              <div title="Eliminar" onClick={() => onClickDeleteButtonHandler(player.id)}>
+              <div title="Eliminar" onClick={() => onClickDeleteButtonHandler(country.id)}>
                 <Icon name='delete'/>
               </div>
             </div>
@@ -420,15 +380,15 @@ const Players = props => {
   /*========== END VARIABLES ================================================*/
 
   return(
-    <div className={classes.players}>
+    <div className={classes.countries}>
 
       {/*---------- Table View ---------------------------------------------*/}
 
       {viewState === 'table' ?
-        <div className={classes.playersTableView}>
-          <h1>Jugadores</h1>
+        <div className={classes.countriesTableView}>
+          <h1>Países</h1>
 
-          {state.app.players.all.length > 0 ?
+          {state.app.countries.all.length > 0 ?
             <Fragment>
 
               {/*---------- Table ------------------------------------------*/}
@@ -438,13 +398,11 @@ const Players = props => {
                   <tr>
                     <th>Imagen</th>
                     <th>Nombre</th>
-                    <th>Nombre completo</th>
-                    <th>Altura</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {htmlPlayers}
+                  {htmlCountries}
                 </tbody>
               </table>
 
@@ -452,11 +410,11 @@ const Players = props => {
 
               {/*---------- Pagination -------------------------------------*/}
 
-              {Math.ceil(state.app.players.all.length / itemsPerPageState) > 1 ?
+              {Math.ceil(state.app.countries.all.length / itemsPerPageState) > 1 ?
                 <Pagination
                   className={classes.pagination}
                   defaultActivePage={activePageState}
-                  totalPages={Math.ceil(state.app.players.all.length / itemsPerPageState)}
+                  totalPages={Math.ceil(state.app.countries.all.length / itemsPerPageState)}
                   onClick={() => window.scrollTo(0,0)}
                   onPageChange={(event, {activePage}) => setActivePageState(activePage)}
                 />
@@ -470,7 +428,7 @@ const Players = props => {
 
               <Modal className={classes.modal} size='mini' open={deleteModalState} onClose={() => setDeleteModalState(false)}>
                 <Modal.Content>
-                  <p>¿Seguro que quieres eliminar este jugador?</p>
+                  <p>¿Seguro que quieres eliminar este país?</p>
                 </Modal.Content>
                 <Modal.Actions>
                   <button onClick={onClickConfirmDeleteButtonHandler}>Sí</button>
@@ -485,7 +443,7 @@ const Players = props => {
             <Message
               className={classes.message}
               icon='info'
-              header='No se ha encontrado ningún jugador.'
+              header='No se ha encontrado ningún país.'
               color='blue'
             />
           }
@@ -502,24 +460,16 @@ const Players = props => {
       /*---------- Form View ----------------------------------------------*/
 
       :viewState === 'form' ?
-        <div className={classes.playersFormView}>
+        <div className={classes.countriesFormView}>
           <button onClick={onClickGoToListButtonHandler}>
             <Icon name='angle left'/>
             <span>Volver a la lista</span>
           </button>
-          <h1>{activePlayerState ? <Fragment>Modificar jugador</Fragment> : <Fragment>Insertar jugador</Fragment>}</h1>
-          <form onSubmit={(event) => {activePlayerState ? onSubmitUpdatePlayerFormHandler(event) : onSubmitInsertPlayerFormHandler(event)}}>
+          <h1>{activeCountryState ? <Fragment>Modificar país</Fragment> : <Fragment>Insertar país</Fragment>}</h1>
+          <form onSubmit={(event) => {activeCountryState ? onSubmitUpdateCountryFormHandler(event) : onSubmitInsertCountryFormHandler(event)}}>
             <div className={classes.field}>
-              <label for="name"><Icon name='user' className={classes.icon} size="large"/></label>
+              <label for="name"><Icon name='flag' className={classes.icon} size="large"/></label>
               <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="30"/>
-            </div>
-            <div className={classes.field}>
-              <label for="full_name"><Icon name='user' className={classes.icon} size="large"/></label>
-              <input type="text" id="full_name" placeholder="Nombre completo" value={fullNameState} onChange={(event) => setFullNameState(event.target.value)} maxLength="255"/>
-            </div>
-            <div className={classes.field}>
-              <label for="height"><Icon name='male' className={classes.icon} size="large"/></label>
-              <input type="text" id="height" placeholder="Altura" value={heightState} onChange={(event) => setHeightState(event.target.value)}/>
             </div>
             <div className={classes.fileField}>
               <label for="image"><Icon name='file image' className={classes.icon} size="large"/></label>
@@ -532,7 +482,7 @@ const Players = props => {
             {imageState && imageState.slice(0,8) === '/storage' ? <img src={urlServer + imageState} width="50" alt={imageState}/> : null}
 
             <button type="submit">
-              {activePlayerState ?
+              {activeCountryState ?
                 <Fragment>
                   <Icon name='save'/>
                   <span>Actualizar</span>
@@ -555,4 +505,4 @@ const Players = props => {
   )
 }
 
-export default injectSheet(styles)(Players);
+export default injectSheet(styles)(Countries);

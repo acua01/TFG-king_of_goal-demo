@@ -31,11 +31,15 @@ $router->group(['middleware' => 'auth:api'], function () use($router) {
     $router->post('/delete_player', 'PlayersController@delete');
     $router->post('/update_player', 'PlayersController@update');
   });
+
+  $router->group(['middleware' => 'permission:manage countries'], function () use($router) {
+    $router->post('/countries', 'CountriesController@getAll');
+    $router->post('/country_by_id', 'CountriesController@getById');
+    $router->post('/insert_country', 'CountriesController@insert');
+    $router->post('/delete_country', 'CountriesController@delete');
+    $router->post('/update_country', 'CountriesController@update');
+  });
 });
 
 $router->post('/register', 'AuthenticationController@register');
 $router->post('/login', 'AuthenticationController@login');
-
-
-
-//$router->post('/add', ['middleware' => 'permission:add ability', 'uses' => 'AbilitiesController@addAbility']);

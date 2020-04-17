@@ -46,4 +46,12 @@ class Controller extends BaseController
 
     return $players;
   }
+
+  protected function getAllCountries(){
+    $countries = DB::select(DB::raw(
+      "SELECT * FROM countries ORDER BY name ASC"
+    ));
+
+    return $countries;
+  }
 }

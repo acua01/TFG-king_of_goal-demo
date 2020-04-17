@@ -9,6 +9,7 @@ import Admin from '../views/Administration/Admin/Admin';
 import AdminMenu from '../views/Administration/AdminMenu/AdminMenu';
 import Permissions from '../views/Administration/Permissions/Permissions';
 import Players from '../views/Administration/Players/Players';
+import Countries from '../views/Administration/Countries/Countries';
 
 export const mainLayoutRoutes = [
   {
@@ -51,6 +52,10 @@ export const adminRoutes = [
   {
     path: '/jugadores',
     component: Players
+  },
+  {
+    path: '/paises',
+    component: Countries
   },
 ];
 
@@ -130,6 +135,13 @@ export const adminMenuItems = [
     description: 'Jugadores.',
     icon: 'users',
     route: '/inicio/admin/jugadores',
+    admin:true
+  },
+  {
+    title: 'Países',
+    description: 'Países.',
+    icon: 'flag',
+    route: '/inicio/admin/paises',
     admin:true
   },
 ];

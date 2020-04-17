@@ -2,7 +2,7 @@ const styles = {
 
   /*========== STYLES =======================================================*/
 
-  'players':{
+  'countries':{
     padding:'20px 0 60px 0',
     width:'85%',
     display:'flex',
@@ -12,7 +12,7 @@ const styles = {
 
     /*---------- Table View -------------------------------------------------*/
 
-    'playersTableView':{
+    'countriesTableView':{
       backgroundColor:'white',
       width:'100%',
       margin:'20px 0',
@@ -134,7 +134,7 @@ const styles = {
 
     /*---------- Form View --------------------------------------------------*/
 
-    'playersFormView':{
+    'countriesFormView':{
       backgroundColor:'white',
       width:'100%',
       margin:'20px 0',
@@ -253,7 +253,7 @@ const styles = {
       color:'white',
       margin:0,
       padding:0
-    },
+    }
 
     /*---------- End Form View ----------------------------------------------*/
 

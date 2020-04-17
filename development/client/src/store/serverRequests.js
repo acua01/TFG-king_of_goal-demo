@@ -466,6 +466,188 @@ export const useActionsServerRequests = (state, dispatch) => {
 
   /*========== END PLAYERS ==================================================*/
 
+  /*========== COUNTRIES ====================================================*/
+
+  const askForAllCountries = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/countries');
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'countries',
+        data:{
+          all: response.data.countries
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e){
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToInsertCountry = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/insert_country', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'countries',
+        data:{
+          all: response.data.countries
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToDeleteCountry = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/delete_country', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'countries',
+        data:{
+          all: response.data.countries
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToUpdateCountry = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/update_country', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'countries',
+        data:{
+          all: response.data.countries
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  /*========== END COUNTRIES ================================================*/
+
   return {
 
     /*---------- Authentication ---------------------------------------------*/
@@ -492,5 +674,14 @@ export const useActionsServerRequests = (state, dispatch) => {
     sendRequestToUpdatePlayer,
 
     /*---------- End Players ------------------------------------------------*/
+
+    /*---------- Countries --------------------------------------------------*/
+
+    askForAllCountries,
+    sendRequestToInsertCountry,
+    sendRequestToDeleteCountry,
+    sendRequestToUpdateCountry,
+
+    /*---------- End Countries ----------------------------------------------*/
   };
 };
