@@ -648,7 +648,7 @@ export const useActionsServerRequests = (state, dispatch) => {
 
   /*========== END COUNTRIES ================================================*/
 
-  /*========== LEAGUES ====================================================*/
+  /*========== LEAGUES ======================================================*/
 
   const askForAllLeagues = async(data) => {
     try{
@@ -828,7 +828,189 @@ export const useActionsServerRequests = (state, dispatch) => {
     }
   }
 
-  /*========== END LEAGUES ================================================*/
+  /*========== END LEAGUES ==================================================*/
+
+  /*========== CARDS TYPES ==================================================*/
+
+  const askForAllCardsTypes = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/cards_types');
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'cardsTypes',
+        data:{
+          all: response.data.cardsTypes
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e){
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToInsertCardType = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/insert_card_type', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'cardsTypes',
+        data:{
+          all: response.data.cardsTypes
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToDeleteCardType = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/delete_card_type', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'cardsTypes',
+        data:{
+          all: response.data.cardsTypes
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToUpdateCardType = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/update_card_type', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'cardsTypes',
+        data:{
+          all: response.data.cardsTypes
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  /*========== END CARDS TYPES ==============================================*/
 
   return {
 
@@ -866,13 +1048,22 @@ export const useActionsServerRequests = (state, dispatch) => {
 
     /*---------- End Countries ----------------------------------------------*/
 
-    /*---------- Leagues --------------------------------------------------*/
+    /*---------- Leagues ----------------------------------------------------*/
 
     askForAllLeagues,
     sendRequestToInsertLeague,
     sendRequestToDeleteLeague,
     sendRequestToUpdateLeague,
 
-    /*---------- End Leagues ----------------------------------------------*/
+    /*---------- End Leagues ------------------------------------------------*/
+
+    /*---------- Leagues ----------------------------------------------------*/
+
+    askForAllCardsTypes,
+    sendRequestToInsertCardType,
+    sendRequestToDeleteCardType,
+    sendRequestToUpdateCardType,
+
+    /*---------- End Leagues ------------------------------------------------*/
   };
 };

@@ -62,4 +62,12 @@ class Controller extends BaseController
 
     return $leagues;
   }
+
+  protected function getAllCardsTypes(){
+    $cardsTypes = DB::select(DB::raw(
+      "SELECT * FROM cards_types ORDER BY name ASC"
+    ));
+
+    return $cardsTypes;
+  }
 }

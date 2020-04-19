@@ -1,12 +1,12 @@
 /*
 *=============================================================================
-* Title: Leagues.js
+* Title: CardsTypes.js
 * Created on: 17/04/2020  by Acua
 * Copyright: Acua. All Rights Reserved.
 *==============================================================================
-* Description: Render the view of the leagues control
+* Description: Render the view of the cards types control
 *==============================================================================
-* Constant: Leagues
+* Constant: CardsTypes
 *==============================================================================
 */
 
@@ -15,12 +15,12 @@
   /* React's packages */
   import React, {Fragment, useState, useEffect} from 'react';
   import injectSheet from 'react-jss';
-  import {Icon, Pagination, Message, Modal} from 'semantic-ui-react';
+  import {Icon, Pagination, Message, Modal, Checkbox} from 'semantic-ui-react';
   import ReactFileReader from 'react-file-reader';
   /* End React's packages */
 
   /* JSS */
-  import styles from './LeaguesStyles';
+  import styles from './CardsTypesStyles';
   /* END JSS */
 
   /* Routes */
@@ -49,7 +49,7 @@
 
 /*========== END IMPORTS ====================================================*/
 
-const Leagues = props => {
+const CardsTypes = props => {
 
   const {classes, history, actions, state} = props;
 
@@ -57,11 +57,13 @@ const Leagues = props => {
 
   const [nameState, setNameState] = useState('');
   const [imageState, setImageState] = useState('');
+  const [rareState, setRareState] = useState(false);
+  const [imageMiniState, setImageMiniState] = useState('');
 
   const [activePageState, setActivePageState] = useState(1);
   const [itemsPerPageState, setItemsPerPageState] = useState(10);
   const [deleteModalState, setDeleteModalState] = useState(false);
-  const [activeLeagueState, setActiveLeagueState] = useState('');
+  const [activeCardTypeState, setActiveCardTypeState] = useState('');
 
   /*========== USE EFFECT ===================================================*/
 
@@ -77,7 +79,7 @@ const Leagues = props => {
 
     useEffect(() => {
       if(state.app.authentication.auth){
-        history.push('/inicio/admin/ligas');
+        history.push('/inicio/admin/tipos_cartas');
       }else{
         history.push('/');
       }
@@ -95,7 +97,7 @@ const Leagues = props => {
 
     useEffect(() => {
       if(state.app.authentication.admin){
-        history.push('/inicio/admin/ligas');
+        history.push('/inicio/admin/tipos_cartas');
       }else{
         history.push('/');
       }
@@ -103,7 +105,7 @@ const Leagues = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Load leagues when leagues state change
+    * Description: Load cards types when cards types state change
     *--------------------------------------------------------------------------
     * Parameters: None
     *--------------------------------------------------------------------------
@@ -112,28 +114,32 @@ const Leagues = props => {
     */
 
     useEffect(() => {
-      actions.askForAllLeagues();
+      actions.askForAllCardsTypes();
     },[]);
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Set form fields states when active league state changes
+    * Description: Set form fields states when active card type state changes
     *--------------------------------------------------------------------------
-    * Parameters: activeLeagueState
+    * Parameters: activeCardTypeState
     *--------------------------------------------------------------------------
     * Created on: 17/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
     useEffect(() => {
-      if(activeLeagueState){
-        setNameState(activeLeagueState.name);
-        setImageState(activeLeagueState.image);
+      if(activeCardTypeState){
+        setNameState(activeCardTypeState.name);
+        setImageState(activeCardTypeState.image);
+        setImageMiniState(activeCardTypeState.image_mini);
+        setRareState(activeCardTypeState.rare);
       }else{
         setNameState('');
         setImageState('');
+        setImageMiniState('');
+        setRareState(false);
       }
-    },[activeLeagueState]);
+    },[activeCardTypeState]);
 
   /*========== END USE EFFECT ===============================================*/
 
@@ -151,9 +157,11 @@ const Leagues = props => {
 
     const onClickAddButtonHandler = () => {
       window.scrollTo(0,0);
-      setActiveLeagueState('');
+      setActiveCardTypeState('');
       setNameState('');
       setImageState('');
+      setImageMiniState('');
+      setRareState(false);
       setViewState('form');
     }
 
@@ -169,9 +177,11 @@ const Leagues = props => {
 
     const onClickGoToListButtonHandler = () => {
       window.scrollTo(0,0);
-      setActiveLeagueState('');
+      setActiveCardTypeState('');
       setNameState('');
       setImageState('');
+      setImageMiniState('');
+      setRareState(false);
       setViewState('table');
     }
 
@@ -203,7 +213,7 @@ const Leagues = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Name: onSubmitInsertLeagueFormHandler
+    * Name: onSubmitInsertCardTypeFormHandler
     *--------------------------------------------------------------------------
     * Description: Validates the form and sends data to server to insert
     *--------------------------------------------------------------------------
@@ -211,7 +221,7 @@ const Leagues = props => {
     *--------------------------------------------------------------------------
     */
 
-    const onSubmitInsertLeagueFormHandler = event => {
+    const onSubmitInsertCardTypeFormHandler = event => {
       event.preventDefault();
 
       window.scrollTo(0,0);
@@ -219,9 +229,11 @@ const Leagues = props => {
       const errors = fnValidateForm();
 
       if(errors.length === 0){
-        actions.sendRequestToInsertLeague({
+        actions.sendRequestToInsertCardType({
           name:nameState,
           image:imageState,
+          imageMini:imageMiniState,
+          rare:rareState,
         });
       }else{
         errors.map(error => {
@@ -232,7 +244,7 @@ const Leagues = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Name: onSubmitUpdateLeagueFormHandler
+    * Name: onSubmitUpdateCardTypeFormHandler
     *--------------------------------------------------------------------------
     * Description: Validates the form and sends data to server to update
     *--------------------------------------------------------------------------
@@ -240,17 +252,19 @@ const Leagues = props => {
     *--------------------------------------------------------------------------
     */
 
-    const onSubmitUpdateLeagueFormHandler = event => {
+    const onSubmitUpdateCardTypeFormHandler = event => {
       event.preventDefault();
       window.scrollTo(0,0);
 
       const errors = fnValidateForm();
 
       if(errors.length === 0){
-        actions.sendRequestToUpdateLeague({
-          id:activeLeagueState.id,
+        actions.sendRequestToUpdateCardType({
+          id:activeCardTypeState.id,
           name:nameState,
           image:imageState,
+          imageMini:imageMiniState,
+          rare:rareState,
         });
       }else{
         errors.map(error => {
@@ -264,16 +278,16 @@ const Leagues = props => {
     *--------------------------------------------------------------------------
     * Name: onClickDeleteButtonHandler
     *--------------------------------------------------------------------------
-    * Description: Shows the modal to delete the league
+    * Description: Shows the modal to delete the card type
     *--------------------------------------------------------------------------
     * Created on: 17/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const onClickDeleteButtonHandler = idLeague => {
-      state.app.leagues.all.find((league) => {
-        if(league.id === idLeague){
-          setActiveLeagueState(league);
+    const onClickDeleteButtonHandler = idCardType => {
+      state.app.cardsTypes.all.find((cardType) => {
+        if(cardType.id === idCardType){
+          setActiveCardTypeState(cardType);
         }
       });
 
@@ -284,18 +298,18 @@ const Leagues = props => {
     *--------------------------------------------------------------------------
     * Name: onClickConfirmDeleteButtonHandler
     *--------------------------------------------------------------------------
-    * Description: Delete the league
+    * Description: Delete the card type
     *--------------------------------------------------------------------------
     * Created on: 17/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const onClickConfirmDeleteButtonHandler = idLeague => {
+    const onClickConfirmDeleteButtonHandler = idCardType => {
       window.scrollTo(0,0);
       setDeleteModalState(false);
 
-      actions.sendRequestToDeleteLeague({
-        id:activeLeagueState.id
+      actions.sendRequestToDeleteCardType({
+        id:activeCardTypeState.id
       });
     }
 
@@ -303,18 +317,18 @@ const Leagues = props => {
     *--------------------------------------------------------------------------
     * Name: onClickUpdateButtonHandler
     *--------------------------------------------------------------------------
-    * Description: Change the view to the form to update the league
+    * Description: Change the view to the form to update the card type
     *--------------------------------------------------------------------------
     * Created on: 17/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const onClickUpdateButtonHandler = idLeague => {
+    const onClickUpdateButtonHandler = idCardType => {
       window.scrollTo(0,0);
 
-      state.app.leagues.all.find((league) => {
-        if(league.id === idLeague){
-          setActiveLeagueState(league);
+      state.app.cardsTypes.all.find((cardType) => {
+        if(cardType.id === idCardType){
+          setActiveCardTypeState(cardType);
         }
       });
 
@@ -323,17 +337,32 @@ const Leagues = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Name: fileHandler
+    * Name: fileHandlerImage
     *--------------------------------------------------------------------------
-    * Description: Manage the files updates
+    * Description: Manage the files updates of image field
     *--------------------------------------------------------------------------
     * Created on: 17/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const fileHandler = file => {
+    const fileHandlerImage = file => {
       console.log(file);
       setImageState(file.base64);
+    }
+
+    /*
+    *--------------------------------------------------------------------------
+    * Name: fileHandlerImageMini
+    *--------------------------------------------------------------------------
+    * Description: Manage the files updates of image mini field
+    *--------------------------------------------------------------------------
+    * Created on: 18/04/2020 by Acua
+    *--------------------------------------------------------------------------
+    */
+
+    const fileHandlerImageMini = file => {
+      console.log(file);
+      setImageMiniState(file.base64);
     }
 
   /*========== END FUNCTIONS ================================================*/
@@ -342,7 +371,7 @@ const Leagues = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Name: htmlLeagues
+    * Name: htmlCardsTypes
     *--------------------------------------------------------------------------
     * Description: Contains the HTML of the leagues
     *--------------------------------------------------------------------------
@@ -350,25 +379,35 @@ const Leagues = props => {
     *--------------------------------------------------------------------------
     */
 
-    const htmlLeagues = state.app.leagues.all.slice(itemsPerPageState * activePageState - itemsPerPageState, itemsPerPageState * activePageState).map((league, index) => {
+    const htmlCardsTypes = state.app.cardsTypes.all.slice(itemsPerPageState * activePageState - itemsPerPageState, itemsPerPageState * activePageState).map((cardType, index) => {
       return(
         <tr>
           <td>
 
-          {league.image ?
-            <img src={urlServer + league.image} width="60" alt={league.name}/>
+          {cardType.image ?
+            <img src={urlServer + cardType.image} width="60" alt={cardType.name}/>
           :
-            <img src={urlServer + '/storage/league.png'} width="60" alt={league.name}/>
+            <img src={urlServer + '/storage/card_type.png'} width="60" alt={cardType.name}/>
           }
 
           </td>
-          <td>{league.name}</td>
+          <td>
+
+          {cardType.image_mini ?
+            <img src={urlServer + cardType.image_mini} width="60" alt={cardType.name}/>
+          :
+            <img src={urlServer + '/storage/card_type_mini.png'} width="60" alt={cardType.name}/>
+          }
+
+          </td>
+          <td>{cardType.name}</td>
+          <td>{cardType.rare ? 'Sí' : 'No'}</td>
           <td>
             <div className={classes.actions}>
-              <div title="Editar" onClick={() => onClickUpdateButtonHandler(league.id)}>
+              <div title="Editar" onClick={() => onClickUpdateButtonHandler(cardType.id)}>
                 <Icon name='edit'/>
               </div>
-              <div title="Eliminar" onClick={() => onClickDeleteButtonHandler(league.id)}>
+              <div title="Eliminar" onClick={() => onClickDeleteButtonHandler(cardType.id)}>
                 <Icon name='delete'/>
               </div>
             </div>
@@ -380,15 +419,15 @@ const Leagues = props => {
   /*========== END VARIABLES ================================================*/
 
   return(
-    <div className={classes.leagues}>
+    <div className={classes.cardsTypes}>
 
       {/*---------- Table View ---------------------------------------------*/}
 
       {viewState === 'table' ?
-        <div className={classes.leaguesTableView}>
-          <h1>Ligas</h1>
+        <div className={classes.cardsTypesTableView}>
+          <h1>Tipos de cartas</h1>
 
-          {state.app.leagues.all.length > 0 ?
+          {state.app.cardsTypes.all.length > 0 ?
             <Fragment>
 
               {/*---------- Table ------------------------------------------*/}
@@ -397,12 +436,14 @@ const Leagues = props => {
                 <thead>
                   <tr>
                     <th>Imagen</th>
+                    <th>Imagen mini</th>
                     <th>Nombre</th>
+                    <th>Único</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {htmlLeagues}
+                  {htmlCardsTypes}
                 </tbody>
               </table>
 
@@ -410,11 +451,11 @@ const Leagues = props => {
 
               {/*---------- Pagination -------------------------------------*/}
 
-              {Math.ceil(state.app.leagues.all.length / itemsPerPageState) > 1 ?
+              {Math.ceil(state.app.cardsTypes.all.length / itemsPerPageState) > 1 ?
                 <Pagination
                   className={classes.pagination}
                   defaultActivePage={activePageState}
-                  totalPages={Math.ceil(state.app.leagues.all.length / itemsPerPageState)}
+                  totalPages={Math.ceil(state.app.cardsTypes.all.length / itemsPerPageState)}
                   onClick={() => window.scrollTo(0,0)}
                   onPageChange={(event, {activePage}) => setActivePageState(activePage)}
                 />
@@ -428,7 +469,7 @@ const Leagues = props => {
 
               <Modal className={classes.modal} size='mini' open={deleteModalState} onClose={() => setDeleteModalState(false)}>
                 <Modal.Content>
-                  <p>¿Seguro que quieres eliminar esta liga?</p>
+                  <p>¿Seguro que quieres eliminar este tipo de carta?</p>
                 </Modal.Content>
                 <Modal.Actions>
                   <button onClick={onClickConfirmDeleteButtonHandler}>Sí</button>
@@ -443,7 +484,7 @@ const Leagues = props => {
             <Message
               className={classes.message}
               icon='info'
-              header='No se ha encontrado ninguna liga.'
+              header='No se ha encontrado ningún tipo de carta.'
               color='blue'
             />
           }
@@ -460,29 +501,43 @@ const Leagues = props => {
       /*---------- Form View ----------------------------------------------*/
 
       :viewState === 'form' ?
-        <div className={classes.leaguesFormView}>
+        <div className={classes.cardsTypesFormView}>
           <button onClick={onClickGoToListButtonHandler}>
             <Icon name='angle left'/>
             <span>Volver a la lista</span>
           </button>
-          <h1>{activeLeagueState ? <Fragment>Modificar liga</Fragment> : <Fragment>Insertar liga</Fragment>}</h1>
-          <form onSubmit={(event) => {activeLeagueState ? onSubmitUpdateLeagueFormHandler(event) : onSubmitInsertLeagueFormHandler(event)}}>
+          <h1>{activeCardTypeState ? <Fragment>Modificar tipo de carta</Fragment> : <Fragment>Insertar tipo de carta</Fragment>}</h1>
+          <form onSubmit={(event) => {activeCardTypeState ? onSubmitUpdateCardTypeFormHandler(event) : onSubmitInsertCardTypeFormHandler(event)}}>
             <div className={classes.field}>
               <label for="name"><Icon name='flag' className={classes.icon} size="large"/></label>
               <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="50"/>
             </div>
             <div className={classes.fileField}>
               <label for="image"><Icon name='file image' className={classes.icon} size="large"/></label>
-              <ReactFileReader handleFiles={fileHandler} base64={true} fileTypes={[".png"]}>
-                <input type="text" id="image" placeholder="Selecciona una imagen" value={imageState ? 'Imagen seleccionada' : ''}/>
+              <ReactFileReader handleFiles={fileHandlerImage} base64={true} fileTypes={[".png"]}>
+                <input type="text" id="image" placeholder="Selecciona la imagen" value={imageState ? 'Imagen seleccionada' : ''}/>
               </ReactFileReader>
               <button onClick={(event) => {event.preventDefault(); setImageState('');}}><Icon name='delete'/></button>
             </div>
 
             {imageState && imageState.slice(0,8) === '/storage' ? <img src={urlServer + imageState} width="50" alt={imageState}/> : null}
 
+            <div className={classes.fileField}>
+              <label for="image_mini"><Icon name='file image' className={classes.icon} size="large"/></label>
+              <ReactFileReader handleFiles={fileHandlerImageMini} base64={true} fileTypes={[".png"]}>
+                <input type="text" id="image_mini" placeholder="Selecciona la imagen mini" value={imageMiniState ? 'Imagen seleccionada' : ''}/>
+              </ReactFileReader>
+              <button onClick={(event) => {event.preventDefault(); setImageMiniState('');}}><Icon name='delete'/></button>
+            </div>
+
+            {imageMiniState && imageMiniState.slice(0,8) === '/storage' ? <img src={urlServer + imageMiniState} width="50" alt={imageMiniState}/> : null}
+
+            <div className={classes.checkboxField}>
+              <Checkbox label='Único' onClick={(event, data) => setRareState(data.checked)}/>
+            </div>
+
             <button type="submit">
-              {activeLeagueState ?
+              {activeCardTypeState ?
                 <Fragment>
                   <Icon name='save'/>
                   <span>Actualizar</span>
@@ -505,4 +560,4 @@ const Leagues = props => {
   )
 }
 
-export default injectSheet(styles)(Leagues);
+export default injectSheet(styles)(CardsTypes);

@@ -11,6 +11,7 @@ import Permissions from '../views/Administration/Permissions/Permissions';
 import Players from '../views/Administration/Players/Players';
 import Countries from '../views/Administration/Countries/Countries';
 import Leagues from '../views/Administration/Leagues/Leagues';
+import CardsTypes from '../views/Administration/CardsTypes/CardsTypes';
 
 export const mainLayoutRoutes = [
   {
@@ -61,6 +62,10 @@ export const adminRoutes = [
   {
     path: '/ligas',
     component: Leagues
+  },
+  {
+    path: '/tipos_cartas',
+    component: CardsTypes
   },
 ];
 
@@ -154,6 +159,13 @@ export const adminMenuItems = [
     description: 'Ligas.',
     icon: 'globe',
     route: '/inicio/admin/ligas',
+    admin:true
+  },
+  {
+    title: 'Tipos de cartas',
+    description: 'Tipos de cartas.',
+    icon: 'square',
+    route: '/inicio/admin/tipos_cartas',
     admin:true
   },
 ];

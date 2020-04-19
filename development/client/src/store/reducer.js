@@ -24,6 +24,9 @@ const initialStateMain = {
   leagues: {
     all: []
   },
+  cardsTypes: {
+    all: []
+  },
 };
 
 const types = {
