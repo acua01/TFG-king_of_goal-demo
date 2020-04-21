@@ -55,6 +55,14 @@ $router->group(['middleware' => 'auth:api'], function () use($router) {
     $router->post('/delete_card_type', 'CardsTypesController@delete');
     $router->post('/update_card_type', 'CardsTypesController@update');
   });
+
+  $router->group(['middleware' => 'permission:manage teams'], function () use($router) {
+    $router->post('/teams', 'TeamsController@getAll');
+    $router->post('/team_by_id', 'TeamsController@getById');
+    $router->post('/insert_team', 'TeamsController@insert');
+    $router->post('/delete_team', 'TeamsController@delete');
+    $router->post('/update_team', 'TeamsController@update');
+  });
 });
 
 $router->post('/register', 'AuthenticationController@register');

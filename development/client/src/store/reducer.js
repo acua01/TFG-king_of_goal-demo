@@ -27,6 +27,9 @@ const initialStateMain = {
   cardsTypes: {
     all: []
   },
+  teams: {
+    all: []
+  },
 };
 
 const types = {

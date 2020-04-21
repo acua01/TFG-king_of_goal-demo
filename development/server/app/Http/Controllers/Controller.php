@@ -70,4 +70,12 @@ class Controller extends BaseController
 
     return $cardsTypes;
   }
+
+  protected function getAllTeams(){
+    $teams = DB::select(DB::raw(
+      "SELECT a.id AS team_id, a.name AS team_name, b.name AS league_name, a.image AS team_image, b.image AS league_image FROM teams a INNER JOIN leagues b ON a.id_league=b.id ORDER BY a.name ASC"
+    ));
+
+    return $teams;
+  }
 }

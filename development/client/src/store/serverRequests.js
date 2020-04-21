@@ -1012,6 +1012,188 @@ export const useActionsServerRequests = (state, dispatch) => {
 
   /*========== END CARDS TYPES ==============================================*/
 
+  /*========== TEAMS TYPES ==================================================*/
+
+  const askForAllTeams = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/teams');
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'teams',
+        data:{
+          all: response.data.teams
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e){
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToInsertTeam = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/insert_team', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'teams',
+        data:{
+          all: response.data.teams
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToDeleteTeam = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/delete_team', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'teams',
+        data:{
+          all: response.data.teams
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToUpdateTeam = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/update_team', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'teams',
+        data:{
+          all: response.data.teams
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  /*========== END TEAMS TYPES ==============================================*/
+
   return {
 
     /*---------- Authentication ---------------------------------------------*/
@@ -1057,13 +1239,22 @@ export const useActionsServerRequests = (state, dispatch) => {
 
     /*---------- End Leagues ------------------------------------------------*/
 
-    /*---------- Leagues ----------------------------------------------------*/
+    /*---------- Cards types ------------------------------------------------*/
 
     askForAllCardsTypes,
     sendRequestToInsertCardType,
     sendRequestToDeleteCardType,
     sendRequestToUpdateCardType,
 
-    /*---------- End Leagues ------------------------------------------------*/
+    /*---------- End Cards types --------------------------------------------*/
+
+    /*---------- Teams ----------------------------------------------------*/
+
+    askForAllTeams,
+    sendRequestToInsertTeam,
+    sendRequestToDeleteTeam,
+    sendRequestToUpdateTeam,
+
+    /*---------- End Teams ------------------------------------------------*/
   };
 };

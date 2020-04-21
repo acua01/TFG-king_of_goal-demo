@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRelationshipsToUsers extends Migration
+class AddRelationshipsToTeams extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class AddRelationshipsToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('teams', function (Blueprint $table) {
           // Relationships
-          $table->bigInteger('club_id')->unsigned()->nullable(true);
+          $table->bigInteger('id_league')->unsigned();
 
           //Foreign keys
-          $table->foreign('club_id')->references('id')->on('clubs')->onDelete('cascade');
+          $table->foreign('id_league')->references('id')->on('leagues')->onDelete('cascade');
         });
     }
 
@@ -29,7 +29,7 @@ class AddRelationshipsToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('teams', function (Blueprint $table) {
             //
         });
     }
