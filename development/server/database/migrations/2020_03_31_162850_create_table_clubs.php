@@ -14,10 +14,11 @@ class CreateTableClubs extends Migration
     public function up()
     {
         Schema::create('clubs', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-            $table->bigIncrements('id');
-
-            //php artisan make:migration add_relationships_to_clubs --table=clubs
+          $table->engine = 'InnoDB';
+          $table->bigIncrements('id');
+          $table->string('name', 30);
+          $table->string('image', 500);
+          $table->bigInteger('coins');
         });
     }
 

@@ -16,6 +16,11 @@ $router->get('/{any:.*}', function () {
 });
 
 $router->group(['middleware' => 'auth:api'], function () use($router) {
+  $router->post('/first_load', 'FirstLoadController@getAll');
+  $router->post('/create_club', 'ClubsController@insert');
+  $router->post('/leagues', 'LeaguesController@getAll');
+  $router->post('/teams', 'TeamsController@getAll');
+  
   $router->group(['middleware' => 'permission:manage permissions'], function () use($router) {
     $router->post('/permissions', 'PermissionsController@getAll');
     $router->post('/permission_by_id', 'PermissionsController@getById');
@@ -41,7 +46,7 @@ $router->group(['middleware' => 'auth:api'], function () use($router) {
   });
 
   $router->group(['middleware' => 'permission:manage leagues'], function () use($router) {
-    $router->post('/leagues', 'LeaguesController@getAll');
+
     $router->post('/league_by_id', 'LeaguesController@getById');
     $router->post('/insert_league', 'LeaguesController@insert');
     $router->post('/delete_league', 'LeaguesController@delete');
@@ -57,7 +62,7 @@ $router->group(['middleware' => 'auth:api'], function () use($router) {
   });
 
   $router->group(['middleware' => 'permission:manage teams'], function () use($router) {
-    $router->post('/teams', 'TeamsController@getAll');
+
     $router->post('/team_by_id', 'TeamsController@getById');
     $router->post('/insert_team', 'TeamsController@insert');
     $router->post('/delete_team', 'TeamsController@delete');

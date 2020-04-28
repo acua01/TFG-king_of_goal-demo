@@ -13,7 +13,7 @@
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {useState} from 'react';
+  import React, {useState, useEffect} from 'react';
   import {Route, Switch, Redirect, useRouteMatch} from 'react-router-dom';
   import injectSheet from 'react-jss';
   import {Icon, Menu, Segment, Sidebar} from 'semantic-ui-react'
@@ -68,9 +68,25 @@ const GameLayout = props => {
     * Created on: 12/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
+
     /*
     useEffect(() => {
     },[state.app.breadcrumb.route]);
+    */
+
+    /*
+    *--------------------------------------------------------------------------
+    * Description: First load
+    *--------------------------------------------------------------------------
+    * Parameters: None
+    *--------------------------------------------------------------------------
+    * Created on: 26/04/2020 by Acua
+    *--------------------------------------------------------------------------
+    */
+    /*
+    useEffect(() => {
+      actions.askForFirstLoad();
+    },[]);
     */
   /*========== END USE EFFECT ===============================================*/
 

@@ -16,7 +16,7 @@ class CreateTableLeagues extends Migration
         Schema::create('leagues', function (Blueprint $table) {
           $table->engine = 'InnoDB';
           $table->bigIncrements('id');
-          $table->string('name', 50);
+          $table->string('name', 50)->unique();
           $table->string('image', 500)->nullable(true);
         });
     }

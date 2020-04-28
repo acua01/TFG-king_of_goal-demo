@@ -18,7 +18,7 @@ class AddRelationshipsToUsers extends Migration
           $table->bigInteger('id_club')->unsigned()->nullable(true);
 
           //Foreign keys
-          $table->foreign('id_club')->references('id')->on('clubs')->onDelete('cascade');
+          $table->foreign('id_club')->references('id')->on('clubs')->onDelete('set null');
         });
     }
 

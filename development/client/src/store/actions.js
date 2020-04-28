@@ -1,5 +1,6 @@
 import {types} from './reducer';
 import axios from 'axios';
+import {strToBool} from '../shared/utils';
 
 export const useActionsClient = (state, dispatch) => {
 
@@ -27,15 +28,8 @@ export const useActionsClient = (state, dispatch) => {
 
   const checkAuth = () => {
     const token = sessionStorage.getItem('token');
+
     axios.defaults.headers.common['api_token'] = token;
-
-    let admin;
-
-    if(sessionStorage.getItem('admin') === 'true'){
-      admin = true;
-    }else{
-      admin = false;
-    }
 
     if(token){
       dispatch({
@@ -43,7 +37,9 @@ export const useActionsClient = (state, dispatch) => {
         section: 'authentication',
         data: {
           auth: true,
-          admin
+          admin: strToBool(sessionStorage.getItem('admin')),
+          username: sessionStorage.getItem('username'),
+          club: sessionStorage.getItem('club') ? JSON.parse(sessionStorage.getItem('club')) : false 
         }
       });
     }
@@ -55,11 +51,16 @@ export const useActionsClient = (state, dispatch) => {
       section: 'authentication',
       data: {
         auth: false,
-        admin: false
+        admin: false,
+        username: '',
+        club: false
       }
     });
 
     sessionStorage.setItem('token', '');
+    sessionStorage.setItem('admin', '');
+    sessionStorage.setItem('username', '');
+    sessionStorage.setItem('club', '');
 
     history.push('/login');
   }

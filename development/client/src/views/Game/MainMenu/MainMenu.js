@@ -62,7 +62,7 @@ const MainMenu = props => {
     * Created on: 12/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
-
+    /*
     useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio');
@@ -71,7 +71,25 @@ const MainMenu = props => {
         history.push('/');
       }
     },[state.app.authentication.auth]);
-
+    */
+    /*
+    *--------------------------------------------------------------------------
+    * Description: If the user hasn't a club, redirect to create club view
+    *--------------------------------------------------------------------------
+    * Parameters: state.app.authentication.auth
+    *--------------------------------------------------------------------------
+    * Created on: 26/04/2020 by Acua
+    *--------------------------------------------------------------------------
+    */
+    /*
+    useEffect(() => {
+      if(state.app.authentication.club){
+        history.push('/inicio');
+      }else{
+        history.push('/crear_club');
+      }
+    },[state.app.authentication.auth]);
+    */
   /*========== END USE EFFECT ===============================================*/
 
   /*========== FUNCTIONS ====================================================*/

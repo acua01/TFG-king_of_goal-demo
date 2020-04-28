@@ -45,24 +45,6 @@ export const showSnackbar = (type, message) => {
   }
 }
 
-export const moneyFormat = (money) => {
-  const str = money.toString();
-  const reverse = str.split('').reverse().join('');
-  let res = '';
-  let cont = 0;
-
-  for(let i = 0; i < reverse.length; i++){
-    if(cont === 3){
-      res = reverse[i] + '.' + res;
-      cont = 1;
-    }else{
-      res = reverse[i] + res;
-      cont++;
-    }
-  }
-  return res;
-}
-
 export const showMessages = (type, e) => {
   if(type === "error"){
     if(e.response && e.response.status !== 422){
@@ -82,4 +64,35 @@ export const showMessages = (type, e) => {
   }else{
     showSnackbar(type, e);
   }
+}
+
+export const moneyFormat = (money) => {
+  const str = money.toString();
+  const reverse = str.split('').reverse().join('');
+  let res = '';
+  let cont = 0;
+
+  for(let i = 0; i < reverse.length; i++){
+    if(cont === 3){
+      res = reverse[i] + '.' + res;
+      cont = 1;
+    }else{
+      res = reverse[i] + res;
+      cont++;
+    }
+  }
+  return res;
+}
+
+export const strToBool = (str) => {
+
+  let res;
+
+  if(str === 'true'){
+    res = true;
+  }else{
+    res = false;
+  }
+
+  return res;
 }

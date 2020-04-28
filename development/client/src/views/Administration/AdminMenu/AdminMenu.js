@@ -62,7 +62,7 @@ const AdminMenu = props => {
     * Created on: 12/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
-
+    /*
     useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio/admin');
@@ -70,7 +70,7 @@ const AdminMenu = props => {
         history.push('/');
       }
     },[state.app.authentication.auth]);
-
+    */
     /*
     *--------------------------------------------------------------------------
     * Description: If the user isn't auth, redirect to login view
@@ -80,7 +80,7 @@ const AdminMenu = props => {
     * Created on: 12/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
-
+    /*
     useEffect(() => {
       if(state.app.authentication.admin){
         history.push('/inicio/admin');
@@ -88,6 +88,7 @@ const AdminMenu = props => {
         history.push('/');
       }
     },[state.app.authentication.auth, state.app.authentication.admin]);
+    */
 
   /*========== END USE EFFECT ===============================================*/
 

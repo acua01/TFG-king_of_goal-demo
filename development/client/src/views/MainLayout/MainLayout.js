@@ -72,7 +72,18 @@ const MainLayout = props => {
 
     useEffect(() => {
       actions.checkAuth();
+
+      if(state.app.authentication.auth){
+        alert('hola');
+        actions.askForFirstLoad();
+      }
     },[]);
+
+    useEffect(() => {
+      if(state.app.authentication.auth){
+        actions.askForFirstLoad();
+      }
+    },[state.app.authentication.auth]);
 
   /*========== END USE EFFECT ===============================================*/
 

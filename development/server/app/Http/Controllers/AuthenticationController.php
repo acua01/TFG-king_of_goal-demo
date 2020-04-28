@@ -96,7 +96,7 @@ class AuthenticationController extends Controller{
     $password = $request['password'];
 
     try{
-      $user = User::select('id', 'password')->where('email', $email)->first();
+      $user = User::select('id', 'username', 'password', 'id_club')->where('email', $email)->first();
 
       if($user){
         if(Hash::check($password, $user->password)) {
@@ -106,7 +106,15 @@ class AuthenticationController extends Controller{
 
           DB::statement("UPDATE users SET api_token = :token WHERE id = :id", ['token'=>$token ,'id'=>$user->id]);
 
-          return response()->json(['token'=>$token, 'is_admin'=>$is_admin], 200);
+          if($user->id_club){
+            $club = DB::select(DB::raw(
+              "SELECT * FROM clubs WHERE id_user=:id_user"
+            ), ['id_user'=>$user->id])[0];
+          }else{
+            $club = null;
+          }
+
+          return response()->json(['token'=>$token, 'is_admin'=>$is_admin, 'user'=>$user, 'club'=>$club], 200);
         }else{
           return response()->json(['message'=>'El usuario y la contraseña no coinciden.'], 400);
         }

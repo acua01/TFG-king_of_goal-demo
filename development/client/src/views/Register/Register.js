@@ -68,7 +68,7 @@ const Register = props => {
     * Created on: 12/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
-
+    /*
     useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio');
@@ -76,7 +76,7 @@ const Register = props => {
         history.push('/registro');
       }
     },[state.app.authentication.auth]);
-
+    */
   /*========== END USE EFFECT ===============================================*/
 
   /*========== FUNCTIONS ====================================================*/

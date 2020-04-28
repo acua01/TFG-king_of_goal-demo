@@ -104,7 +104,7 @@ const Teams = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Load teams when teams state change
+    * Description: Load teams when teams state change, and load leagues
     *--------------------------------------------------------------------------
     * Parameters: None
     *--------------------------------------------------------------------------

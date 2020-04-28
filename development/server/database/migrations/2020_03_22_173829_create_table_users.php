@@ -16,8 +16,8 @@ class CreateTableUsers extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->string('username', 30);
-            $table->string('email', 60);
+            $table->string('username', 30)->unique();
+            $table->string('email', 60)->unique();
             $table->string('password');
 
             // Authentication
@@ -26,7 +26,7 @@ class CreateTableUsers extends Migration
             $table->timestamp('api_token_expiration_date')->nullable(true);
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

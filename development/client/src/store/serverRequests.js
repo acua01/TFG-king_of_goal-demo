@@ -1,8 +1,99 @@
 import axios from 'axios';
 import {types} from './reducer';
-import {showSnackbar, showMessages} from '../shared/utils';
+import {showSnackbar, showMessages, strToBool} from '../shared/utils';
 
 export const useActionsServerRequests = (state, dispatch) => {
+
+  const askForFirstLoad = async() => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/first_load');
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'players',
+        data:{
+          all: response.data.players
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'countries',
+        data:{
+          all: response.data.countries
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'cardsTypes',
+        data:{
+          all: response.data.cardsTypes
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'leagues',
+        data:{
+          all: response.data.leagues
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'teams',
+        data:{
+          all: response.data.teams
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'positions',
+        data:{
+          all: response.data.positions
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'cards',
+        data:{
+          all: response.data.cards
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e){
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
 
   /*========== AUTHENTICATION ===============================================*/
 
@@ -62,19 +153,28 @@ export const useActionsServerRequests = (state, dispatch) => {
 
       sessionStorage.setItem('token', response.data.token);
       sessionStorage.setItem('admin', response.data.is_admin);
-
-      console.log(response.data.is_admin);
+      sessionStorage.setItem('username', response.data.user.username);
 
       dispatch({
         type: types.GENERAL_TYPE,
         section: 'authentication',
         data:{
           auth: true,
-          admin: response.data.is_admin
+          admin: response.data.is_admin,
+          username: response.data.user.username,
+          club: response.data.user.id_club ? response.data.club : false
         }
       });
 
-      history.push('/inicio');
+      askForFirstLoad();
+
+      if(response.data.user.id_club){
+        sessionStorage.setItem('club', JSON.stringify(response.data.club));
+        history.push('/inicio');
+      }else{
+        sessionStorage.setItem('club', '');
+        history.push('/crear_club');
+      }
 
       showSnackbar('success', 'Has iniciado sesión correctamente.');
 
@@ -1241,7 +1341,7 @@ export const useActionsServerRequests = (state, dispatch) => {
 
   /*========== END POSITIONS TYPES ==========================================*/
 
-  /*========== CARDS TYPES ==================================================*/
+  /*========== CARDS ========================================================*/
 
   const askForAllCards = async(data) => {
     try{
@@ -1421,9 +1521,67 @@ export const useActionsServerRequests = (state, dispatch) => {
     }
   }
 
-  /*========== END CARDS TYPES ==============================================*/
+  /*========== END CARDS ====================================================*/
+
+  /*========== CLUBS ========================================================*/
+
+  const sendRequestToCreateClub = async(history, data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/create_club', data);
+
+      sessionStorage.setItem('club', true);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'authentication',
+        data:{
+          auth: true,
+          admin: strToBool(sessionStorage.getItem('admin')),
+          username: sessionStorage.getItem('username'),
+          club: true
+        }
+      });
+
+      history.push('/inicio');
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  /*========== END CLUBS ====================================================*/
 
   return {
+
+    askForFirstLoad,
 
     /*---------- Authentication ---------------------------------------------*/
 
@@ -1486,11 +1644,11 @@ export const useActionsServerRequests = (state, dispatch) => {
 
     /*---------- End Teams --------------------------------------------------*/
 
-    /*---------- Positions ------------------------------------------------------*/
+    /*---------- Positions --------------------------------------------------*/
 
     askForAllPositions,
 
-    /*---------- End Positions --------------------------------------------------*/
+    /*---------- End Positions ----------------------------------------------*/
 
     /*---------- Cards ------------------------------------------------------*/
 
@@ -1500,5 +1658,12 @@ export const useActionsServerRequests = (state, dispatch) => {
     sendRequestToUpdateCard,
 
     /*---------- End Cards --------------------------------------------------*/
+
+    /*---------- Clubs ------------------------------------------------------*/
+
+    sendRequestToCreateClub,
+
+    /*---------- End Clubs --------------------------------------------------*/
+
   };
 };

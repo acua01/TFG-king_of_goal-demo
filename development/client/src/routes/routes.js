@@ -1,5 +1,6 @@
 import Login from '../views/Login/Login';
 import Register from '../views/Register/Register';
+import CreateClub from '../views/CreateClub/CreateClub';
 import GameLayout from '../views/Game/GameLayout/GameLayout';
 
 // GameLayout views
@@ -24,6 +25,10 @@ export const mainLayoutRoutes = [
   {
     path: '/registro',
     component: Register
+  },
+  {
+    path: '/crear_club',
+    component: CreateClub
   },
   {
     path: '/inicio',

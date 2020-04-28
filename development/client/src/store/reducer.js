@@ -3,7 +3,9 @@ import {updateObject} from '../shared/utils';
 const initialStateMain = {
   authentication: {
     auth:false,
-    admin:false
+    admin:false,
+    username:'',
+    club:false
   },
   loader:{
     isLoading: false,
