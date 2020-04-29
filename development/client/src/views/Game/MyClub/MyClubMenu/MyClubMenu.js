@@ -1,12 +1,12 @@
 /*
 *=============================================================================
-* Title: MainMenu.js
-* Created on: 30/03/2020  by Acua
+* Title: MyClubMenu.js
+* Created on: 29/04/2020  by Acua
 * Copyright: Acua. All Rights Reserved.
 *==============================================================================
-* Description: Render the main menu of the app
+* Description: Render the menu of my club section
 *==============================================================================
-* Constant: MainMenu
+* Constant: MyClubMenu
 *==============================================================================
 */
 
@@ -18,15 +18,15 @@
   /* End React's packages */
 
   /* JSS */
-  import styles from './MainMenuStyles';
+  import styles from './MyClubMenuStyles';
   /* END JSS */
 
   /* Routes */
-  import {mainMenuItems} from '../../../routes/routes';
+  import {myClubMenuItems} from '../../../../routes/routes';
   /* End Routes */
 
   /* Custom Components */
-  import MenuItem from '../../../components/MenuItem/MenuItem';
+  import MenuItem from '../../../../components/MenuItem/MenuItem';
   /* End Custom Components */
 
   /* Custom Modules */
@@ -47,7 +47,7 @@
 
 /*========== END IMPORTS ====================================================*/
 
-const MainMenu = props => {
+const MyClubMenu = props => {
 
   const {classes, history, actions, state} = props;
 
@@ -65,31 +65,13 @@ const MainMenu = props => {
     /*
     useEffect(() => {
       if(state.app.authentication.auth){
-        history.push('/inicio');
-        //actions.setBreadcrumb('/inicio');
+        history.push('/inicio/admin');
       }else{
         history.push('/');
       }
     },[state.app.authentication.auth]);
     */
-    /*
-    *--------------------------------------------------------------------------
-    * Description: If the user hasn't a club, redirect to create club view
-    *--------------------------------------------------------------------------
-    * Parameters: state.app.authentication.auth
-    *--------------------------------------------------------------------------
-    * Created on: 26/04/2020 by Acua
-    *--------------------------------------------------------------------------
-    */
-    /*
-    useEffect(() => {
-      if(state.app.authentication.club){
-        history.push('/inicio');
-      }else{
-        history.push('/crear_club');
-      }
-    },[state.app.authentication.auth]);
-    */
+
   /*========== END USE EFFECT ===============================================*/
 
   /*========== FUNCTIONS ====================================================*/
@@ -100,15 +82,15 @@ const MainMenu = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Name: htmlMainMenuItems
+    * Name: htmlMyClubMenuItems
     *--------------------------------------------------------------------------
-    * Description: Contains the HTML of the main menu items
+    * Description: Contains the HTML of the menu
     *--------------------------------------------------------------------------
-    * Created on: 04/04/2020 by Acua
+    * Created on: 29/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const htmlMainMenuItems = mainMenuItems.map((item, index) => {
+    const htmlMyClubMenuItems = myClubMenuItems.map((item, index) => {
       const htmlItem = (
         <MenuItem
           title={item.title}
@@ -118,22 +100,16 @@ const MainMenu = props => {
         />
       );
 
-      if(item.admin){
-        if(state.app.authentication.admin){
-          return htmlItem;
-        }
-      }else{
-        return htmlItem;
-      }
+      return htmlItem;
     });
 
   /*========== END VARIABLES ================================================*/
 
   return(
-    <div className={classes.mainMenu}>
-      {htmlMainMenuItems}
+    <div className={classes.myClubMenu}>
+      {htmlMyClubMenuItems}
     </div>
   )
 }
 
-export default injectSheet(styles)(MainMenu);
+export default injectSheet(styles)(MyClubMenu);

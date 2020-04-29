@@ -69,28 +69,21 @@ const CreateClub = props => {
     */
     /*
     useEffect(() => {
-      if(state.app.authentication.auth){
-        history.push('/crear_club');
-      }else{
-        history.push('/login');
+      if(!state.app.authentication.auth){
+        alert('hola');
+        history.push('/');
       }
     },[state.app.authentication.auth]);
     */
     /*
-    *--------------------------------------------------------------------------
-    * Description: Load leagues and teams
-    *--------------------------------------------------------------------------
-    * Parameters:
-    *--------------------------------------------------------------------------
-    * Created on: 26/04/2020 by Acua
-    *--------------------------------------------------------------------------
-    */
-
     useEffect(() => {
-      actions.askForAllLeagues();
-      actions.askForAllTeams();
-    },[]);
-
+      if(state.app.authentication.auth){
+        history.push('/crear_club');
+      }else{
+        history.push('/');
+      }
+    },[state.app.authentication.auth]);
+    */
   /*========== END USE EFFECT ===============================================*/
 
   /*========== FUNCTIONS ====================================================*/
@@ -120,12 +113,6 @@ const CreateClub = props => {
       if(nameState.length < 3 || nameState.length > 30){
         errors.push('Introduce un nombre de mínimo 3 caracteres y máximo de 30.');
       }
-
-      console.log({
-        name: nameState,
-        image: imageState,
-        username: state.app.authentication.username
-      });
 
       if(errors.length === 0){
         actions.sendRequestToCreateClub(history,{

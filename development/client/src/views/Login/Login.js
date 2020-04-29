@@ -56,7 +56,7 @@ const Login = props => {
   const [passwordState, setPasswordState] = useState('');
 
   /*========== USE EFFECT ===================================================*/
-  
+
     /*
     *--------------------------------------------------------------------------
     * Description: If the user is auth, redirect to inicio

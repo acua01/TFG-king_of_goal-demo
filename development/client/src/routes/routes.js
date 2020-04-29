@@ -15,6 +15,8 @@ import Leagues from '../views/Administration/Leagues/Leagues';
 import CardsTypes from '../views/Administration/CardsTypes/CardsTypes';
 import Teams from '../views/Administration/Teams/Teams';
 import Cards from '../views/Administration/Cards/Cards';
+import MyClubLayout from '../views/Game/MyClub/MyClubLayout/MyClubLayout';
+import MyClubMenu from '../views/Game/MyClub/MyClubMenu/MyClubMenu';
 
 export const mainLayoutRoutes = [
   {
@@ -45,6 +47,10 @@ export const gameLayoutRoutes = [
   {
     path: '/admin',
     component: Admin
+  },
+  {
+    path: '/mi_club',
+    component: MyClubLayout
   },
 ];
 
@@ -84,6 +90,22 @@ export const adminRoutes = [
   },
 ];
 
+export const myClubRoutes = [
+  {
+    path: '/',
+    component: MyClubMenu,
+    exact:true
+  },
+  {
+    path: '/jugadores',
+    component: Admin
+  },
+  {
+    path: '/opciones',
+    component: Admin
+  },
+];
+
 export const sidebarItems = [
   {
     title: 'Ver jugadores',
@@ -115,9 +137,9 @@ export const sidebarItems = [
 
 export const mainMenuItems = [
   {
-    title: 'Ver jugadores',
+    title: 'Mercado',
     description: 'Aquí podrás ver la información de todos los jugadores.',
-    icon: 'users',
+    icon: 'line graph',
     route: '/inicio'
   },
   {
@@ -136,7 +158,7 @@ export const mainMenuItems = [
     title: 'Mi club',
     description: 'Aquí podrás ver tu club.',
     icon: 'trophy',
-    route: '/inicio'
+    route: '/inicio/mi_club'
   },
   {
     title: 'Administración',
@@ -196,5 +218,20 @@ export const adminMenuItems = [
     icon: 'users',
     route: '/inicio/admin/cartas',
     admin:true
+  },
+];
+
+export const myClubMenuItems = [
+  {
+    title: 'Jugadores',
+    description: 'Todos los jugadores que tienes en tu club.',
+    icon: 'users',
+    route: '/inicio/mi_club/jugadores'
+  },
+  {
+    title: 'Opciones',
+    description: 'Configuración del club.',
+    icon: 'cog',
+    route: '/inicio/mi_club/opciones'
   },
 ];

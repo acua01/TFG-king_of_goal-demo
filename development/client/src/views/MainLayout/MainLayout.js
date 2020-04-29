@@ -69,15 +69,26 @@ const MainLayout = props => {
     * Created on: 30/03/2020 by Acua
     *--------------------------------------------------------------------------
     */
-
+    /*
     useEffect(() => {
-      actions.checkAuth();
-
-      if(state.app.authentication.auth){
-        alert('hola');
-        actions.askForFirstLoad();
-      }
+      alert('jaja me he cambiado antes');
     },[]);
+    */
+    useEffect(() => {
+      //alert('Comprobando auth');
+      actions.checkAuth();
+      //alert('auth comprobado');
+    },[]);
+
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Check if the user is auth to do the first load
+    *--------------------------------------------------------------------------
+    * Parameters: None
+    *--------------------------------------------------------------------------
+    * Created on: 28/04/2020 by Acua
+    *--------------------------------------------------------------------------
+    */
 
     useEffect(() => {
       if(state.app.authentication.auth){
