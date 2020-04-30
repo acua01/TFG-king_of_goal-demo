@@ -1547,7 +1547,7 @@ export const useActionsServerRequests = (state, dispatch) => {
           auth: true,
           admin: strToBool(sessionStorage.getItem('admin')),
           username: sessionStorage.getItem('username'),
-          club: response.data.user.id_club ? response.data.club : false
+          club: response.data.club
         }
       });
 
@@ -1602,6 +1602,61 @@ export const useActionsServerRequests = (state, dispatch) => {
           club: response.data.club
         }
       });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToDeleteClub = async(history, data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/delete_club', data);
+
+      sessionStorage.setItem('token', '');
+      sessionStorage.setItem('admin', '');
+      sessionStorage.setItem('username', '');
+      sessionStorage.setItem('club', '');
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'authentication',
+        data:{
+          auth: false,
+          admin: false,
+          username: '',
+          club: false
+        }
+      });
+
+      history.push('/login');
 
       showSnackbar('success', response.data.message);
 
@@ -1713,6 +1768,7 @@ export const useActionsServerRequests = (state, dispatch) => {
 
     sendRequestToCreateClub,
     sendRequestToUpdateClub,
+    sendRequestToDeleteClub,
 
     /*---------- End Clubs --------------------------------------------------*/
 

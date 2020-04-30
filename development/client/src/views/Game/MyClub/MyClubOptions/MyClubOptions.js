@@ -151,6 +151,23 @@ const MyClubOptions = props => {
       }
     }
 
+    /*
+    *--------------------------------------------------------------------------
+    * Name: onClickDeleteClubButtonHandler
+    *--------------------------------------------------------------------------
+    * Description: Delete the club
+    *--------------------------------------------------------------------------
+    * Created on: 30/04/2020 by Acua
+    *--------------------------------------------------------------------------
+    */
+
+    const onClickDeleteClubButtonHandler = () => {
+      actions.sendRequestToDeleteClub(history, {
+        id: state.app.authentication.club.id
+      });
+      setDeleteClubModalState(false);
+    }
+
   /*========== END FUNCTIONS ================================================*/
 
   /*========== VARIABLES ====================================================*/
@@ -238,7 +255,7 @@ const MyClubOptions = props => {
         </button>
       </form>
 
-      {/*---------- Modal ------------------------------------------*/}
+      {/*---------- Teams Modal --------------------------------------------*/}
 
       <Modal className={classes.teamsModal} size='mini' open={teamsModalState} onClose={() => setTeamsModalState(false)}>
         <Modal.Content>
@@ -252,9 +269,23 @@ const MyClubOptions = props => {
         </Modal.Actions>
       </Modal>
 
-      {/*---------- End Modal --------------------------------------*/}
+      {/*---------- End Teams Modal ----------------------------------------*/}
 
-      <button>
+      {/*---------- Delete Club Modal --------------------------------------*/}
+
+      <Modal className={classes.deleteClubModal} size='mini' open={deleteClubModalState} onClose={() => setDeleteClubModalState(false)}>
+        <Modal.Content>
+          <p>¿Seguro que quieres eliminar el club? No podrás recuperarlo una vez borrado.</p>
+        </Modal.Content>
+        <Modal.Actions>
+          <button onClick={onClickDeleteClubButtonHandler}>Sí</button>
+          <button onClick={() => setDeleteClubModalState(false)}>No</button>
+        </Modal.Actions>
+      </Modal>
+
+      {/*---------- End Delete Club Modal ----------------------------------*/}
+
+      <button onClick={() => setDeleteClubModalState(true)}>
         <Icon name='delete'/>
         <span>Borrar club</span>
       </button>

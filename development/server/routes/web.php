@@ -19,6 +19,7 @@ $router->group(['middleware' => 'auth:api'], function () use($router) {
   $router->post('/first_load', 'FirstLoadController@getAll');
   $router->post('/create_club', 'ClubsController@insert');
   $router->post('/update_club', 'ClubsController@update');
+  $router->post('/delete_club', 'ClubsController@delete');
   $router->post('/leagues', 'LeaguesController@getAll');
   $router->post('/teams', 'TeamsController@getAll');
 

@@ -113,7 +113,7 @@ const styles = {
 
   /*---------- End Form -----------------------------------------------------*/
 
-  /*---------- Team choice modal --------------------------------------------*/
+  /*---------- Teams Modal --------------------------------------------------*/
 
   'teamsModal':{
     width:'75% !important',
@@ -173,9 +173,31 @@ const styles = {
         width:'100px'
       }
     }
-  }
+  },
 
-  /*---------- Team choice modal --------------------------------------------*/
+  /*---------- End Teams Modal ----------------------------------------------*/
+
+  /*---------- Delete Club Modal --------------------------------------------*/
+
+  'deleteClubModal':{
+    '& button':{
+      fontFamily:'Anelize',
+      color:'white',
+      padding:'8px 20px',
+      cursor:'pointer',
+      margin:'5px'
+    },
+    '& button:first-child':{
+      border:'2px solid #33cc33',
+      backgroundColor: '#33cc33',
+    },
+    '& button:last-child':{
+      border:'2px solid #ff1a1a',
+      backgroundColor: '#ff1a1a',
+    }
+  },
+
+  /*---------- End Delete Club Modal ----------------------------------------*/
 
   /*========== END STYLES ===================================================*/
 }

@@ -88,4 +88,19 @@ class ClubsController extends Controller{
       return response()->json(['message'=>$this->getErrorMessage($e)], 500);
     }
   }
+
+  public function delete(Request $request){
+    $id = $request['id'];
+
+    try{
+
+      DB::statement("DELETE FROM clubs WHERE id = :id", [
+        'id'=>$id
+      ]);
+
+      return response()->json(['message'=>'Club borrado correctamente'], 200);
+    }catch(\Exception $e){
+      return response()->json(['message'=>$this->getErrorMessage($e)], 500);
+    }
+  }
 }
