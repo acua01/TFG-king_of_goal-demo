@@ -49,4 +49,43 @@ class ClubsController extends Controller{
     }
 
   }
+
+  public function update(Request $request){
+    $messages = [
+      // name
+
+      'name.string'=>'El nombre debe ser una cadena.',
+      'name.max'=>'El nombre debe tener un máximo de 30 caracteres.',
+
+    ];
+
+    $this->validate($request, [
+      'name'=>'string|max:30',
+    ], $messages);
+
+    $name = $request['name'];
+    $image = $request['image'];
+    $username = $request['username'];
+
+    try{
+
+      $user = DB::select(DB::raw(
+        "SELECT id FROM users WHERE username=:username"
+      ), ['username'=>$username])[0];
+
+      DB::statement("UPDATE clubs SET name = :name, image = :image WHERE id_user = :id_user", [
+        'name'=>$name,
+        'image'=>$image,
+        'id_user'=>$user->id
+      ]);
+
+      $club = DB::select(DB::raw(
+        "SELECT * FROM clubs WHERE id_user=:id_user"
+      ), ['id_user'=>$user->id])[0];
+
+      return response()->json(['message'=>'Club actualizado correctamente', 'club'=>$club], 200);
+    }catch(\Exception $e){
+      return response()->json(['message'=>$this->getErrorMessage($e)], 500);
+    }
+  }
 }

@@ -1538,7 +1538,7 @@ export const useActionsServerRequests = (state, dispatch) => {
 
       const response = await axios.post('/create_club', data);
 
-      sessionStorage.setItem('club', true);
+      sessionStorage.setItem('club', JSON.stringify(response.data.club));
 
       dispatch({
         type: types.GENERAL_TYPE,
@@ -1547,11 +1547,61 @@ export const useActionsServerRequests = (state, dispatch) => {
           auth: true,
           admin: strToBool(sessionStorage.getItem('admin')),
           username: sessionStorage.getItem('username'),
-          club: true
+          club: response.data.user.id_club ? response.data.club : false
         }
       });
 
       history.push('/inicio');
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToUpdateClub = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/update_club', data);
+
+      sessionStorage.setItem('club', JSON.stringify(response.data.club));
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'authentication',
+        data:{
+          auth: true,
+          admin: strToBool(sessionStorage.getItem('admin')),
+          username: sessionStorage.getItem('username'),
+          club: response.data.club
+        }
+      });
 
       showSnackbar('success', response.data.message);
 
@@ -1662,6 +1712,7 @@ export const useActionsServerRequests = (state, dispatch) => {
     /*---------- Clubs ------------------------------------------------------*/
 
     sendRequestToCreateClub,
+    sendRequestToUpdateClub,
 
     /*---------- End Clubs --------------------------------------------------*/
 

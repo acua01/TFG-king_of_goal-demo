@@ -55,6 +55,8 @@ const GameLayout = props => {
 
   const {url, path} = useRouteMatch();
 
+  const [coinsState, setCoinsState] = useState('');
+
   const [sidebarDisplayState, setSidebarDisplayState] = useState(false);
 
   /*========== USE EFFECT ===================================================*/
@@ -81,6 +83,11 @@ const GameLayout = props => {
     useEffect(() => {
     },[state.app.breadcrumb.route]);
     */
+
+    useEffect(() => {
+      setCoinsState(moneyFormat(state.app.authentication.club.coins));
+    },[state.app.authentication.club.coins]);
+
 
   /*========== END USE EFFECT ===============================================*/
 
@@ -173,9 +180,9 @@ const GameLayout = props => {
           width='thin'
         >
           <div className={classes.sidebarUserData}>
-            <img src={urlServer + '/storage/cadiz.png'} alt="Cádiz C.F."/>
-            <p>Cádiz C.F.</p>
-            <p>acua01</p>
+            <img src={urlServer + state.app.authentication.club.image} alt={state.app.authentication.club.name}/>
+            <p>{state.app.authentication.club.name}</p>
+            <p>{state.app.authentication.username}</p>
           </div>
           <Menu.Item as='a' className={classes.sidebarItem} onClick={() => history.push('/')}>
             <Icon name='home' />
@@ -202,14 +209,14 @@ const GameLayout = props => {
                 <Icon name="bars" size="large"/>
               </button>
               <div className={classes.userData}>
-                <img src={urlServer + '/storage/cadiz.png'} alt="Cádiz C.F."/>
+                <img src={urlServer + state.app.authentication.club.image} alt={state.app.authentication.club.name}/>
                 <div className={classes.userDataNames}>
-                  <p>Cádiz C.F.</p>
-                  <p>acua01</p>
+                  <p>{state.app.authentication.club.name}</p>
+                  <p>{state.app.authentication.username}</p>
                 </div>
                 <div className={classes.userDataCoins}>
                   <img src={urlServer + '/storage/coins.png'} alt="coins"/>
-                  <p>{moneyFormat(1000000)}</p>
+                  <p>{moneyFormat(state.app.authentication.club.coins)}</p>
                 </div>
               </div>
             </div>

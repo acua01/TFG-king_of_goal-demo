@@ -67,21 +67,23 @@ export const showMessages = (type, e) => {
 }
 
 export const moneyFormat = (money) => {
-  const str = money.toString();
-  const reverse = str.split('').reverse().join('');
-  let res = '';
-  let cont = 0;
+  if(typeof(money) === 'number'){
+    const str = money.toString();
+    const reverse = str.split('').reverse().join('');
+    let res = '';
+    let cont = 0;
 
-  for(let i = 0; i < reverse.length; i++){
-    if(cont === 3){
-      res = reverse[i] + '.' + res;
-      cont = 1;
-    }else{
-      res = reverse[i] + res;
-      cont++;
+    for(let i = 0; i < reverse.length; i++){
+      if(cont === 3){
+        res = reverse[i] + '.' + res;
+        cont = 1;
+      }else{
+        res = reverse[i] + res;
+        cont++;
+      }
     }
+    return res;
   }
-  return res;
 }
 
 export const strToBool = (str) => {

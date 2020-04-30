@@ -18,9 +18,10 @@ $router->get('/{any:.*}', function () {
 $router->group(['middleware' => 'auth:api'], function () use($router) {
   $router->post('/first_load', 'FirstLoadController@getAll');
   $router->post('/create_club', 'ClubsController@insert');
+  $router->post('/update_club', 'ClubsController@update');
   $router->post('/leagues', 'LeaguesController@getAll');
   $router->post('/teams', 'TeamsController@getAll');
-  
+
   $router->group(['middleware' => 'permission:manage permissions'], function () use($router) {
     $router->post('/permissions', 'PermissionsController@getAll');
     $router->post('/permission_by_id', 'PermissionsController@getById');
