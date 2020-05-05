@@ -18,6 +18,7 @@ import Cards from '../views/Administration/Cards/Cards';
 import MyClubLayout from '../views/Game/MyClub/MyClubLayout/MyClubLayout';
 import MyClubMenu from '../views/Game/MyClub/MyClubMenu/MyClubMenu';
 import MyClubOptions from '../views/Game/MyClub/MyClubOptions/MyClubOptions';
+import MyClubPlayers from '../views/Game/MyClub/MyClubPlayers/MyClubPlayers';
 
 export const mainLayoutRoutes = [
   {
@@ -99,7 +100,7 @@ export const myClubRoutes = [
   },
   {
     path: '/jugadores',
-    component: Admin
+    component: MyClubPlayers
   },
   {
     path: '/opciones',

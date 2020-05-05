@@ -64,6 +64,9 @@ const Cards = props => {
   const [dribblingState, setDribblingState] = useState('');
   const [defendingState, setDefendingState] = useState('');
   const [physicalityState, setPhysicalityState] = useState('');
+  const [goodLegState, setGoodLegState] = useState('');
+  const [skillsState, setSkillsState] = useState('');
+  const [badLegState, setBadLegState] = useState('');
   const [typeState, setTypeState] = useState('');
   const [playerState, setPlayerState] = useState('');
   const [teamState, setTeamState] = useState('');
@@ -86,7 +89,7 @@ const Cards = props => {
     * Created on: 21/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
-
+    /*
     useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio/admin/cartas');
@@ -94,7 +97,7 @@ const Cards = props => {
         history.push('/');
       }
     },[state.app.authentication.auth]);
-
+    */
     /*
     *--------------------------------------------------------------------------
     * Description: If the user isn't auth, redirect to login view
@@ -104,7 +107,7 @@ const Cards = props => {
     * Created on: 21/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
-
+    /*
     useEffect(() => {
       if(state.app.authentication.admin){
         history.push('/inicio/admin/cartas');
@@ -112,7 +115,7 @@ const Cards = props => {
         history.push('/');
       }
     },[state.app.authentication.auth, state.app.authentication.admin]);
-
+    */
     /*
     *--------------------------------------------------------------------------
     * Description: Load cards when cards state change
@@ -152,6 +155,9 @@ const Cards = props => {
         setDribblingState(activeCardState.card_dribbling);
         setDefendingState(activeCardState.card_defending);
         setPhysicalityState(activeCardState.card_physicality);
+        setGoodLegState(activeCardState.card_good_leg);
+        setSkillsState(activeCardState.card_skills);
+        setBadLegState(activeCardState.card_bad_leg);
         setTypeState(activeCardState.type_id);
         setPlayerState(activeCardState.player_id);
         setTeamState(activeCardState.team_id);
@@ -166,6 +172,9 @@ const Cards = props => {
         setDribblingState('');
         setDefendingState('');
         setPhysicalityState('');
+        setGoodLegState('');
+        setSkillsState('');
+        setBadLegState('');
         setTypeState('');
         setPlayerState('');
         setTeamState('');
@@ -199,6 +208,9 @@ const Cards = props => {
       setDribblingState('');
       setDefendingState('');
       setPhysicalityState('');
+      setGoodLegState('');
+      setSkillsState('');
+      setBadLegState('');
       setTypeState('');
       setPlayerState('');
       setTeamState('');
@@ -228,6 +240,9 @@ const Cards = props => {
       setDribblingState('');
       setDefendingState('');
       setPhysicalityState('');
+      setGoodLegState('');
+      setSkillsState('');
+      setBadLegState('');
       setTypeState('');
       setPlayerState('');
       setTeamState('');
@@ -283,6 +298,9 @@ const Cards = props => {
           dribbling:dribblingState,
           defending:defendingState,
           physicality:physicalityState,
+          goodLeg:goodLegState,
+          skills:skillsState,
+          badLeg:badLegState,
           idType:typeState,
           idPlayer:playerState,
           idTeam:teamState,
@@ -323,6 +341,9 @@ const Cards = props => {
           dribbling:dribblingState,
           defending:defendingState,
           physicality:physicalityState,
+          goodLeg:goodLegState,
+          skills:skillsState,
+          badLeg:badLegState,
           idType:typeState,
           idPlayer:playerState,
           idTeam:teamState,
@@ -439,6 +460,9 @@ const Cards = props => {
               <img src={urlServer + '/storage/coins.png'} alt="coins"/>
             </div>
           </td>
+          <td>{card.card_good_leg}</td>
+          <td>{card.card_skills}</td>
+          <td>{card.card_bad_leg}</td>
           <td>
             <div className={classes.actions}>
               <div title="Editar" onClick={() => onClickUpdateButtonHandler(card.card_id)}>
@@ -469,7 +493,7 @@ const Cards = props => {
       arrTypes.push({
         key: index,
         text: type.name,
-        image: {avatar: true, src: urlServer + type.image},
+        image: {avatar: false, src: urlServer + type.image},
         value: type.id,
       });
     });
@@ -489,7 +513,7 @@ const Cards = props => {
       arrPlayers.push({
         key: index,
         text: player.name,
-        image: {avatar: true, src: urlServer + player.image},
+        image: {avatar: false, src: urlServer + player.image},
         value: player.id,
       });
     });
@@ -509,7 +533,7 @@ const Cards = props => {
       arrTeams.push({
         key: index,
         text: team.team_name,
-        image: {avatar: true, src: urlServer + team.team_image},
+        image: {avatar: false, src: urlServer + team.team_image},
         value: team.team_id,
       });
     });
@@ -564,23 +588,32 @@ const Cards = props => {
         <div className={classes.cardsTableView}>
           <h1>Cartas</h1>
 
+          <button onClick={onClickAddButtonHandler}>
+            <Icon name='add'/>
+            <span>Añadir</span>
+          </button>
+
           {state.app.cards.all.length > 0 ?
             <Fragment>
 
               {/*---------- Table ------------------------------------------*/}
-              <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Carta</th>
-                    <th>Valor</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {htmlCards}
-                </tbody>
-              </table>
+
+              <div className="tableContainer">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Carta</th>
+                      <th>Valor</th>
+                      <th>Pierna buena</th>
+                      <th>Filigranas</th>
+                      <th>Pierna mala</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {htmlCards}
+                  </tbody>
+                </table>
               </div>
 
               {/*---------- End Table --------------------------------------*/}
@@ -644,59 +677,72 @@ const Cards = props => {
           </button>
           <h1>{activeCardState ? <Fragment>Modificar carta</Fragment> : <Fragment>Insertar carta</Fragment>}</h1>
           <form onSubmit={(event) => {activeCardState ? onSubmitUpdateCardFormHandler(event) : onSubmitInsertCardFormHandler(event)}}>
-            <div className={classes.field}>
-              <label for="rating"><Icon name='star' className={classes.icon} size="large"/></label>
-              <input type="number" id="rating" placeholder="Valoración" value={ratingState} onChange={(event) => setRatingState(event.target.value)}/>
+            <div>
+              <div className={classes.field}>
+                <label for="rating"><Icon name='star' className={classes.icon} size="large"/></label>
+                <input type="number" id="rating" placeholder="Valoración" value={ratingState} onChange={(event) => setRatingState(event.target.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="value"><Icon name='money' className={classes.icon} size="large"/></label>
+                <input type="number" id="value" placeholder="Valor" value={valueState} onChange={(event) => setValueState(event.target.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="pace"><Icon name='address card' className={classes.icon} size="large"/></label>
+                <input type="number" id="pace" placeholder="Ritmo" value={paceState} onChange={(event) => setPaceState(event.target.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="shooting"><Icon name='address card' className={classes.icon} size="large"/></label>
+                <input type="number" id="shooting" placeholder="Tiro" value={shootingState} onChange={(event) => setShootingState(event.target.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="passing"><Icon name='address card' className={classes.icon} size="large"/></label>
+                <input type="number" id="passing" placeholder="Pase" value={passingState} onChange={(event) => setPassingState(event.target.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="dribbling"><Icon name='address card' className={classes.icon} size="large"/></label>
+                <input type="number" id="dribbling" placeholder="Regate" value={dribblingState} onChange={(event) => setDribblingState(event.target.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="defending"><Icon name='address card' className={classes.icon} size="large"/></label>
+                <input type="number" id="defending" placeholder="Defensa" value={defendingState} onChange={(event) => setDefendingState(event.target.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="physicality"><Icon name='address card' className={classes.icon} size="large"/></label>
+                <input type="number" id="physicality" placeholder="Físico" value={physicalityState} onChange={(event) => setPhysicalityState(event.target.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="goodLeg"><Icon name='address card' className={classes.icon} size="large"/></label>
+                <input type="text" id="goodLeg" placeholder="Pierna buena" value={goodLegState} onChange={(event) => setGoodLegState(event.target.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="skills"><Icon name='star' className={classes.icon} size="large"/></label>
+                <input type="number" id="skills" placeholder="Filigranas" value={skillsState} onChange={(event) => setSkillsState(event.target.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="badLeg"><Icon name='star' className={classes.icon} size="large"/></label>
+                <input type="number" id="badLeg" placeholder="Pierna mala" value={badLegState} onChange={(event) => setBadLegState(event.target.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="type"><Icon name='square' className={classes.icon} size="large"/></label>
+                <Dropdown id="type" className={classes.dropdown} placeholder='Selecciona el tipo' search selection clearable options={arrTypes} value={typeState} onChange={(event, {value}) => setTypeState({value}.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="player"><Icon name='user' className={classes.icon} size="large"/></label>
+                <Dropdown id="player" className={classes.dropdown} placeholder='Selecciona el jugador' search selection clearable options={arrPlayers} value={playerState} onChange={(event, {value}) => setPlayerState({value}.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="team"><Icon name='shield' className={classes.icon} size="large"/></label>
+                <Dropdown id="team" className={classes.dropdown} placeholder='Selecciona el equipo' search selection clearable options={arrTeams} value={teamState} onChange={(event, {value}) => setTeamState({value}.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="country"><Icon name='flag' className={classes.icon} size="large"/></label>
+                <Dropdown id="country" className={classes.dropdown} placeholder='Selecciona el país' search selection clearable options={arrCountries} value={countryState} onChange={(event, {value}) => setCountryState({value}.value)}/>
+              </div>
+              <div className={classes.field}>
+                <label for="position"><Icon name='puzzle piece' className={classes.icon} size="large"/></label>
+                <Dropdown id="position" className={classes.dropdown} placeholder='Selecciona la posición' search selection clearable options={arrPositions} value={positionState} onChange={(event, {value}) => setPositionState({value}.value)}/>
+              </div>
             </div>
-            <div className={classes.field}>
-              <label for="value"><Icon name='money' className={classes.icon} size="large"/></label>
-              <input type="number" id="value" placeholder="Valor" value={valueState} onChange={(event) => setValueState(event.target.value)}/>
-            </div>
-            <div className={classes.field}>
-              <label for="pace"><Icon name='address card' className={classes.icon} size="large"/></label>
-              <input type="number" id="pace" placeholder="Ritmo" value={paceState} onChange={(event) => setPaceState(event.target.value)}/>
-            </div>
-            <div className={classes.field}>
-              <label for="shooting"><Icon name='address card' className={classes.icon} size="large"/></label>
-              <input type="number" id="shooting" placeholder="Tiro" value={shootingState} onChange={(event) => setShootingState(event.target.value)}/>
-            </div>
-            <div className={classes.field}>
-              <label for="passing"><Icon name='address card' className={classes.icon} size="large"/></label>
-              <input type="number" id="passing" placeholder="Pase" value={passingState} onChange={(event) => setPassingState(event.target.value)}/>
-            </div>
-            <div className={classes.field}>
-              <label for="dribbling"><Icon name='address card' className={classes.icon} size="large"/></label>
-              <input type="number" id="dribbling" placeholder="Regate" value={dribblingState} onChange={(event) => setDribblingState(event.target.value)}/>
-            </div>
-            <div className={classes.field}>
-              <label for="defending"><Icon name='address card' className={classes.icon} size="large"/></label>
-              <input type="number" id="defending" placeholder="Defensa" value={defendingState} onChange={(event) => setDefendingState(event.target.value)}/>
-            </div>
-            <div className={classes.field}>
-              <label for="physicality"><Icon name='address card' className={classes.icon} size="large"/></label>
-              <input type="number" id="physicality" placeholder="Físico" value={physicalityState} onChange={(event) => setPhysicalityState(event.target.value)}/>
-            </div>
-            <div className={classes.field}>
-              <label for="type"><Icon name='square' className={classes.icon} size="large"/></label>
-              <Dropdown id="type" className={classes.dropdown} placeholder='Selecciona el tipo' search selection clearable options={arrTypes} value={typeState} onChange={(event, {value}) => setTypeState({value}.value)}/>
-            </div>
-            <div className={classes.field}>
-              <label for="player"><Icon name='user' className={classes.icon} size="large"/></label>
-              <Dropdown id="player" className={classes.dropdown} placeholder='Selecciona el jugador' search selection clearable options={arrPlayers} value={playerState} onChange={(event, {value}) => setPlayerState({value}.value)}/>
-            </div>
-            <div className={classes.field}>
-              <label for="team"><Icon name='shield' className={classes.icon} size="large"/></label>
-              <Dropdown id="team" className={classes.dropdown} placeholder='Selecciona el equipo' search selection clearable options={arrTeams} value={teamState} onChange={(event, {value}) => setTeamState({value}.value)}/>
-            </div>
-            <div className={classes.field}>
-              <label for="country"><Icon name='flag' className={classes.icon} size="large"/></label>
-              <Dropdown id="country" className={classes.dropdown} placeholder='Selecciona el país' search selection clearable options={arrCountries} value={countryState} onChange={(event, {value}) => setCountryState({value}.value)}/>
-            </div>
-            <div className={classes.field}>
-              <label for="position"><Icon name='puzzle piece' className={classes.icon} size="large"/></label>
-              <Dropdown id="position" className={classes.dropdown} placeholder='Selecciona la posición' search selection clearable options={arrPositions} value={positionState} onChange={(event, {value}) => setPositionState({value}.value)}/>
-            </div>
-
             <button type="submit">
               {activeCardState ?
                 <Fragment>
@@ -713,7 +759,7 @@ const Cards = props => {
           </form>
         </div>
 
-        /*---------- End Form View ----------------------------------------*/
+        /*---------- End Form View ------------------------------------------*/
 
       :null
       }

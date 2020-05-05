@@ -106,13 +106,20 @@ class Controller extends BaseController
         a.dribbling AS card_dribbling,
         a.defending AS card_defending,
         a.physicality AS card_physicality,
+        a.good_leg AS card_good_leg,
+        a.skills AS card_skills,
+        a.bad_leg AS card_bad_leg,
         b.id AS type_id,
         b.name AS type_name,
         b.image AS type_image,
         b.image_mini AS type_image_mini,
         b.text_color AS type_text_color,
+        b.rare AS type_rare,
+        b.special AS type_special,
         c.id AS player_id,
         c.name AS player_name,
+        c.full_name AS player_full_name,
+        c.birth AS player_birth,
         c.image AS player_image,
         d.id AS team_id,
         d.name AS team_name,
@@ -132,9 +139,64 @@ class Controller extends BaseController
         INNER JOIN teams d ON a.id_team = d.id
         INNER JOIN countries e ON a.id_country = e.id
         INNER JOIN positions f ON a.id_position = f.id
-        INNER JOIN leagues g ON d.id_league = g.id"
+        INNER JOIN leagues g ON d.id_league = g.id
+        ORDER BY card_rating DESC"
     ));
 
     return $cards;
+  }
+
+  protected function getClubCards($id_club){
+    $club_cards = DB::select(DB::raw(
+      "SELECT b.id AS card_id,
+        b.rating AS card_rating,
+        b.value AS card_value,
+        b.pace AS card_pace,
+        b.shooting AS card_shooting,
+        b.passing AS card_passing,
+        b.dribbling AS card_dribbling,
+        b.defending AS card_defending,
+        b.physicality AS card_physicality,
+        b.good_leg AS card_good_leg,
+        b.skills AS card_skills,
+        b.bad_leg AS card_bad_leg,
+        c.id AS type_id,
+        c.name AS type_name,
+        c.image AS type_image,
+        c.image_mini AS type_image_mini,
+        c.text_color AS type_text_color,
+        c.rare AS type_rare,
+        c.special AS type_special,
+        d.id AS player_id,
+        d.name AS player_name,
+        d.full_name AS player_full_name,
+        d.birth AS player_birth,
+        d.image AS player_image,
+        e.id AS team_id,
+        e.name AS team_name,
+        e.image AS team_image,
+        f.id AS country_id,
+        f.name AS country_name,
+        f.image AS country_image,
+        g.id AS position_id,
+        g.name AS position_name,
+        g.abbreviation AS position_abbreviation,
+        h.id AS league_id,
+        h.name AS league_name,
+        h.image AS league_image
+      FROM clubs_cards a
+        INNER JOIN cards b ON a.id_card = b.id
+        INNER JOIN cards_types c ON b.id_type = c.id
+        INNER JOIN players d ON b.id_player = d.id
+        INNER JOIN teams e ON b.id_team = e.id
+        INNER JOIN countries f ON b.id_country = f.id
+        INNER JOIN positions g ON b.id_position = g.id
+        INNER JOIN leagues h ON e.id_league = h.id
+      WHERE a.id_club=:id_club
+      ORDER BY card_rating DESC"
+
+    ), ['id_club'=>$id_club]);
+
+    return $club_cards;
   }
 }

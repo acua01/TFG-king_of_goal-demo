@@ -31,7 +31,7 @@ const styles = {
         letterSpacing:'2px',
         fontSize:'35px'
       },
-      '& > div':{
+      '& > div.tableContainer':{
         width:'80%',
         overflowX:'auto !important'
       },

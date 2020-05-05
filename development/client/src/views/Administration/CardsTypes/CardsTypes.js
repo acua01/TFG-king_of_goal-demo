@@ -58,6 +58,7 @@ const CardsTypes = props => {
   const [nameState, setNameState] = useState('');
   const [imageState, setImageState] = useState('');
   const [rareState, setRareState] = useState(false);
+  const [specialState, setSpecialState] = useState(false);
   const [imageMiniState, setImageMiniState] = useState('');
   const [textColorState, setTextColorState] = useState('');
 
@@ -77,7 +78,7 @@ const CardsTypes = props => {
     * Created on: 17/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
-
+    /*
     useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio/admin/tipos_cartas');
@@ -85,7 +86,7 @@ const CardsTypes = props => {
         history.push('/');
       }
     },[state.app.authentication.auth]);
-
+    */
     /*
     *--------------------------------------------------------------------------
     * Description: If the user isn't auth, redirect to login view
@@ -95,7 +96,7 @@ const CardsTypes = props => {
     * Created on: 17/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
-
+    /*
     useEffect(() => {
       if(state.app.authentication.admin){
         history.push('/inicio/admin/tipos_cartas');
@@ -103,7 +104,7 @@ const CardsTypes = props => {
         history.push('/');
       }
     },[state.app.authentication.auth, state.app.authentication.admin]);
-
+    */
     /*
     *--------------------------------------------------------------------------
     * Description: Load cards types when cards types state change
@@ -135,12 +136,14 @@ const CardsTypes = props => {
         setImageMiniState(activeCardTypeState.image_mini);
         setTextColorState(activeCardTypeState.text_color);
         setRareState(activeCardTypeState.rare);
+        setSpecialState(activeCardTypeState.special);
       }else{
         setNameState('');
         setImageState('');
         setImageMiniState('');
         setTextColorState('');
         setRareState(false);
+        setSpecialState(false);
       }
     },[activeCardTypeState]);
 
@@ -166,6 +169,7 @@ const CardsTypes = props => {
       setImageMiniState('');
       setTextColorState('');
       setRareState(false);
+      setSpecialState(false);
       setViewState('form');
     }
 
@@ -187,6 +191,7 @@ const CardsTypes = props => {
       setImageMiniState('');
       setTextColorState('');
       setRareState(false);
+      setSpecialState(false);
       setViewState('table');
     }
 
@@ -240,6 +245,7 @@ const CardsTypes = props => {
           imageMini:imageMiniState,
           textColor:textColorState,
           rare:rareState,
+          special:specialState,
         });
       }else{
         errors.map(error => {
@@ -272,6 +278,7 @@ const CardsTypes = props => {
           imageMini:imageMiniState,
           textColor:textColorState,
           rare:rareState,
+          special:specialState,
         });
       }else{
         errors.map(error => {
@@ -392,9 +399,9 @@ const CardsTypes = props => {
           <td>
 
           {cardType.image ?
-            <img src={urlServer + cardType.image} width="60" alt={cardType.name}/>
+            <img src={urlServer + cardType.image} width="80" alt={cardType.name}/>
           :
-            <img src={urlServer + '/storage/card_type.png'} width="60" alt={cardType.name}/>
+            <img src={urlServer + '/storage/card_type.png'} width="80" alt={cardType.name}/>
           }
 
           </td>
@@ -414,6 +421,7 @@ const CardsTypes = props => {
           </td>
           <td>{cardType.name}</td>
           <td>{cardType.rare ? 'Sí' : 'No'}</td>
+          <td>{cardType.special ? 'Sí' : 'No'}</td>
           <td>
             <div className={classes.actions}>
               <div title="Editar" onClick={() => onClickUpdateButtonHandler(cardType.id)}>
@@ -439,11 +447,17 @@ const CardsTypes = props => {
         <div className={classes.cardsTypesTableView}>
           <h1>Tipos de cartas</h1>
 
+          <button onClick={onClickAddButtonHandler}>
+            <Icon name='add'/>
+            <span>Añadir</span>
+          </button>
+
           {state.app.cardsTypes.all.length > 0 ?
             <Fragment>
 
               {/*---------- Table ------------------------------------------*/}
-              <div>
+
+              <div className="tableContainer">
                 <table>
                   <thead>
                     <tr>
@@ -452,6 +466,7 @@ const CardsTypes = props => {
                       <th>Color texto</th>
                       <th>Nombre</th>
                       <th>Único</th>
+                      <th>Especial</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -553,6 +568,10 @@ const CardsTypes = props => {
 
             <div className={classes.checkboxField}>
               <Checkbox label='Único' checked={rareState} onClick={(event, data) => setRareState(data.checked)}/>
+            </div>
+
+            <div className={classes.checkboxField}>
+              <Checkbox label='Especial' checked={specialState} onClick={(event, data) => setSpecialState(data.checked)}/>
             </div>
 
             <button type="submit">

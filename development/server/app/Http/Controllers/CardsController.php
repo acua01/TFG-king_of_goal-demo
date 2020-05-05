@@ -107,6 +107,9 @@ class CardsController extends Controller{
     $dribbling = $request['dribbling'];
     $defending = $request['defending'];
     $physicality = $request['physicality'];
+    $goodLeg = $request['goodLeg'];
+    $skills = $request['skills'];
+    $badLeg = $request['badLeg'];
     $idType = $request['idType'];
     $idPlayer = $request['idPlayer'];
     $idTeam = $request['idTeam'];
@@ -114,7 +117,7 @@ class CardsController extends Controller{
     $idPosition = $request['idPosition'];
 
     try{
-      DB::statement("INSERT INTO cards VALUES(NULL, :rating, :value, :pace, :shooting, :passing, :dribbling, :defending, :physicality, :idType, :idPlayer, :idTeam, :idCountry, :idPosition)", [
+      DB::statement("INSERT INTO cards VALUES(NULL, :rating, :value, :pace, :shooting, :passing, :dribbling, :defending, :physicality, :goodLeg, :skills, :badLeg, :idType, :idPlayer, :idTeam, :idCountry, :idPosition)", [
         'rating'=>$rating,
         'value'=>$value,
         'pace'=>$pace,
@@ -123,6 +126,9 @@ class CardsController extends Controller{
         'dribbling'=>$dribbling,
         'defending'=>$defending,
         'physicality'=>$physicality,
+        'goodLeg'=>$goodLeg,
+        'skills'=>$skills,
+        'badLeg'=>$badLeg,
         'idType'=>$idType,
         'idPlayer'=>$idPlayer,
         'idTeam'=>$idTeam,
@@ -237,6 +243,9 @@ class CardsController extends Controller{
     $dribbling = $request['dribbling'];
     $defending = $request['defending'];
     $physicality = $request['physicality'];
+    $goodLeg = $request['goodLeg'];
+    $skills = $request['skills'];
+    $badLeg = $request['badLeg'];
     $idType = $request['idType'];
     $idPlayer = $request['idPlayer'];
     $idTeam = $request['idTeam'];
@@ -254,6 +263,9 @@ class CardsController extends Controller{
           dribbling=:dribbling,
           defending=:defending,
           physicality=:physicality,
+          good_leg=:goodLeg,
+          skills=:skills,
+          bad_leg=:badLeg,
           id_type=:idType,
           id_player=:idPlayer,
           id_team=:idTeam,
@@ -268,6 +280,9 @@ class CardsController extends Controller{
         'dribbling'=>$dribbling,
         'defending'=>$defending,
         'physicality'=>$physicality,
+        'goodLeg'=>$goodLeg,
+        'skills'=>$skills,
+        'badLeg'=>$badLeg,
         'idType'=>$idType,
         'idPlayer'=>$idPlayer,
         'idTeam'=>$idTeam,

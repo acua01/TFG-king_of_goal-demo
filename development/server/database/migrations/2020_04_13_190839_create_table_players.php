@@ -20,6 +20,7 @@ class CreateTablePlayers extends Migration
           $table->string('full_name', 255);
           $table->string('image', 500)->nullable(true);
           $table->integer('height');
+          $table->date('birth');
         });
     }
 

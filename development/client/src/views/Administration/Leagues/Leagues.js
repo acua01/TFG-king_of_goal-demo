@@ -388,12 +388,17 @@ const Leagues = props => {
         <div className={classes.leaguesTableView}>
           <h1>Ligas</h1>
 
+          <button onClick={onClickAddButtonHandler}>
+            <Icon name='add'/>
+            <span>Añadir</span>
+          </button>
+
           {state.app.leagues.all.length > 0 ?
             <Fragment>
 
               {/*---------- Table ------------------------------------------*/}
 
-              <div>
+              <div className="tableContainer">
                 <table>
                   <thead>
                     <tr>
@@ -407,7 +412,6 @@ const Leagues = props => {
                   </tbody>
                 </table>
               </div>
-
 
               {/*---------- End Table --------------------------------------*/}
 

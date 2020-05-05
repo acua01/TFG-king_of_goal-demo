@@ -4,7 +4,7 @@ import {showSnackbar, showMessages, strToBool} from '../shared/utils';
 
 export const useActionsServerRequests = (state, dispatch) => {
 
-  const askForFirstLoad = async() => {
+  const askForFirstLoad = async(data) => {
     try{
       dispatch({
         type: types.GENERAL_TYPE,
@@ -15,7 +15,7 @@ export const useActionsServerRequests = (state, dispatch) => {
         }
       });
 
-      const response = await axios.post('/first_load');
+      const response = await axios.post('/first_load', data);
 
       dispatch({
         type: types.GENERAL_TYPE,
@@ -70,6 +70,14 @@ export const useActionsServerRequests = (state, dispatch) => {
         section:'cards',
         data:{
           all: response.data.cards
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'clubCards',
+        data: {
+          all: response.data.club_cards
         }
       });
 
@@ -154,6 +162,7 @@ export const useActionsServerRequests = (state, dispatch) => {
       sessionStorage.setItem('token', response.data.token);
       sessionStorage.setItem('admin', response.data.is_admin);
       sessionStorage.setItem('username', response.data.user.username);
+      //sessionStorage.setItem('cards', JSON.stringify(response.data.club_cards));
 
       dispatch({
         type: types.GENERAL_TYPE,
@@ -162,11 +171,12 @@ export const useActionsServerRequests = (state, dispatch) => {
           auth: true,
           admin: response.data.is_admin,
           username: response.data.user.username,
-          club: response.data.user.id_club ? response.data.club : false
+          club: response.data.user.id_club ? response.data.club : false,
+          //cards: response.data.club_cards
         }
       });
 
-      askForFirstLoad();
+      //askForFirstLoad();
 
       if(response.data.user.id_club){
         sessionStorage.setItem('club', JSON.stringify(response.data.club));

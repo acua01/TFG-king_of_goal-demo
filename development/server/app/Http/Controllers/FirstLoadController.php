@@ -6,7 +6,8 @@ use DB;
 
 class FirstLoadController extends Controller{
 
-  public function getAll(){
+  public function getAll(Request $request){
+    $idClub = $request['idClub'];
     try{
       $players = Controller::getAllPlayers();
       $countries = Controller::getAllCountries();
@@ -15,6 +16,7 @@ class FirstLoadController extends Controller{
       $teams = Controller::getAllTeams();
       $positions = Controller::getAllPositions();
       $cards = Controller::getAllCards();
+      $club_cards = Controller::getClubCards($idClub);
 
       return response()->json([
         'players'=>$players,
@@ -23,7 +25,8 @@ class FirstLoadController extends Controller{
         'leagues'=>$leagues,
         'teams'=>$teams,
         'positions'=>$positions,
-        'cards'=>$cards
+        'cards'=>$cards,
+        'club_cards'=>$club_cards,
       ], 200);
     }catch(\Exception $e){
       return response()->json(['message'=>$this->getErrorMessage($e)], 500);

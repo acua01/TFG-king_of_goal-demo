@@ -31,7 +31,7 @@ const styles = {
         letterSpacing:'2px',
         fontSize:'35px'
       },
-      '& > div':{
+      '& > div.tableContainer':{
         width:'80%',
         overflowX:'auto !important'
       },
@@ -191,13 +191,18 @@ const styles = {
         color:'#ff6600',
       },
       '& form':{
+        width:'90%',
         marginTop:'20px',
-        minWidth:'600px',
+        //minWidth:'600px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
       },
-
+      '& form > div':{
+        width:'100%',
+        display:'flex',
+        flexWrap:'wrap',
+      },
       '& form button[type="submit"]':{
         fontFamily:'Anelize',
         margin:'20px 0',
@@ -214,7 +219,7 @@ const styles = {
     },
 
     'field':{
-      width:'100%',
+      width:'33.333%',
       display: 'flex',
       justifyContent:'center',
       margin:'10px 0',
@@ -230,45 +235,10 @@ const styles = {
       },
       '& input':{
         backgroundColor:'#cccccc',
-        width:'40%',
+        width:'70%',
         border:'none',
         paddingLeft:'5px',
         fontFamily:'Anelize'
-      }
-    },
-
-    'fileField':{
-      width:'100%',
-      display: 'flex',
-      justifyContent:'center',
-      margin:'10px 0',
-      '& > div':{
-        width:'35%',
-        display: 'flex',
-        justifyContent:'center',
-        alignItems:'center',
-        backgroundColor:'#cccccc',
-      },
-      '& > div > div':{
-        width:'100%',
-      },
-      '& > label':{
-        backgroundColor: '#333333',
-        color:'white',
-        padding:'10px'
-      },
-      '& input':{
-        backgroundColor:'#cccccc',
-        width:'100%',
-        border:'none',
-        paddingLeft:'5px',
-        fontFamily:'Anelize'
-      },
-      '& > button':{
-        backgroundColor:'#cccccc',
-        width:'5%',
-        border:'none',
-        cursor:'pointer'
       }
     },
 
@@ -279,26 +249,58 @@ const styles = {
     },
 
     'dropdown':{
-      width:'40% !important',
+      width:'70% !important',
       display:'flex !important',
       alignItems:'center !important',
       backgroundColor:'#cccccc !important',
       border:'none !important',
       borderRadius:'0 !important',
+      minWidth:'0 !important',
       '& > input':{
+        width:'100% !important',
         paddingLeft:'5px !important',
         marginTop:'3px !important'
       },
       '& div.default':{
+        width:'100% !important',
         color:'rgba(0,0,0,.5) !important',
         fontFamily:'Anelize !important',
         marginLeft:'-20px !important'
       },
       '& div.text':{
+        width:'100% !important',
         fontFamily:'Anelize !important',
         marginLeft:'-20px !important'
       }
-    }
+    },
+
+    // Field Responsive
+
+    '@media screen and (max-width:920px)':{
+      'field':{
+        width:'50%',
+        '& input':{
+          width:'50%',
+        }
+      },
+
+      'dropdown':{
+        width:'50% !important',
+      }
+    },
+
+    '@media screen and (max-width:664px)':{
+      'field':{
+        width:'100%',
+        '& input':{
+          width:'50%',
+        }
+      },
+
+      'dropdown':{
+        width:'50% !important',
+      }
+    },
 
     /*---------- End Form View ----------------------------------------------*/
 

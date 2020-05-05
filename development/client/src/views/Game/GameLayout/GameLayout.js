@@ -145,7 +145,13 @@ const GameLayout = props => {
 
     const htmlSidebarItems = sidebarItems.map((item, index) => {
       const htmlItem = (
-        <Menu.Item as='a' className={classes.sidebarItem} onClick={() => {window.scrollTo(0,0);history.push(item.route)}}>
+        <Menu.Item as='a'
+          className={classes.sidebarItem}
+          onClick={() => {
+            window.scrollTo(0,0);
+            history.push(item.route);
+            setSidebarDisplayState(false);
+          }}>
           <Icon name={item.icon} />
           {item.title}
         </Menu.Item>
@@ -184,7 +190,7 @@ const GameLayout = props => {
             <p>{state.app.authentication.club.name}</p>
             <p>{state.app.authentication.username}</p>
           </div>
-          <Menu.Item as='a' className={classes.sidebarItem} onClick={() => history.push('/')}>
+          <Menu.Item as='a' className={classes.sidebarItem} onClick={() => {history.push('/');setSidebarDisplayState(false);}}>
             <Icon name='home' />
             Inicio
           </Menu.Item>

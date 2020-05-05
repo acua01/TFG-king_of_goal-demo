@@ -51,7 +51,7 @@
 
 const Card = props => {
 
-  const {classes, extraClasses, type, textColor, player, rating, position, country, team, name, pace, shooting, passing, dribbling, defending, physicality} = props;
+  const {classes, click, extraClasses, type, textColor, player, rating, position, country, team, name, pace, shooting, passing, dribbling, defending, physicality} = props;
 
   /*========== VARIABLES ====================================================*/
 
@@ -60,21 +60,36 @@ const Card = props => {
   return(
     <div
       className={classNames(classes.card, extraClasses)}
+      onClick={click}
       style={{'background-image':'url("' + urlServer + type + '")', 'color':textColor}}
     >
       <img className="player" src={urlServer + player}/>
       <span className="rating">{rating}</span>
-      <span className="position">{position}</span>
+      <div className="position">
+        <span >{position}</span>
+      </div>
       <img className="country" src={urlServer + country}/>
       <img className="team" src={urlServer + team}/>
       <div className="name"><span>{name}</span></div>
       <div className="stats">
-        <span className="pace"><span>{pace}</span>{' rit'}</span>
-        <span className="dribbling"><span>{dribbling}</span>{' reg'}</span>
-        <span className="shooting"><span>{shooting}</span>{' tir'}</span>
-        <span className="defending"><span>{defending}</span>{' def'}</span>
-        <span className="passing"><span>{passing}</span>{' pas'}</span>
-        <span className="physicality"><span>{physicality}</span>{' fis'}</span>
+        <span className="pace">
+          <span>{pace}</span>{position === 'por' ? ' est' : ' rit'}
+        </span>
+        <span className="dribbling">
+          <span>{dribbling}</span>{position === 'por' ? ' ref' : ' reg'}
+        </span>
+        <span className="shooting">
+          <span>{shooting}</span>{position === 'por' ? ' par' : ' tir'}
+        </span>
+        <span className="defending">
+          <span>{defending}</span>{position === 'por' ? ' vel' : ' def'}
+        </span>
+        <span className="passing">
+          <span>{passing}</span>{position === 'por' ? ' saq' : ' pas'}
+        </span>
+        <span className="physicality">
+          <span>{physicality}</span>{position === 'por' ? ' pos' : ' fis'}
+        </span>
       </div>
     </div>
   );

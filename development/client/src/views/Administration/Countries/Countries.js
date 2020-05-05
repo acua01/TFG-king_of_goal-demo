@@ -388,12 +388,17 @@ const Countries = props => {
         <div className={classes.countriesTableView}>
           <h1>Países</h1>
 
+          <button onClick={onClickAddButtonHandler}>
+            <Icon name='add'/>
+            <span>Añadir</span>
+          </button>
+
           {state.app.countries.all.length > 0 ?
             <Fragment>
 
               {/*---------- Table ------------------------------------------*/}
 
-              <div>
+              <div className="tableContainer">
                 <table>
                   <thead>
                     <tr>

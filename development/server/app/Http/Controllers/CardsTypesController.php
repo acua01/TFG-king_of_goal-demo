@@ -58,6 +58,7 @@ class CardsTypesController extends Controller{
     $imageMini = $request['imageMini'];
     $textColor = $request['textColor'];
     $rare = $request['rare'];
+    $special = $request['special'];
 
     try{
       // Image
@@ -94,12 +95,13 @@ class CardsTypesController extends Controller{
         $urlImageMini = null;
       }
 
-      DB::statement("INSERT INTO cards_types VALUES(NULL, :name, :image, :image_mini, :text_color, :rare)", [
+      DB::statement("INSERT INTO cards_types VALUES(NULL, :name, :image, :image_mini, :text_color, :rare, :special)", [
         'name'=>$name,
         'image'=>$urlImage,
         'image_mini'=>$urlImageMini,
         'text_color'=>$textColor,
         'rare'=>$rare,
+        'special'=>$special,
       ]);
 
       $cardsTypes = Controller::getAllCardsTypes();
@@ -157,6 +159,7 @@ class CardsTypesController extends Controller{
     $imageMini = $request['imageMini'];
     $textColor = $request['textColor'];
     $rare = $request['rare'];
+    $special = $request['special'];
 
     try{
       // Image
@@ -201,12 +204,13 @@ class CardsTypesController extends Controller{
         $urlImageMini = null;
       }
 
-      DB::statement("UPDATE cards_types SET name=:name, image=:image, image_mini=:image_mini, text_color=:text_color, rare=:rare WHERE id=:id", [
+      DB::statement("UPDATE cards_types SET name=:name, image=:image, image_mini=:image_mini, text_color=:text_color, rare=:rare, special=:special WHERE id=:id", [
         'name'=>$name,
         'image'=>$urlImage,
         'image_mini'=>$urlImageMini,
         'text_color'=>$textColor,
         'rare'=>$rare,
+        'special'=>$special,
         'id'=>$id,
       ]);
 

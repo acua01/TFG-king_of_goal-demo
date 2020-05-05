@@ -38,6 +38,9 @@ const initialStateMain = {
   cards: {
     all: []
   },
+  clubCards:{
+    all: []
+  }
 };
 
 const types = {

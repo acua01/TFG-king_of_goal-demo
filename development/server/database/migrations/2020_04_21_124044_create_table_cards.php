@@ -24,6 +24,9 @@ class CreateTableCards extends Migration
           $table->integer('dribbling');
           $table->integer('defending');
           $table->integer('physicality');
+          $table->string('good_leg', 20);
+          $table->integer('skills');
+          $table->integer('bad_leg');
         });
     }
 

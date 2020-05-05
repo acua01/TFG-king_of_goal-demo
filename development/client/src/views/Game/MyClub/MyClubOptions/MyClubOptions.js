@@ -187,7 +187,7 @@ const MyClubOptions = props => {
       arrLeagues.push({
         key: index,
         text: league.name,
-        image: {avatar: true, src: urlServer + league.image},
+        image: {avatar: false, src: urlServer + league.image},
         value: league.id,
       });
     });

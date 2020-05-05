@@ -71,6 +71,7 @@ class PlayersController extends Controller{
     $full_name = $request['full_name'];
     $image = $request['image'];
     $height = $request['height'];
+    $birth = $request['birth'];
 
     try{
       if($image){
@@ -88,11 +89,12 @@ class PlayersController extends Controller{
         $url = null;
       }
 
-      DB::statement("INSERT INTO players VALUES(NULL, :name, :full_name, :image, :height)", [
+      DB::statement("INSERT INTO players VALUES(NULL, :name, :full_name, :image, :height, :birth)", [
         'name'=>$name,
         'full_name'=>$full_name,
         'image'=>$url,
         'height'=>$height,
+        'birth'=>$birth,
       ]);
 
       $players = Controller::getAllPlayers();
@@ -162,6 +164,7 @@ class PlayersController extends Controller{
     $full_name = $request['full_name'];
     $image = $request['image'];
     $height = $request['height'];
+    $birth = $request['birth'];
 
     try{
       if($image){
@@ -183,11 +186,12 @@ class PlayersController extends Controller{
         $url = null;
       }
 
-      DB::statement("UPDATE players SET name=:name, full_name=:full_name, image=:image, height=:height WHERE id=:id", [
+      DB::statement("UPDATE players SET name=:name, full_name=:full_name, image=:image, height=:height, birth=:birth WHERE id=:id", [
         'name'=>$name,
         'full_name'=>$full_name,
         'image'=>$url,
         'height'=>$height,
+        'birth'=>$birth,
         'id'=>$id,
       ]);
 

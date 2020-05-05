@@ -31,20 +31,25 @@ const styles = {
         letterSpacing:'2px',
         fontSize:'35px'
       },
-      '& table':{
-        margin:'20px 0'
+      '& > div.tableContainer':{
+        width:'80%',
+        overflowX:'auto !important'
       },
-      '& table th, & table td':{
+      '& > div table':{
+        margin:'20px 0',
+        width:'100%'
+      },
+      '& > div table th, & > div table td':{
         textAlign: 'center',
         padding:'10px 20px',
         fontFamily:'Anelize'
       },
-      '& table th':{
+      '& > div table th':{
         backgroundColor: '#ff6600',
         color:'white',
         fontSize:'16px'
       },
-      '& table td':{
+      '& > div table td':{
         backgroundColor: '#e6e6e6'
       },
       '& > button':{
@@ -64,6 +69,7 @@ const styles = {
 
     'actions':{
       display:'flex',
+      justifyContent:'center',
       alignItems:'center',
       '& > div':{
         padding:'3px 5px',

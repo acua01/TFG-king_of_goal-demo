@@ -59,6 +59,7 @@ const Players = props => {
   const [fullNameState, setFullNameState] = useState('');
   const [imageState, setImageState] = useState('');
   const [heightState, setHeightState] = useState('');
+  const [birthState, setBirthState] = useState('');
 
   const [activePageState, setActivePageState] = useState(1);
   const [itemsPerPageState, setItemsPerPageState] = useState(10);
@@ -133,11 +134,13 @@ const Players = props => {
         setFullNameState(activePlayerState.full_name);
         setImageState(activePlayerState.image);
         setHeightState(activePlayerState.height);
+        setBirthState(activePlayerState.birth);
       }else{
         setNameState('');
         setFullNameState('');
         setImageState('');
         setHeightState('');
+        setBirthState('');
       }
     },[activePlayerState]);
 
@@ -162,6 +165,7 @@ const Players = props => {
       setFullNameState('');
       setImageState('');
       setHeightState('');
+      setBirthState('');
       setViewState('form');
     }
 
@@ -182,6 +186,7 @@ const Players = props => {
       setFullNameState('');
       setImageState('');
       setHeightState('');
+      setBirthState('');
       setViewState('table');
     }
 
@@ -248,6 +253,7 @@ const Players = props => {
           full_name:fullNameState,
           image:imageState,
           height:heightState,
+          birth:birthState,
         });
       }else{
         errors.map(error => {
@@ -280,6 +286,7 @@ const Players = props => {
           full_name:fullNameState,
           image:imageState,
           height:heightState,
+          birth:birthState,
         });
       }else{
         errors.map(error => {
@@ -395,6 +402,7 @@ const Players = props => {
           <td>{player.name}</td>
           <td>{player.full_name}</td>
           <td>{player.height + ' cm'}</td>
+          <td>{player.birth}</td>
           <td>
             <div className={classes.actions}>
               <div title="Editar" onClick={() => onClickUpdateButtonHandler(player.id)}>
@@ -420,25 +428,32 @@ const Players = props => {
         <div className={classes.playersTableView}>
           <h1>Jugadores</h1>
 
+          <button onClick={onClickAddButtonHandler}>
+            <Icon name='add'/>
+            <span>Añadir</span>
+          </button>
+
           {state.app.players.all.length > 0 ?
             <Fragment>
 
               {/*---------- Table ------------------------------------------*/}
-
-              <table>
-                <thead>
-                  <tr>
-                    <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>Nombre completo</th>
-                    <th>Altura</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {htmlPlayers}
-                </tbody>
-              </table>
+              <div className="tableContainer">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Imagen</th>
+                      <th>Nombre</th>
+                      <th>Nombre completo</th>
+                      <th>Altura</th>
+                      <th>Fecha nacimiento</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {htmlPlayers}
+                  </tbody>
+                </table>
+              </div>
 
               {/*---------- End Table --------------------------------------*/}
 
@@ -512,6 +527,10 @@ const Players = props => {
             <div className={classes.field}>
               <label for="height"><Icon name='male' className={classes.icon} size="large"/></label>
               <input type="text" id="height" placeholder="Altura" value={heightState} onChange={(event) => setHeightState(event.target.value)}/>
+            </div>
+            <div className={classes.field}>
+              <label for="birth"><Icon name='birthday cake' className={classes.icon} size="large"/></label>
+              <input type="date" id="birth" placeholder="Fecha de nacimiento" value={birthState} onChange={(event) => setBirthState(event.target.value)}/>
             </div>
             <div className={classes.fileField}>
               <label for="image"><Icon name='file image' className={classes.icon} size="large"/></label>

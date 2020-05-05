@@ -359,22 +359,29 @@ const Permissions = props => {
         <div className={classes.permissionsTableView}>
           <h1>Permisos del super-admin</h1>
 
+          <button onClick={onClickAddButtonHandler}>
+            <Icon name='add'/>
+            <span>Añadir</span>
+          </button>
+
           {state.app.permissions.all.length > 0 ?
             <Fragment>
 
               {/*---------- Table ------------------------------------------*/}
 
-              <table>
-                <thead>
-                  <tr>
-                    <th>Permiso</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {htmlPermissions}
-                </tbody>
-              </table>
+              <div className="tableContainer">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Permiso</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {htmlPermissions}
+                  </tbody>
+                </table>
+              </div>
 
               {/*---------- End Table --------------------------------------*/}
 

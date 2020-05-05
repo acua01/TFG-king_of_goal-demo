@@ -409,7 +409,7 @@ const Teams = props => {
       arrLeagues.push({
         key: index,
         text: league.name,
-        image: {avatar: true, src: urlServer + league.image},
+        image: {avatar: false, src: urlServer + league.image},
         value: league.id,
       });
     });
@@ -425,24 +425,31 @@ const Teams = props => {
         <div className={classes.teamsTableView}>
           <h1>Equipos</h1>
 
+          <button onClick={onClickAddButtonHandler}>
+            <Icon name='add'/>
+            <span>Añadir</span>
+          </button>
+
           {state.app.teams.all.length > 0 ?
             <Fragment>
 
               {/*---------- Table ------------------------------------------*/}
 
-              <table>
-                <thead>
-                  <tr>
-                    <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>League</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {htmlTeams}
-                </tbody>
-              </table>
+              <div className="tableContainer">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Imagen</th>
+                      <th>Nombre</th>
+                      <th>League</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {htmlTeams}
+                  </tbody>
+                </table>
+              </div>
 
               {/*---------- End Table --------------------------------------*/}
 

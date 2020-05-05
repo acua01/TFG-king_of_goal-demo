@@ -15,7 +15,7 @@ class AddRelationshipsToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
           // Relationships
-          $table->bigInteger('id_club')->unsigned()->nullable(true);
+          $table->bigInteger('id_club')->unsigned()->nullable(true)->unique();
 
           //Foreign keys
           $table->foreign('id_club')->references('id')->on('clubs')->onDelete('set null');

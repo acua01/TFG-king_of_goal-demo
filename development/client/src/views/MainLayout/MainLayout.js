@@ -91,8 +91,10 @@ const MainLayout = props => {
     */
 
     useEffect(() => {
-      if(state.app.authentication.auth){
-        actions.askForFirstLoad();
+      if(state.app.authentication.auth && state.app.authentication.club){
+        actions.askForFirstLoad({
+          idClub: state.app.authentication.club.id
+        });
       }
     },[state.app.authentication.auth]);
 

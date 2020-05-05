@@ -9,10 +9,10 @@ const styles = {
     backgroundSize:'100%',
     position:'relative',
     '& > img.player':{
-      width:'85px',
+      width:'83px',
       position:'absolute',
-      top:'35px',
-      left:'62px',
+      top:'37px',
+      left:'59px',
     },
     '& > span.rating':{
       position:'absolute',
@@ -21,12 +21,17 @@ const styles = {
       left:'36px',
       fontSize:'28px'
     },
-    '& > span.position':{
+    '& > div.position':{
       position:'absolute',
+      width:'28px',
+      top:'56px',
+      left:'33px',
+      display:'flex',
+      justifyContent:'center',
+    },
+    '& > div.position > span':{
       textTransform:'uppercase',
       fontFamily: 'DINPro',
-      top:'56px',
-      left:'41px',
     },
     '& > img.country':{
       width:'20px',

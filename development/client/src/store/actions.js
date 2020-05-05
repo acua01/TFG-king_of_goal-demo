@@ -39,7 +39,8 @@ export const useActionsClient = (state, dispatch) => {
           auth: true,
           admin: strToBool(sessionStorage.getItem('admin')),
           username: sessionStorage.getItem('username'),
-          club: sessionStorage.getItem('club') ? JSON.parse(sessionStorage.getItem('club')) : false 
+          club: sessionStorage.getItem('club') ? JSON.parse(sessionStorage.getItem('club')) : false,
+          //cards: sessionStorage.getItem('cards') ? JSON.parse(sessionStorage.getItem('cards')) : false
         }
       });
     }
