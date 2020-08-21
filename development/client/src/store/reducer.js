@@ -40,6 +40,9 @@ const initialStateMain = {
   },
   clubCards:{
     all: []
+  },
+  packs:{
+    all: []
   }
 };
 

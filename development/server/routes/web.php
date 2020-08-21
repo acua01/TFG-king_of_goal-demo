@@ -84,6 +84,13 @@ $router->group(['middleware' => 'auth:api'], function () use($router) {
     $router->post('/delete_card', 'CardsController@delete');
     $router->post('/update_card', 'CardsController@update');
   });
+  $router->group(['middleware' => 'permission:manage packs'], function () use($router) {
+    $router->post('/packs', 'PacksController@getAll');
+    $router->post('/pack_by_id', 'PacksController@getById');
+    $router->post('/insert_pack', 'PacksController@insert');
+    $router->post('/delete_pack', 'PacksController@delete');
+    $router->post('/update_pack', 'PacksController@update');
+  });
 });
 
 $router->post('/register', 'AuthenticationController@register');

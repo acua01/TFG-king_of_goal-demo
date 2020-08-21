@@ -7,18 +7,18 @@ const styles = {
   '@font-face': [
     {
       fontFamily: 'Bebas',
-      //src: 'url("/fonts/BebasNeueRegular.otf")',
-      src: 'url("' + urlServer + '/storage/fonts/BebasNeueRegular.otf")',
+      src: 'url("/fonts/BebasNeueRegular.otf")',
+      //src: 'url("' + urlServer + '/storage/fonts/BebasNeueRegular.otf")',
     },
     {
       fontFamily: 'Anelize',
-      //src: 'url("/fonts/Aneliza.otf")',
-      src: 'url("' + urlServer + '/storage/fonts/Aneliza.otf")',
+      src: 'url("/fonts/Aneliza.otf")',
+      //src: 'url("' + urlServer + '/storage/fonts/Aneliza.otf")',
     },
     {
       fontFamily: 'DINPro',
-      //src: 'url("/fonts/DINPro.otf")',
-      src: 'url("' + urlServer + '/storage/fonts/DINPro.otf")',
+      src: 'url("/fonts/DINPro.otf")',
+      //src: 'url("' + urlServer + '/storage/fonts/DINPro.otf")',
     }
   ],
 

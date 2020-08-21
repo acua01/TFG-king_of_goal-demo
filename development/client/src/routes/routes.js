@@ -15,6 +15,7 @@ import Leagues from '../views/Administration/Leagues/Leagues';
 import CardsTypes from '../views/Administration/CardsTypes/CardsTypes';
 import Teams from '../views/Administration/Teams/Teams';
 import Cards from '../views/Administration/Cards/Cards';
+import Packs from '../views/Administration/Packs/Packs';
 import MyClubLayout from '../views/Game/MyClub/MyClubLayout/MyClubLayout';
 import MyClubMenu from '../views/Game/MyClub/MyClubMenu/MyClubMenu';
 import MyClubOptions from '../views/Game/MyClub/MyClubOptions/MyClubOptions';
@@ -89,6 +90,10 @@ export const adminRoutes = [
   {
     path: '/cartas',
     component: Cards
+  },
+  {
+    path: '/sobres',
+    component: Packs
   },
 ];
 
@@ -219,6 +224,13 @@ export const adminMenuItems = [
     description: 'Cartas.',
     icon: 'users',
     route: '/inicio/admin/cartas',
+    admin:true
+  },
+  {
+    title: 'Sobres',
+    description: 'Sobres.',
+    icon: 'square',
+    route: '/inicio/admin/sobres',
     admin:true
   },
 ];

@@ -202,4 +202,12 @@ class Controller extends BaseController
 
     return $club_cards;
   }
+
+  protected function getAllPacks(){
+    $packs = DB::select(DB::raw(
+      "SELECT * FROM packs ORDER BY price ASC"
+    ));
+
+    return $packs;
+  }
 }

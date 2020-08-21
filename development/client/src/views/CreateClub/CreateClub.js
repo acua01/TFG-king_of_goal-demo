@@ -67,6 +67,14 @@ const CreateClub = props => {
     * Created on: 26/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
+
+    useEffect(() => {
+      //alert('Comprobando auth');
+      actions.askForAllLeagues();
+      actions.askForAllTeams();
+      //alert('auth comprobado');
+    },[state.app.authentication.auth]);
+
     /*
     useEffect(() => {
       if(!state.app.authentication.auth){
@@ -168,7 +176,7 @@ const CreateClub = props => {
       arrLeagues.push({
         key: index,
         text: league.name,
-        image: {avatar: true, src: urlServer + league.image},
+        image: {avatar: false, src: urlServer + league.image},
         value: league.id,
       });
     });

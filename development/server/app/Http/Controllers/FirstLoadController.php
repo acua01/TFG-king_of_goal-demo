@@ -17,6 +17,7 @@ class FirstLoadController extends Controller{
       $positions = Controller::getAllPositions();
       $cards = Controller::getAllCards();
       $club_cards = Controller::getClubCards($idClub);
+      $packs = Controller::getAllPacks();
 
       return response()->json([
         'players'=>$players,
@@ -27,6 +28,7 @@ class FirstLoadController extends Controller{
         'positions'=>$positions,
         'cards'=>$cards,
         'club_cards'=>$club_cards,
+        'packs'=>$packs,
       ], 200);
     }catch(\Exception $e){
       return response()->json(['message'=>$this->getErrorMessage($e)], 500);

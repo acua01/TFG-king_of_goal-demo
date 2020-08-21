@@ -83,6 +83,14 @@ export const useActionsServerRequests = (state, dispatch) => {
 
       dispatch({
         type: types.GENERAL_TYPE,
+        section: 'packs',
+        data: {
+          all: response.data.packs
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
         section: 'loader',
         data: {
           isLoading: false,
@@ -1752,6 +1760,188 @@ export const useActionsServerRequests = (state, dispatch) => {
 
   /*========== END CLUBS ====================================================*/
 
+  /*========== PACKS ======================================================*/
+
+  const askForAllPacks = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/packs');
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'packs',
+        data:{
+          all: response.data.packs
+        }
+      });
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e){
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToInsertPack = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/insert_pack', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'packs',
+        data:{
+          all: response.data.packs
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToDeletePack = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/delete_pack', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'packs',
+        data:{
+          all: response.data.packs
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToUpdatePack = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/update_pack', data);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section:'packs',
+        data:{
+          all: response.data.packs
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  /*========== END PACKS ==================================================*/
+
   return {
 
     askForFirstLoad,
@@ -1840,6 +2030,15 @@ export const useActionsServerRequests = (state, dispatch) => {
     sendRequestToSellCard,
 
     /*---------- End Clubs --------------------------------------------------*/
+
+    /*---------- Packs ----------------------------------------------------*/
+
+    askForAllPacks,
+    sendRequestToInsertPack,
+    sendRequestToDeletePack,
+    sendRequestToUpdatePack,
+
+    /*---------- End Packs ------------------------------------------------*/
 
   };
 };
