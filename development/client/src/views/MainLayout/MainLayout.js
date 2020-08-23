@@ -14,7 +14,7 @@
   /* END JSS */
 
   /* Routes */
-  import {mainLayoutRoutes} from '../../routes/routes';
+  import {routes} from '../../routes/routes';
   /* End Routes */
 
   /* Custom Components */
@@ -48,12 +48,6 @@ const MainLayout = props => {
 
   /*========== USE EFFECT ===================================================*/
 
-    /*
-    *--------------------------------------------------------------------------
-    * Description: Check if the user is auth by the token
-    *--------------------------------------------------------------------------
-    */
-
     useEffect(() => {
       //alert('Comprobando auth');
       actions.checkAuth();
@@ -63,10 +57,6 @@ const MainLayout = props => {
     /*
     *--------------------------------------------------------------------------
     * Description: Check if the user is auth to do the first load
-    *--------------------------------------------------------------------------
-    * Parameters: None
-    *--------------------------------------------------------------------------
-    * Created on: 28/04/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
@@ -88,15 +78,11 @@ const MainLayout = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Name: htmlRoutes
-    *--------------------------------------------------------------------------
     * Description: Contains the HTML of the routes
-    *--------------------------------------------------------------------------
-    * Created on: 21/03/2020 by Acua
     *--------------------------------------------------------------------------
     */
 
-    const htmlRoutes = mainLayoutRoutes.map((route, index) => {
+    const htmlRoutes = routes.map((route, index) => {
       return(
         <Route
           key={index}

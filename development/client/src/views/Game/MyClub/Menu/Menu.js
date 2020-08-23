@@ -6,15 +6,15 @@
   /* End React's packages */
 
   /* JSS */
-  import styles from './MainMenuStyles';
+  import styles from './MenuStyles';
   /* END JSS */
 
   /* Routes */
-  import {mainMenuItems} from '../../../routes/mainMenu';
+  import {myClubMenuItems} from '../../../../routes/myClub';
   /* End Routes */
 
   /* Custom Components */
-  import MenuItem from '../../../components/MenuItem/MenuItem';
+  import MenuItem from '../../../../components/MenuItem/MenuItem';
   /* End Custom Components */
 
   /* Custom Modules */
@@ -35,7 +35,7 @@
 
 /*========== END IMPORTS ====================================================*/
 
-const MainMenu = props => {
+const Menu = props => {
 
   const {classes, history, actions, state} = props;
 
@@ -44,20 +44,9 @@ const MainMenu = props => {
     /*
     useEffect(() => {
       if(state.app.authentication.auth){
-        history.push('/inicio');
-        //actions.setBreadcrumb('/inicio');
+        history.push('/inicio/admin');
       }else{
         history.push('/');
-      }
-    },[state.app.authentication.auth]);
-    */
-
-    /*
-    useEffect(() => {
-      if(state.app.authentication.club){
-        history.push('/inicio');
-      }else{
-        history.push('/crear_club');
       }
     },[state.app.authentication.auth]);
     */
@@ -72,11 +61,11 @@ const MainMenu = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Contains the HTML of the main menu items
+    * Description: Contains the HTML of the menu
     *--------------------------------------------------------------------------
     */
 
-    const htmlMainMenuItems = mainMenuItems.map((item, index) => {
+    const htmlMyClubMenuItems = myClubMenuItems.map((item, index) => {
       const htmlItem = (
         <MenuItem
           title={item.title}
@@ -86,24 +75,16 @@ const MainMenu = props => {
         />
       );
 
-      if(item.enable){
-        if(item.admin){
-          if(state.app.authentication.admin){
-            return htmlItem;
-          }
-        }else{
-          return htmlItem;
-        }
-      }      
+      return htmlItem;
     });
 
   /*========== END VARIABLES ================================================*/
 
   return(
-    <div className={classes.mainMenu}>
-      {htmlMainMenuItems}
+    <div className={classes.Menu}>
+      {htmlMyClubMenuItems}
     </div>
   )
 }
 
-export default injectSheet(styles)(MainMenu);
+export default injectSheet(styles)(Menu);

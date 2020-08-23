@@ -6,11 +6,11 @@
   /* End React's packages */
 
   /* JSS */
-  import styles from './MainMenuStyles';
+  import styles from './MenuStyles';
   /* END JSS */
 
   /* Routes */
-  import {mainMenuItems} from '../../../routes/mainMenu';
+  import {adminMenuItems} from '../../../routes/admin';
   /* End Routes */
 
   /* Custom Components */
@@ -35,7 +35,7 @@
 
 /*========== END IMPORTS ====================================================*/
 
-const MainMenu = props => {
+const Menu = props => {
 
   const {classes, history, actions, state} = props;
 
@@ -44,8 +44,7 @@ const MainMenu = props => {
     /*
     useEffect(() => {
       if(state.app.authentication.auth){
-        history.push('/inicio');
-        //actions.setBreadcrumb('/inicio');
+        history.push('/inicio/admin');
       }else{
         history.push('/');
       }
@@ -54,12 +53,12 @@ const MainMenu = props => {
 
     /*
     useEffect(() => {
-      if(state.app.authentication.club){
-        history.push('/inicio');
+      if(state.app.authentication.admin){
+        history.push('/inicio/admin');
       }else{
-        history.push('/crear_club');
+        history.push('/');
       }
-    },[state.app.authentication.auth]);
+    },[state.app.authentication.auth, state.app.authentication.admin]);
     */
 
   /*========== END USE EFFECT ===============================================*/
@@ -72,11 +71,11 @@ const MainMenu = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Contains the HTML of the main menu items
+    * Description: Contains the HTML of the menu
     *--------------------------------------------------------------------------
     */
 
-    const htmlMainMenuItems = mainMenuItems.map((item, index) => {
+    const htmlAdminMenuItems = adminMenuItems.map((item, index) => {
       const htmlItem = (
         <MenuItem
           title={item.title}
@@ -86,24 +85,22 @@ const MainMenu = props => {
         />
       );
 
-      if(item.enable){
-        if(item.admin){
-          if(state.app.authentication.admin){
-            return htmlItem;
-          }
-        }else{
+      if(item.admin){
+        if(state.app.authentication.admin){
           return htmlItem;
         }
-      }      
+      }else{
+        return htmlItem;
+      }
     });
 
   /*========== END VARIABLES ================================================*/
 
   return(
-    <div className={classes.mainMenu}>
-      {htmlMainMenuItems}
+    <div className={classes.menu}>
+      {htmlAdminMenuItems}
     </div>
   )
 }
 
-export default injectSheet(styles)(MainMenu);
+export default injectSheet(styles)(Menu);
