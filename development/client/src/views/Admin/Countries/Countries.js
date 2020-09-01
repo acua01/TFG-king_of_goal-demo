@@ -54,13 +54,28 @@ const Countries = props => {
   /*========== USE EFFECT ===================================================*/
 
     useEffect(() => {
+      actions.setBreadcrumb([
+        {
+          name: 'Administracion',
+          path: '/admin'
+        },
+        {
+          name: 'Países',
+          path: '/admin/paises'
+        },
+      ]);
+    },[]);
+
+    /*
+    useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio/admin/paises');
       }else{
         history.push('/');
       }
     },[state.app.authentication.auth]);
-
+    */
+    /*
     useEffect(() => {
       if(state.app.authentication.admin){
         history.push('/inicio/admin/paises');
@@ -68,7 +83,7 @@ const Countries = props => {
         history.push('/');
       }
     },[state.app.authentication.auth, state.app.authentication.admin]);
-
+    */
     useEffect(() => {
       actions.askForAllCountries();
     },[]);
@@ -290,6 +305,14 @@ const Countries = props => {
   return(
     <div className={classes.countries}>
 
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
       {/*---------- Table View ---------------------------------------------*/}
 
       {viewState === 'table' ?
@@ -416,6 +439,15 @@ const Countries = props => {
 
       :null
       }
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
     </div>
   )
 }

@@ -57,13 +57,28 @@ const Players = props => {
   /*========== USE EFFECT ===================================================*/
 
     useEffect(() => {
+      actions.setBreadcrumb([
+        {
+          name: 'Administracion',
+          path: '/admin'
+        },
+        {
+          name: 'Jugadores',
+          path: '/admin/jugadores'
+        },
+      ]);
+    },[]);
+
+    /*
+    useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio/admin/jugadores');
       }else{
         history.push('/');
       }
     },[state.app.authentication.auth]);
-
+    */
+    /*
     useEffect(() => {
       if(state.app.authentication.admin){
         history.push('/inicio/admin/jugadores');
@@ -71,7 +86,7 @@ const Players = props => {
         history.push('/');
       }
     },[state.app.authentication.auth, state.app.authentication.admin]);
-
+    */
     useEffect(() => {
       actions.askForAllPlayers();
     },[]);
@@ -330,6 +345,14 @@ const Players = props => {
   return(
     <div className={classes.players}>
 
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
       {/*---------- Table View ---------------------------------------------*/}
 
       {viewState === 'table' ?
@@ -470,6 +493,15 @@ const Players = props => {
 
       :null
       }
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
     </div>
   )
 }

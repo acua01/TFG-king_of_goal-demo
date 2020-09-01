@@ -1,3 +1,5 @@
+import {goBackButtonStyles} from '../../../shared/styles/mixins/general';
+
 const styles = {
 
   /*========== STYLES =======================================================*/
@@ -8,6 +10,9 @@ const styles = {
     display:'flex',
     flexDirection:'column',
     alignItems:'center',
+    '& > button.goBack':{
+      extend: goBackButtonStyles,
+    },
   },
 
     /*---------- Table View -------------------------------------------------*/

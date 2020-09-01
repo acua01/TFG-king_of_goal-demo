@@ -50,13 +50,29 @@ const Permissions = props => {
   /*========== USE EFFECT ===================================================*/
 
     useEffect(() => {
+      actions.setBreadcrumb([
+        {
+          name: 'Administracion',
+          path: '/admin'
+        },
+        {
+          name: 'Permisos',
+          path: '/admin/permisos'
+        },
+      ]);
+    },[]);
+
+    /*
+    useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio/admin/permisos');
       }else{
         history.push('/');
       }
     },[state.app.authentication.auth]);
+    /*
 
+    /*
     useEffect(() => {
       if(state.app.authentication.admin){
         history.push('/inicio/admin/permisos');
@@ -64,6 +80,7 @@ const Permissions = props => {
         history.push('/');
       }
     },[state.app.authentication.auth, state.app.authentication.admin]);
+    */
 
     useEffect(() => {
       actions.askForAllPermissions();
@@ -265,6 +282,14 @@ const Permissions = props => {
   return(
     <div className={classes.permissions}>
 
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
       {/*---------- Table View ---------------------------------------------*/}
 
       {viewState === 'table' ?
@@ -380,6 +405,15 @@ const Permissions = props => {
 
       :null
       }
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+      
     </div>
   )
 }

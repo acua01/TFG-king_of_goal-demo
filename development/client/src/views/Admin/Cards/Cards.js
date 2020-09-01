@@ -68,6 +68,19 @@ const Cards = props => {
 
   /*========== USE EFFECT ===================================================*/
 
+    useEffect(() => {
+      actions.setBreadcrumb([
+        {
+          name: 'Administracion',
+          path: '/admin'
+        },
+        {
+          name: 'Cartas',
+          path: '/admin/cartas'
+        },
+      ]);
+    },[]);
+
     /*
     useEffect(() => {
       if(state.app.authentication.auth){
@@ -475,6 +488,14 @@ const Cards = props => {
   return(
     <div className={classes.cards}>
 
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
       {/*---------- Table View ---------------------------------------------*/}
 
       {viewState === 'table' ?
@@ -656,6 +677,15 @@ const Cards = props => {
 
       :null
       }
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+      
     </div>
   )
 }

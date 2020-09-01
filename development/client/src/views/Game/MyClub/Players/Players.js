@@ -65,9 +65,26 @@ const Players = props => {
 
   /*========== USE EFFECT ===================================================*/
 
-  useEffect(() => {
-    setArrayCardsState(state.app.clubCards.all);
-  },[state.app.clubCards.all]);
+    useEffect(() => {
+      actions.setBreadcrumb([
+        {
+          name: 'Inicio',
+          path: '/inicio'
+        },
+        {
+          name: 'Mi club',
+          path: '/inicio/mi_club'
+        },
+        {
+          name: 'Jugadores',
+          path: '/inicio/mi_club/jugadores'
+        },
+      ]);
+    },[]);
+
+    useEffect(() => {
+      setArrayCardsState(state.app.clubCards.all);
+    },[state.app.clubCards.all]);
 
   /*========== END USE EFFECT ===============================================*/
 
@@ -503,85 +520,58 @@ const Players = props => {
 
   return(
     <div className={classes.players}>
-      <h1>Jugadores</h1>
-
-      <button onClick={() => setFilterModalState(true)}>
-        <Icon name='filter'/>
-        <span>Filtrar</span>
+      <button className="goBack"
+        onClick={() => {
+          history.push('/inicio/mi_club');
+        }}
+      >
+        <Icon name='reply'/>
       </button>
 
-      {arrayCardsState.length > 0 ?
-        <Fragment>
-          {/*---------- Cards ----------------------------------------------*/}
+      <div>
 
-          <div className={classes.cardsContainer}>
-            {htmlCards}
-          </div>
+        <h1>Jugadores</h1>
 
-          {/*---------- End Cards ------------------------------------------*/}
+        <button onClick={() => setFilterModalState(true)}>
+          <Icon name='filter'/>
+          <span>Filtrar</span>
+        </button>
 
-          {/*---------- Pagination -----------------------------------------*/}
+        {arrayCardsState.length > 0 ?
+          <Fragment>
+            {/*---------- Cards ----------------------------------------------*/}
 
-          {Math.ceil(arrayCardsState.length / itemsPerPageState) > 1 ?
-            <Pagination
-              className={classes.pagination}
-              defaultActivePage={activePageState}
-              activePage={activePageState}
-              totalPages={Math.ceil(arrayCardsState.length / itemsPerPageState)}
-              onClick={() => window.scrollTo(0,0)}
-              onPageChange={(event, {activePage}) => setActivePageState(activePage)}
-            />
-          :
-            null
-          }
+            <div className={classes.cardsContainer}>
+              {htmlCards}
+            </div>
 
-          {/*---------- End Pagination -------------------------------------*/}
+            {/*---------- End Cards ------------------------------------------*/}
 
-          {/*---------- Card Menu Modal ------------------------------------*/}
+            {/*---------- Pagination -----------------------------------------*/}
 
-          <Modal
-            className={classes.cardMenuModal}
-            size='mini' open={cardMenuModalState}
-            onClose={() => setCardMenuModalState(false)}
-          >
-            <Modal.Content>
-              <Card
-                type={activeCardState.type_image}
-                textColor={activeCardState.type_text_color}
-                player={activeCardState.player_image}
-                rating={activeCardState.card_rating}
-                position={activeCardState.position_abbreviation}
-                country={activeCardState.country_image}
-                team={activeCardState.team_image}
-                name={activeCardState.player_name}
-                pace={activeCardState.card_pace}
-                shooting={activeCardState.card_shooting}
-                passing={activeCardState.card_passing}
-                dribbling={activeCardState.card_dribbling}
-                defending={activeCardState.card_defending}
-                physicality={activeCardState.card_physicality}
+            {Math.ceil(arrayCardsState.length / itemsPerPageState) > 1 ?
+              <Pagination
+                className={classes.pagination}
+                defaultActivePage={activePageState}
+                activePage={activePageState}
+                totalPages={Math.ceil(arrayCardsState.length / itemsPerPageState)}
+                onClick={() => window.scrollTo(0,0)}
+                onPageChange={(event, {activePage}) => setActivePageState(activePage)}
               />
-              <div className="options">
-                <div onClick={() => {setCardDataModalState(true);setCardMenuModalState(false)}}>Ver datos</div>
-                <div onClick={sellCardButtonHandler}>Vender</div>
-              </div>
-            </Modal.Content>
-            <Modal.Actions>
-              <button onClick={() => setCardMenuModalState(false)}>Cerrar</button>
-            </Modal.Actions>
-          </Modal>
+            :
+              null
+            }
 
-          {/*---------- End Card Menu Modal --------------------------------*/}
+            {/*---------- End Pagination -------------------------------------*/}
 
-          {/*---------- Card Data Modal ------------------------------------*/}
+            {/*---------- Card Menu Modal ------------------------------------*/}
 
-          <Modal
-            className={classes.cardDataModal}
-            size='mini' open={cardDataModalState}
-            onClose={() => setCardDataModalState(false)}
-          >
-            <Modal.Content>
-              <div className="cardContainer">
+            <Modal
+              className={classes.cardMenuModal}
+              size='mini' open={cardMenuModalState}
+              onClose={() => setCardMenuModalState(false)}
+            >
+              <Modal.Content>
                 <Card
                   type={activeCardState.type_image}
                   textColor={activeCardState.type_text_color}
@@ -598,272 +588,319 @@ const Players = props => {
                   defending={activeCardState.card_defending}
                   physicality={activeCardState.card_physicality}
                 />
-              </div>
-              <div className="dataContainer">
-                <div>
-                  <div>
-                    <h2>Nombre completo</h2>
-                    <p>{activeCardState.player_full_name}</p>
-                  </div>
-                  <div>
-                    <h2>Fecha de nacimiento</h2>
-                    <p>{activeCardState.player_birth}</p>
-                  </div>
-                  <div>
-                    <h2>Altura</h2>
-                    <p>{activeCardState.player_height + ' cm'}</p>
-                  </div>
-                  <div>
-                    <h2>Valor</h2>
-                    <p>
-                      <span>{moneyFormat(activeCardState.card_value)}</span>
-                      <img src={urlServer + '/storage/coins.png'} alt="coins"/>
-                    </p>
-                  </div>
-                  <div>
-                    <h2>Pierna buena</h2>
-                    <p>{activeCardState.card_good_leg}</p>
-                  </div>
-                  <div>
-                    <h2>Filigranas</h2>
-                    <p>
-                      <span>{activeCardState.card_skills}</span>
-                      <img src={urlServer + '/storage/star.png'} alt="star" width="18"/>
-                    </p>
-                  </div>
-                  <div>
-                    <h2>Habilidad pierna mala</h2>
-                    <p>
-                      <span>{activeCardState.card_bad_leg}</span>
-                      <img src={urlServer + '/storage/star.png'} alt="star" width="18"/>
-                    </p>
-                  </div>
+                <div className="options">
+                  <div onClick={() => {setCardDataModalState(true);setCardMenuModalState(false)}}>Ver datos</div>
+                  <div onClick={sellCardButtonHandler}>Vender</div>
                 </div>
-              </div>
-            </Modal.Content>
-            <Modal.Actions>
-              <button onClick={() => setCardDataModalState(false)}>Cerrar</button>
-            </Modal.Actions>
-          </Modal>
+              </Modal.Content>
+              <Modal.Actions>
+                <button onClick={() => setCardMenuModalState(false)}>Cerrar</button>
+              </Modal.Actions>
+            </Modal>
 
-          {/*---------- End Card Data Modal --------------------------------*/}
+            {/*---------- End Card Menu Modal --------------------------------*/}
 
-        </Fragment>
-      :
-        <Message
-          className={classes.message}
-          icon='info'
-          header='No se ha encontrado ninguna carta.'
-          color='blue'
-        />
-      }
+            {/*---------- Card Data Modal ------------------------------------*/}
 
-      {/*---------- Filter Modal -------------------------------------------*/}
-
-      <Modal
-        className={classes.filterModal}
-        size='mini' open={filterModalState}
-        onClose={() => setFilterModalState(false)}
-      >
-        <Modal.Content>
-          <Tab
-            className={classes.filter}
-            menu={{borderless:true}}
-            panes={[
-            {
-              menuItem: 'Buscar',
-              render: () =>
-                <div className="filterOptions">
-                  <div className={classes.field}>
-                    <label for="type"><Icon name='square' className={classes.icon} size="large"/></label>
-                    <Dropdown id="type" className={classes.dropdown} placeholder='Selecciona el tipo' search selection clearable options={arrTypes} value={typeFilterState} onChange={(event, {value}) => setTypeFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="player"><Icon name='user' className={classes.icon} size="large"/></label>
-                    <Dropdown id="player" className={classes.dropdown} placeholder='Selecciona el jugador' search selection clearable options={arrPlayers} value={playerFilterState} onChange={(event, {value}) => setPlayerFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="league"><Icon name='globe' className={classes.icon} size="large"/></label>
-                    <Dropdown id="league" className={classes.dropdown} placeholder='Selecciona la liga' search selection clearable options={arrLeagues} value={leagueFilterState} onChange={(event, {value}) => setLeagueFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="team"><Icon name='shield' className={classes.icon} size="large"/></label>
-                    <Dropdown id="team" className={classes.dropdown} placeholder='Selecciona el equipo' search selection clearable options={arrTeams} value={teamFilterState} onChange={(event, {value}) => setTeamFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="country"><Icon name='flag' className={classes.icon} size="large"/></label>
-                    <Dropdown id="country" className={classes.dropdown} placeholder='Selecciona el país' search selection clearable options={arrCountries} value={countryFilterState} onChange={(event, {value}) => setCountryFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="position"><Icon name='puzzle piece' className={classes.icon} size="large"/></label>
-                    <Dropdown id="position" className={classes.dropdown} placeholder='Selecciona la posición' search selection clearable options={arrPositions} value={positionFilterState} onChange={(event, {value}) => setPositionFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="rare"><Icon name='square' className={classes.icon} size="large"/></label>
-                    <Dropdown
-                      id="rare"
-                      className={classes.dropdown}
-                      placeholder='Único'
-                      search
-                      selection
-                      clearable
-                      options={[
-                        {
-                          key: 1,
-                          text: 'Sí',
-                          value: 1,
-                        },
-                        {
-                          key: 2,
-                          text: 'No',
-                          value: 0,
-                        }
-                      ]}
-                      value={rareFilterState}
-                      onChange={(event, {value}) => setRareFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="rare"><Icon name='square' className={classes.icon} size="large"/></label>
-                    <Dropdown
-                      id="special"
-                      className={classes.dropdown}
-                      placeholder='Especial'
-                      search
-                      selection
-                      clearable
-                      options={[
-                        {
-                          key: 1,
-                          text: 'Sí',
-                          value: 1,
-                        },
-                        {
-                          key: 2,
-                          text: 'No',
-                          value: 0,
-                        }
-                      ]}
-                      value={specialFilterState}
-                      onChange={(event, {value}) => setSpecialFilterState({value}.value)}/>
-                  </div>
-                </div>
-            },
-            {
-              menuItem: 'Ordenar',
-              render: () =>
-                <Fragment>
-                  <Message
-                    className={classes.message}
-                    icon='info'
-                    header='Estadística jugador / (Estadística portero)'
-                    color='blue'
+            <Modal
+              className={classes.cardDataModal}
+              size='mini' open={cardDataModalState}
+              onClose={() => setCardDataModalState(false)}
+            >
+              <Modal.Content>
+                <div className="cardContainer">
+                  <Card
+                    type={activeCardState.type_image}
+                    textColor={activeCardState.type_text_color}
+                    player={activeCardState.player_image}
+                    rating={activeCardState.card_rating}
+                    position={activeCardState.position_abbreviation}
+                    country={activeCardState.country_image}
+                    team={activeCardState.team_image}
+                    name={activeCardState.player_name}
+                    pace={activeCardState.card_pace}
+                    shooting={activeCardState.card_shooting}
+                    passing={activeCardState.card_passing}
+                    dribbling={activeCardState.card_dribbling}
+                    defending={activeCardState.card_defending}
+                    physicality={activeCardState.card_physicality}
                   />
+                </div>
+                <div className="dataContainer">
+                  <div>
+                    <div>
+                      <h2>Nombre completo</h2>
+                      <p>{activeCardState.player_full_name}</p>
+                    </div>
+                    <div>
+                      <h2>Fecha de nacimiento</h2>
+                      <p>{activeCardState.player_birth}</p>
+                    </div>
+                    <div>
+                      <h2>Altura</h2>
+                      <p>{activeCardState.player_height + ' cm'}</p>
+                    </div>
+                    <div>
+                      <h2>Valor</h2>
+                      <p>
+                        <span>{moneyFormat(activeCardState.card_value)}</span>
+                        <img src={urlServer + '/storage/coins.png'} alt="coins"/>
+                      </p>
+                    </div>
+                    <div>
+                      <h2>Pierna buena</h2>
+                      <p>{activeCardState.card_good_leg}</p>
+                    </div>
+                    <div>
+                      <h2>Filigranas</h2>
+                      <p>
+                        <span>{activeCardState.card_skills}</span>
+                        <img src={urlServer + '/storage/star.png'} alt="star" width="18"/>
+                      </p>
+                    </div>
+                    <div>
+                      <h2>Habilidad pierna mala</h2>
+                      <p>
+                        <span>{activeCardState.card_bad_leg}</span>
+                        <img src={urlServer + '/storage/star.png'} alt="star" width="18"/>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Modal.Content>
+              <Modal.Actions>
+                <button onClick={() => setCardDataModalState(false)}>Cerrar</button>
+              </Modal.Actions>
+            </Modal>
+
+            {/*---------- End Card Data Modal --------------------------------*/}
+
+          </Fragment>
+        :
+          <Message
+            className={classes.message}
+            icon='info'
+            header='No se ha encontrado ninguna carta.'
+            color='yellow'
+          />
+        }
+
+        {/*---------- Filter Modal -------------------------------------------*/}
+
+        <Modal
+          className={classes.filterModal}
+          size='mini' open={filterModalState}
+          onClose={() => setFilterModalState(false)}
+        >
+          <Modal.Content>
+            <Tab
+              className={classes.filter}
+              menu={{borderless:true}}
+              panes={[
+              {
+                menuItem: 'Buscar',
+                render: () =>
                   <div className="filterOptions">
                     <div className={classes.field}>
-                      <label for="name"><Icon name='sort' className={classes.icon} size="large"/></label>
-                      <Dropdown
-                        id="name"
-                        className={classes.dropdown}
-                        placeholder='Ordenar por'
-                        search
-                        selection
-                        clearable
-                        options={[
-                          {
-                            key: 1,
-                            text: 'Nombre',
-                            value: 'name',
-                          },
-                          {
-                            key: 2,
-                            text: 'Valoración',
-                            value: 'rating',
-                          },
-                          {
-                            key: 3,
-                            text: 'Valor',
-                            value: 'value',
-                          },
-                          {
-                            key: 4,
-                            text: 'Ritmo / (Estirada)',
-                            value: 'pace',
-                          },
-                          {
-                            key: 5,
-                            text: 'Tiro / (Parada)',
-                            value: 'shooting',
-                          },
-                          {
-                            key: 6,
-                            text: 'Pase / (Saque)',
-                            value: 'passing',
-                          },
-                          {
-                            key: 7,
-                            text: 'Regate / (Reflejos)',
-                            value: 'dribbling',
-                          },
-                          {
-                            key: 8,
-                            text: 'Defensa / (Velocidad)',
-                            value: 'defending',
-                          },
-                          {
-                            key: 9,
-                            text: 'Físico / (Posicionamiento)',
-                            value: 'physicality',
-                          },
-                          {
-                            key: 10,
-                            text: 'Filigranas',
-                            value: 'skills',
-                          },
-                          {
-                            key: 11,
-                            text: 'Pierna mala',
-                            value: 'bad_leg',
-                          },
-                        ]}
-                        value={orderTypeState}
-                        onChange={(event, {value}) => setOrderTypeState({value}.value)}/>
+                      <label for="type"><Icon name='square' className={classes.icon} size="large"/></label>
+                      <Dropdown id="type" className={classes.dropdown} placeholder='Selecciona el tipo' search selection clearable options={arrTypes} value={typeFilterState} onChange={(event, {value}) => setTypeFilterState({value}.value)}/>
                     </div>
                     <div className={classes.field}>
-                      <label for="order"><Icon name='sort content ascending' className={classes.icon} size="large"/></label>
+                      <label for="player"><Icon name='user' className={classes.icon} size="large"/></label>
+                      <Dropdown id="player" className={classes.dropdown} placeholder='Selecciona el jugador' search selection clearable options={arrPlayers} value={playerFilterState} onChange={(event, {value}) => setPlayerFilterState({value}.value)}/>
+                    </div>
+                    <div className={classes.field}>
+                      <label for="league"><Icon name='globe' className={classes.icon} size="large"/></label>
+                      <Dropdown id="league" className={classes.dropdown} placeholder='Selecciona la liga' search selection clearable options={arrLeagues} value={leagueFilterState} onChange={(event, {value}) => setLeagueFilterState({value}.value)}/>
+                    </div>
+                    <div className={classes.field}>
+                      <label for="team"><Icon name='shield' className={classes.icon} size="large"/></label>
+                      <Dropdown id="team" className={classes.dropdown} placeholder='Selecciona el equipo' search selection clearable options={arrTeams} value={teamFilterState} onChange={(event, {value}) => setTeamFilterState({value}.value)}/>
+                    </div>
+                    <div className={classes.field}>
+                      <label for="country"><Icon name='flag' className={classes.icon} size="large"/></label>
+                      <Dropdown id="country" className={classes.dropdown} placeholder='Selecciona el país' search selection clearable options={arrCountries} value={countryFilterState} onChange={(event, {value}) => setCountryFilterState({value}.value)}/>
+                    </div>
+                    <div className={classes.field}>
+                      <label for="position"><Icon name='puzzle piece' className={classes.icon} size="large"/></label>
+                      <Dropdown id="position" className={classes.dropdown} placeholder='Selecciona la posición' search selection clearable options={arrPositions} value={positionFilterState} onChange={(event, {value}) => setPositionFilterState({value}.value)}/>
+                    </div>
+                    <div className={classes.field}>
+                      <label for="rare"><Icon name='square' className={classes.icon} size="large"/></label>
                       <Dropdown
-                        id="order"
+                        id="rare"
                         className={classes.dropdown}
-                        placeholder='Orden'
+                        placeholder='Único'
                         search
                         selection
                         clearable
                         options={[
                           {
                             key: 1,
-                            text: 'Mayor a menor',
-                            value: 'desc',
+                            text: 'Sí',
+                            value: 1,
                           },
                           {
                             key: 2,
-                            text: 'Menor a mayor',
-                            value: 'asc',
+                            text: 'No',
+                            value: 0,
                           }
                         ]}
-                        value={orderByState}
-                        onChange={(event, {value}) => setOrderByState({value}.value)}/>
+                        value={rareFilterState}
+                        onChange={(event, {value}) => setRareFilterState({value}.value)}/>
+                    </div>
+                    <div className={classes.field}>
+                      <label for="rare"><Icon name='square' className={classes.icon} size="large"/></label>
+                      <Dropdown
+                        id="special"
+                        className={classes.dropdown}
+                        placeholder='Especial'
+                        search
+                        selection
+                        clearable
+                        options={[
+                          {
+                            key: 1,
+                            text: 'Sí',
+                            value: 1,
+                          },
+                          {
+                            key: 2,
+                            text: 'No',
+                            value: 0,
+                          }
+                        ]}
+                        value={specialFilterState}
+                        onChange={(event, {value}) => setSpecialFilterState({value}.value)}/>
                     </div>
                   </div>
-                </Fragment>
-            },
-          ]}/>
+              },
+              {
+                menuItem: 'Ordenar',
+                render: () =>
+                  <Fragment>
+                    <Message
+                      className={classes.message}
+                      icon='info'
+                      header='Estadística jugador / (Estadística portero)'
+                      color='blue'
+                    />
+                    <div className="filterOptions">
+                      <div className={classes.field}>
+                        <label for="name"><Icon name='sort' className={classes.icon} size="large"/></label>
+                        <Dropdown
+                          id="name"
+                          className={classes.dropdown}
+                          placeholder='Ordenar por'
+                          search
+                          selection
+                          clearable
+                          options={[
+                            {
+                              key: 1,
+                              text: 'Nombre',
+                              value: 'name',
+                            },
+                            {
+                              key: 2,
+                              text: 'Valoración',
+                              value: 'rating',
+                            },
+                            {
+                              key: 3,
+                              text: 'Valor',
+                              value: 'value',
+                            },
+                            {
+                              key: 4,
+                              text: 'Ritmo / (Estirada)',
+                              value: 'pace',
+                            },
+                            {
+                              key: 5,
+                              text: 'Tiro / (Parada)',
+                              value: 'shooting',
+                            },
+                            {
+                              key: 6,
+                              text: 'Pase / (Saque)',
+                              value: 'passing',
+                            },
+                            {
+                              key: 7,
+                              text: 'Regate / (Reflejos)',
+                              value: 'dribbling',
+                            },
+                            {
+                              key: 8,
+                              text: 'Defensa / (Velocidad)',
+                              value: 'defending',
+                            },
+                            {
+                              key: 9,
+                              text: 'Físico / (Posicionamiento)',
+                              value: 'physicality',
+                            },
+                            {
+                              key: 10,
+                              text: 'Filigranas',
+                              value: 'skills',
+                            },
+                            {
+                              key: 11,
+                              text: 'Pierna mala',
+                              value: 'bad_leg',
+                            },
+                          ]}
+                          value={orderTypeState}
+                          onChange={(event, {value}) => setOrderTypeState({value}.value)}/>
+                      </div>
+                      <div className={classes.field}>
+                        <label for="order"><Icon name='sort content ascending' className={classes.icon} size="large"/></label>
+                        <Dropdown
+                          id="order"
+                          className={classes.dropdown}
+                          placeholder='Orden'
+                          search
+                          selection
+                          clearable
+                          options={[
+                            {
+                              key: 1,
+                              text: 'Mayor a menor',
+                              value: 'desc',
+                            },
+                            {
+                              key: 2,
+                              text: 'Menor a mayor',
+                              value: 'asc',
+                            }
+                          ]}
+                          value={orderByState}
+                          onChange={(event, {value}) => setOrderByState({value}.value)}/>
+                      </div>
+                    </div>
+                  </Fragment>
+              },
+            ]}/>
 
-        </Modal.Content>
-        <Modal.Actions>
-          <button onClick={onClickConfirmFilterButtonHandler}>Confirmar</button>
-        </Modal.Actions>
-      </Modal>
+          </Modal.Content>
+          <Modal.Actions>
+            <button onClick={onClickConfirmFilterButtonHandler}>Confirmar</button>
+          </Modal.Actions>
+        </Modal>
 
-      {/*---------- End Filter Modal ---------------------------------------*/}
+        {/*---------- End Filter Modal ---------------------------------------*/}
+
+      </div>     
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/inicio/mi_club');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
 
     </div>
   )

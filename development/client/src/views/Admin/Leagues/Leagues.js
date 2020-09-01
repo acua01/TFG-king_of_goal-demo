@@ -54,13 +54,28 @@ const Leagues = props => {
   /*========== USE EFFECT ===================================================*/
 
     useEffect(() => {
+      actions.setBreadcrumb([
+        {
+          name: 'Administracion',
+          path: '/admin'
+        },
+        {
+          name: 'Ligas',
+          path: '/admin/ligas'
+        },
+      ]);
+    },[]);
+
+    /*
+    useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio/admin/ligas');
       }else{
         history.push('/');
       }
     },[state.app.authentication.auth]);
-
+    */
+    /*
     useEffect(() => {
       if(state.app.authentication.admin){
         history.push('/inicio/admin/ligas');
@@ -68,7 +83,7 @@ const Leagues = props => {
         history.push('/');
       }
     },[state.app.authentication.auth, state.app.authentication.admin]);
-
+    */
     useEffect(() => {
       actions.askForAllLeagues();
     },[]);
@@ -290,6 +305,14 @@ const Leagues = props => {
   return(
     <div className={classes.leagues}>
 
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
       {/*---------- Table View ---------------------------------------------*/}
 
       {viewState === 'table' ?
@@ -416,6 +439,15 @@ const Leagues = props => {
 
       :null
       }
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
     </div>
   )
 }

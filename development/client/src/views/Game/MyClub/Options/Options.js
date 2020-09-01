@@ -1,9 +1,9 @@
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {useState, useEffect} from 'react';
+  import React, {useState, useEffect, Fragment} from 'react';
   import injectSheet from 'react-jss';
-  import {Icon, Modal, Dropdown} from 'semantic-ui-react';
+  import {Icon, Modal, Dropdown, Message} from 'semantic-ui-react';
   /* End React's packages */
 
   /* JSS */
@@ -51,13 +51,30 @@ const Options = props => {
 
   /*========== USE EFFECT ===================================================*/
 
-  useEffect(() => {
-    setNameState(state.app.authentication.club.name);
-  },[state.app.authentication.club.name]);
+    useEffect(() => {
+      actions.setBreadcrumb([
+        {
+          name: 'Inicio',
+          path: '/inicio'
+        },
+        {
+          name: 'Mi club',
+          path: '/inicio/mi_club'
+        },
+        {
+          name: 'Opciones',
+          path: '/inicio/mi_club/opciones'
+        },
+      ]);
+    },[]);
 
-  useEffect(() => {
-    setImageState(state.app.authentication.club.image);
-  },[state.app.authentication.club.image]);
+    useEffect(() => {
+      setNameState(state.app.authentication.club.name);
+    },[state.app.authentication.club.name]);
+
+    useEffect(() => {
+      setImageState(state.app.authentication.club.image);
+    },[state.app.authentication.club.image]);
 
   /*========== END USE EFFECT ===============================================*/
 
@@ -193,62 +210,106 @@ const Options = props => {
 
   return(
     <div className={classes.options}>
-      <h1>Opciones</h1>
-      <form onSubmit={onSubmitUpdateClubFormHandler}>
-        <div className="team">
-          <div onClick={() => setTeamsModalState(true)}>
-            {state.app.authentication.club.image ?
-              <img src={urlServer + imageState} alt={state.app.authentication.club.name + ' logo'}/>
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/inicio/mi_club');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
+      <div>
+        <h1>Opciones</h1>
+        <form onSubmit={onSubmitUpdateClubFormHandler}>
+          <div className="team">
+            <div onClick={() => setTeamsModalState(true)}>
+              {state.app.authentication.club.image ?
+                <img src={urlServer + imageState} alt={state.app.authentication.club.name + ' logo'}/>
+              :
+                <img src={urlServer + '/storage/team.png'} alt={state.app.authentication.club.name + ' logo'}/>
+              }
+            </div>
+            <div><Icon name='edit'/></div>
+          </div>
+          <div className={classes.field}>
+            <label for="name"><Icon name='edit' className={classes.icon} size="large"/></label>
+            <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="50"/>
+          </div>
+          <button type="submit">
+            <Icon name='save'/>
+            <span>Actualizar</span>
+          </button>
+        </form>
+
+        {/*---------- Teams Modal --------------------------------------------*/}
+
+        <Modal className={classes.teamsModal} size='mini' open={teamsModalState} onClose={() => setTeamsModalState(false)}>
+          <Modal.Content>
+            <Dropdown id="league" className={classes.dropdown} placeholder='Selecciona una liga' search selection clearable options={arrLeagues} value={leagueState} onChange={(event, {value}) => setLeagueState({value}.value)}/>
+
+            {leagueState ?
+              <Fragment>
+                {arrTeams.length > 0 ?
+                  <div className={classes.teamsContainer} id="teamsContainer">
+                    {htmlTeams}
+                  </div>
+                :
+                  <Message
+                    className={classes.message}
+                    icon='info'
+                    header='No se ha encontrado ningún equipo.'
+                    color='yellow'
+                  />
+                }
+              </Fragment>
+              
             :
-              <img src={urlServer + '/storage/team.png'} alt={state.app.authentication.club.name + ' logo'}/>
+              <Message
+                className={classes.message}
+                icon='info'
+                header='Selecciona una liga.'
+                color='blue'
+              />
             }
-          </div>
-          <div><Icon name='edit'/></div>
-        </div>
-        <div className={classes.field}>
-          <label for="name"><Icon name='edit' className={classes.icon} size="large"/></label>
-          <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="50"/>
-        </div>
-        <button type="submit">
-          <Icon name='save'/>
-          <span>Actualizar</span>
-        </button>
-      </form>
+           
+          </Modal.Content>
+          <Modal.Actions>
+            <button onClick={onClickConfirmTeamButtonHandler}>Confirmar</button>
+          </Modal.Actions>
+        </Modal>
 
-      {/*---------- Teams Modal --------------------------------------------*/}
+        {/*---------- End Teams Modal ----------------------------------------*/}
 
-      <Modal className={classes.teamsModal} size='mini' open={teamsModalState} onClose={() => setTeamsModalState(false)}>
-        <Modal.Content>
-          <Dropdown id="league" className={classes.dropdown} placeholder='Selecciona una liga' search selection clearable options={arrLeagues} value={leagueState} onChange={(event, {value}) => setLeagueState({value}.value)}/>
-          <div className={classes.teamsContainer} id="teamsContainer">
-            {htmlTeams}
-          </div>
-        </Modal.Content>
-        <Modal.Actions>
-          <button onClick={onClickConfirmTeamButtonHandler}>Confirmar</button>
-        </Modal.Actions>
-      </Modal>
+        {/*---------- Delete Club Modal --------------------------------------*/}
 
-      {/*---------- End Teams Modal ----------------------------------------*/}
+        <Modal className={classes.deleteClubModal} size='mini' open={deleteClubModalState} onClose={() => setDeleteClubModalState(false)}>
+          <Modal.Content>
+            <p>¿Seguro que quieres eliminar el club? No podrás recuperarlo una vez borrado.</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <button onClick={onClickDeleteClubButtonHandler}>Sí</button>
+            <button onClick={() => setDeleteClubModalState(false)}>No</button>
+          </Modal.Actions>
+        </Modal>
 
-      {/*---------- Delete Club Modal --------------------------------------*/}
+        {/*---------- End Delete Club Modal ----------------------------------*/}
 
-      <Modal className={classes.deleteClubModal} size='mini' open={deleteClubModalState} onClose={() => setDeleteClubModalState(false)}>
-        <Modal.Content>
-          <p>¿Seguro que quieres eliminar el club? No podrás recuperarlo una vez borrado.</p>
-        </Modal.Content>
-        <Modal.Actions>
-          <button onClick={onClickDeleteClubButtonHandler}>Sí</button>
-          <button onClick={() => setDeleteClubModalState(false)}>No</button>
-        </Modal.Actions>
-      </Modal>
-
-      {/*---------- End Delete Club Modal ----------------------------------*/}
-
-      <button onClick={() => setDeleteClubModalState(true)}>
+        <button onClick={() => setDeleteClubModalState(true)}>
         <Icon name='delete'/>
         <span>Borrar club</span>
       </button>
+
+      </div>     
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/inicio/mi_club');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+      
     </div>
   )
 }

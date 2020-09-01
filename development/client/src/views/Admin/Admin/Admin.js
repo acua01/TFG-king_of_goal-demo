@@ -1,9 +1,10 @@
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React from 'react';
+  import React, {Fragment} from 'react';
   import {Route, Switch, Redirect, useRouteMatch} from 'react-router-dom';
   import injectSheet from 'react-jss';
+  import {Icon} from 'semantic-ui-react';
   /* End React's packages */
 
   /* JSS */
@@ -69,10 +70,38 @@ const Admin = props => {
       )
     });
 
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Contains the HTML of the BreadCrumb
+    *--------------------------------------------------------------------------
+    */
+
+    const htmlBreadCrumb = state.app.breadcrumb.route.map((r, index) => {
+      return (
+        <Fragment>
+          <span onClick={() => history.push(r.path)}>{r.name}</span>        
+
+          {index !== (state.app.breadcrumb.route.length - 1) ?
+            <Icon name="angle right" size="large"/>
+          :
+            null
+          }
+        </Fragment>
+      )
+    });
+
   /*========== END VARIABLES ================================================*/
 
   return(
     <div className={classes.admin}>
+      {/*---------- BreadCrumb -----------------------------------------*/}
+
+      <div className={classes.breadCrumb}>
+        {htmlBreadCrumb}
+      </div>
+
+      {/*---------- End BreadCrumb -------------------------------------*/}
+
       <Switch>
         {htmlRoutes}
         <Redirect to={path}/>

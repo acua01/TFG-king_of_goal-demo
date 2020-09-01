@@ -1,3 +1,5 @@
+import {goBackButtonStyles} from '../../shared/styles/mixins/general';
+
 const styles = {
 
   /*========== STYLES =======================================================*/
@@ -8,6 +10,11 @@ const styles = {
     display:'flex',
     flexDirection:'column',
     alignItems:'center',
+    padding:'10px 0',
+    '& > button.goBack':{
+      extend: goBackButtonStyles,
+      marginLeft:'20px'
+    },
     '& form':{
       width:'60%',
       minWidth:'600px',
@@ -18,7 +25,7 @@ const styles = {
     },
     '& form h1':{
       color:'white',
-      marginTop:'120px',
+      marginTop:'60px',
       marginBottom:'60px',
       fontFamily:'Bebas',
       letterSpacing:'2px',

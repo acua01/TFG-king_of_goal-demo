@@ -57,6 +57,19 @@ const CardsTypes = props => {
 
   /*========== USE EFFECT ===================================================*/
 
+    useEffect(() => {
+      actions.setBreadcrumb([
+        {
+          name: 'Administracion',
+          path: '/admin'
+        },
+        {
+          name: 'Tipos de cartas',
+          path: '/admin/tipos_cartas'
+        },
+      ]);
+    },[]);
+
     /*
     useEffect(() => {
       if(state.app.authentication.auth){
@@ -349,6 +362,14 @@ const CardsTypes = props => {
   return(
     <div className={classes.cardsTypes}>
 
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
       {/*---------- Table View ---------------------------------------------*/}
 
       {viewState === 'table' ?
@@ -502,6 +523,15 @@ const CardsTypes = props => {
 
       :null
       }
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
     </div>
   )
 }

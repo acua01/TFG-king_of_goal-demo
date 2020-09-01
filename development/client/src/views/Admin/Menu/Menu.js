@@ -3,6 +3,7 @@
   /* React's packages */
   import React, {useEffect} from 'react';
   import injectSheet from 'react-jss';
+  import {Icon} from 'semantic-ui-react';
   /* End React's packages */
 
   /* JSS */
@@ -40,6 +41,15 @@ const Menu = props => {
   const {classes, history, actions, state} = props;
 
   /*========== USE EFFECT ===================================================*/
+
+    useEffect(() => {
+      actions.setBreadcrumb([
+        {
+          name: 'Administracion',
+          path: '/admin'
+        },
+      ]);
+    },[]);
 
     /*
     useEffect(() => {
@@ -98,7 +108,27 @@ const Menu = props => {
 
   return(
     <div className={classes.menu}>
-      {htmlAdminMenuItems}
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+      
+      <div className="menu">
+        {htmlAdminMenuItems}
+      </div>     
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
     </div>
   )
 }

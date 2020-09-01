@@ -1,4 +1,5 @@
 import {urlServer} from '../../../../shared/variables';
+import {goBackButtonStyles} from '../../../../shared/styles/mixins/general';
 
 const styles = {
 
@@ -12,36 +13,47 @@ const styles = {
 
   'players':{
     margin:'40px 0 60px 0',
-    width:'85%',
+    width:'95%',
     display:'flex',
     flexDirection:'column',
     alignItems:'center',
-    backgroundColor:'white',
     padding:'20px 0',
-    '& > h1':{
-      width:'100%',
-      textAlign:'center',
-      backgroundColor:'#f2f2f2',
-      color:'#333333',
-      margin:'20px 0',
-      padding:'10px 0',
-      fontFamily:'Bebas',
-      letterSpacing:'2px',
-      fontSize:'35px'
+    '& > button.goBack':{
+      extend: goBackButtonStyles,
     },
-    '& > button':{
-      fontFamily:'Anelize',
-      margin:'20px 0',
-      border:'2px solid #3385ff',
-      backgroundColor: '#3385ff',
-      color:'white',
-      padding:'8px 20px',
-      cursor:'pointer',
-    },
-    '& > button:hover':{
-      color: '#3385ff',
+    '& > div':{
+      margin:'40px 0 60px 0',
+      width:'85%',
+      display:'flex',
+      flexDirection:'column',
+      alignItems:'center',
       backgroundColor:'white',
-    }
+      padding:'20px 0',
+      '& > h1':{
+        width:'100%',
+        textAlign:'center',
+        backgroundColor:'#f2f2f2',
+        color:'#333333',
+        margin:'20px 0',
+        padding:'10px 0',
+        fontFamily:'Bebas',
+        letterSpacing:'2px',
+        fontSize:'35px'
+      },
+      '& > button':{
+        fontFamily:'Anelize',
+        margin:'20px 0',
+        border:'2px solid #3385ff',
+        backgroundColor: '#3385ff',
+        color:'white',
+        padding:'8px 20px',
+        cursor:'pointer',
+      },
+      '& > button:hover':{
+        color: '#3385ff',
+        backgroundColor:'white',
+      }
+    },   
   },
 
   'cardsContainer':{

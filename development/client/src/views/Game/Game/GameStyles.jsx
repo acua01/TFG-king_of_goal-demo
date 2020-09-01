@@ -178,10 +178,15 @@ const styles = {
       '& > span':{
         textTransform:'uppercase',
         fontFamily:'Bebas',
-        fontSize:'40px'
+        fontSize:'25px',
+        '&:hover':{
+          textDecoration:'underline',
+          cursor:'pointer'
+        }
       },
       '& > span:first-child':{
-        marginLeft:'5%'
+        marginLeft:'5%',
+        fontSize:'40px',
       },
     },
 

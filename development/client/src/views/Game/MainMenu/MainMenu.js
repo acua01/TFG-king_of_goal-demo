@@ -41,6 +41,15 @@ const MainMenu = props => {
 
   /*========== USE EFFECT ===================================================*/
 
+    useEffect(() => {
+      actions.setBreadcrumb([
+        {
+          name: 'Inicio',
+          path: '/inicio'
+        }
+      ]);
+    },[]);
+
     /*
     useEffect(() => {
       if(state.app.authentication.auth){

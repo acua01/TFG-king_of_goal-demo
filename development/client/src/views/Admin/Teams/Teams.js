@@ -55,13 +55,28 @@ const Teams = props => {
   /*========== USE EFFECT ===================================================*/
 
     useEffect(() => {
+      actions.setBreadcrumb([
+        {
+          name: 'Administracion',
+          path: '/admin'
+        },
+        {
+          name: 'Equipos',
+          path: '/admin/equipos'
+        },
+      ]);
+    },[]);
+
+    /*
+    useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio/admin/equipos');
       }else{
         history.push('/');
       }
     },[state.app.authentication.auth]);
-
+    */
+   /*
     useEffect(() => {
       if(state.app.authentication.admin){
         history.push('/inicio/admin/equipos');
@@ -69,7 +84,7 @@ const Teams = props => {
         history.push('/');
       }
     },[state.app.authentication.auth, state.app.authentication.admin]);
-
+    */
     useEffect(() => {
       actions.askForAllTeams();
       actions.askForAllLeagues();
@@ -323,6 +338,14 @@ const Teams = props => {
   return(
     <div className={classes.teams}>
 
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
       {/*---------- Table View ---------------------------------------------*/}
 
       {viewState === 'table' ?
@@ -454,6 +477,15 @@ const Teams = props => {
 
       :null
       }
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
     </div>
   )
 }

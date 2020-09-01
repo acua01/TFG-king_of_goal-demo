@@ -15,7 +15,7 @@ const initialStateMain = {
     all:[],
   },
   breadcrumb: {
-    route: ''
+    route: []
   },
   players: {
     all: []

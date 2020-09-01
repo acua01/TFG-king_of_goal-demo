@@ -31,7 +31,7 @@ export const mainMenuItems = [
     title: 'Administración',
     description: 'Administración.',
     icon: 'chess king',
-    route: '/inicio/admin',
+    route: '/admin',
     admin:true,
     enable: true
   },

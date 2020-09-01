@@ -3,6 +3,7 @@
   /* React's packages */
   import React, {useEffect} from 'react';
   import injectSheet from 'react-jss';
+  import {Icon} from 'semantic-ui-react';
   /* End React's packages */
 
   /* JSS */
@@ -40,6 +41,19 @@ const Menu = props => {
   const {classes, history, actions, state} = props;
 
   /*========== USE EFFECT ===================================================*/
+
+    useEffect(() => {
+      actions.setBreadcrumb([
+        {
+          name: 'Inicio',
+          path: '/inicio'
+        },
+        {
+          name: 'Mi club',
+          path: '/inicio/mi_club'
+        },
+      ]);
+    },[]);
 
     /*
     useEffect(() => {
@@ -82,7 +96,25 @@ const Menu = props => {
 
   return(
     <div className={classes.Menu}>
-      {htmlMyClubMenuItems}
+      <button className="goBack"
+        onClick={() => {
+          history.push('/inicio');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
+      <div className="menu">
+        {htmlMyClubMenuItems}
+      </div>
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/inicio');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
     </div>
   )
 }

@@ -47,6 +47,7 @@ const Register = props => {
 
   /*========== USE EFFECT ===================================================*/
 
+    /*
     useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio');
@@ -54,6 +55,7 @@ const Register = props => {
         history.push('/registro');
       }
     },[state.app.authentication.auth]);
+    */
     
   /*========== END USE EFFECT ===============================================*/
 
@@ -131,6 +133,15 @@ const Register = props => {
 
   return(
     <div className={classes.register}>
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
       <form onSubmit={onSubmitRegisterFormHandler}>
         <h1>Registro</h1>
         <div className={classes.field}>
@@ -151,6 +162,15 @@ const Register = props => {
         </div>
         <input type="submit" value="Registrar" />
       </form>
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+      
     </div>
   );
 }

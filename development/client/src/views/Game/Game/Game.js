@@ -1,10 +1,10 @@
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {useState, useEffect} from 'react';
+  import React, {useState, useEffect, Fragment} from 'react';
   import {Route, Switch, Redirect, useRouteMatch} from 'react-router-dom';
   import injectSheet from 'react-jss';
-  import {Icon, Menu, Segment, Sidebar} from 'semantic-ui-react'
+  import {Icon, Menu, Segment, Sidebar} from 'semantic-ui-react';
   /* End React's packages */
 
   /* JSS */
@@ -122,6 +122,26 @@ const GameLayout = props => {
       }      
     });
 
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Contains the HTML of the BreadCrumb
+    *--------------------------------------------------------------------------
+    */
+
+    const htmlBreadCrumb = state.app.breadcrumb.route.map((r, index) => {
+      return (
+        <Fragment>
+          <span onClick={() => history.push(r.path)}>{r.name}</span>        
+
+          {index !== (state.app.breadcrumb.route.length - 1) ?
+            <Icon name="angle right" size="large"/>
+          :
+            null
+          }
+        </Fragment>        
+      )
+    });
+
   /*========== END VARIABLES ================================================*/
 
   return(
@@ -192,8 +212,7 @@ const GameLayout = props => {
           {/*---------- BreadCrumb -----------------------------------------*/}
 
           <div className={classes.breadCrumb}>
-            <span>Inicio</span>
-            <Icon name="angle right" size="large"/>
+            {htmlBreadCrumb}
           </div>
 
           {/*---------- End BreadCrumb -------------------------------------*/}

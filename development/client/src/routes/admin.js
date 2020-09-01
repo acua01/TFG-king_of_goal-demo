@@ -53,56 +53,56 @@ export const adminMenuItems = [
     title: 'Permisos',
     description: 'Permisos.',
     icon: 'chess',
-    route: '/inicio/admin/permisos',
+    route: '/admin/permisos',
     admin:true
   },
   {
     title: 'Jugadores',
     description: 'Jugadores.',
     icon: 'user',
-    route: '/inicio/admin/jugadores',
+    route: '/admin/jugadores',
     admin:true
   },
   {
     title: 'Países',
     description: 'Países.',
     icon: 'flag',
-    route: '/inicio/admin/paises',
+    route: '/admin/paises',
     admin:true
   },
   {
     title: 'Ligas',
     description: 'Ligas.',
     icon: 'globe',
-    route: '/inicio/admin/ligas',
+    route: '/admin/ligas',
     admin:true
   },
   {
     title: 'Tipos de cartas',
     description: 'Tipos de cartas.',
     icon: 'square',
-    route: '/inicio/admin/tipos_cartas',
+    route: '/admin/tipos_cartas',
     admin:true
   },
   {
     title: 'Equipos',
     description: 'Equipos.',
     icon: 'shield alternate',
-    route: '/inicio/admin/equipos',
+    route: '/admin/equipos',
     admin:true
   },
   {
     title: 'Cartas',
     description: 'Cartas.',
     icon: 'users',
-    route: '/inicio/admin/cartas',
+    route: '/admin/cartas',
     admin:true
   },
   {
     title: 'Sobres',
     description: 'Sobres.',
     icon: 'square',
-    route: '/inicio/admin/sobres',
+    route: '/admin/sobres',
     admin:true
   },
 ];

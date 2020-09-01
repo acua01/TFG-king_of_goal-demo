@@ -56,6 +56,19 @@ const Packs = props => {
 
   /*========== USE EFFECT ===================================================*/
 
+    useEffect(() => {
+      actions.setBreadcrumb([
+        {
+          name: 'Administracion',
+          path: '/admin'
+        },
+        {
+          name: 'Sobres',
+          path: '/admin/sobres'
+        },
+      ]);
+    },[]);
+
     /*
     useEffect(() => {
       if(state.app.authentication.auth){
@@ -323,6 +336,14 @@ const Packs = props => {
   return(
     <div className={classes.packs}>
 
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
       {/*---------- Table View ---------------------------------------------*/}
 
       {viewState === 'table' ?
@@ -464,6 +485,15 @@ const Packs = props => {
 
       :null
       }
+
+      <button className="goBack"
+        onClick={() => {
+          history.push('/admin');
+        }}
+      >
+        <Icon name='reply'/>
+      </button>
+
     </div>
   )
 }

@@ -1,84 +1,97 @@
+import {goBackButtonStyles} from '../../../../shared/styles/mixins/general';
+
 const styles = {
 
   /*========== STYLES =======================================================*/
 
   'options':{
     margin:'40px 0 60px 0',
-    width:'85%',
+    width:'95%',
     display:'flex',
     flexDirection:'column',
     alignItems:'center',
-    backgroundColor:'white',
     padding:'20px 0',
-    '& > h1':{
-      width:'100%',
-      textAlign:'center',
-      backgroundColor:'#f2f2f2',
-      color:'#333333',
-      margin:'20px 0',
-      padding:'10px 0',
-      fontFamily:'Bebas',
-      letterSpacing:'2px',
-      fontSize:'35px'
+    '& > button.goBack':{
+      extend: goBackButtonStyles,
     },
-
-    /*---------- Form -------------------------------------------------------*/
-
-    '& > form':{
-      width:'60%',
-      minWidth:'600px',
+    '& > div':{
+      margin:'40px 0 60px 0',
+      width:'85%',
       display:'flex',
       flexDirection:'column',
       alignItems:'center',
-      '& > div.team':{
+      backgroundColor:'white',
+      padding:'20px 0',
+      '& > h1':{
+        width:'100%',
+        textAlign:'center',
+        backgroundColor:'#f2f2f2',
+        color:'#333333',
         margin:'20px 0',
-        '& > div:first-child':{
-          cursor:'pointer',
-          backgroundColor:'#cccccc',
-          width:'150px',
-          height:'150px',
-          display:'flex',
-          alignItems:'center',
-          justifyContent:'center',
-          '& > img':{
-            width:'120px'
+        padding:'10px 0',
+        fontFamily:'Bebas',
+        letterSpacing:'2px',
+        fontSize:'35px'
+      },
+  
+      /*---------- Form -------------------------------------------------------*/
+  
+      '& > form':{
+        width:'60%',
+        minWidth:'600px',
+        display:'flex',
+        flexDirection:'column',
+        alignItems:'center',
+        '& > div.team':{
+          margin:'20px 0',
+          '& > div:first-child':{
+            cursor:'pointer',
+            backgroundColor:'#cccccc',
+            width:'150px',
+            height:'150px',
+            display:'flex',
+            alignItems:'center',
+            justifyContent:'center',
+            '& > img':{
+              width:'120px'
+            },
           },
+          '& > div:last-child':{
+            width:'100%',
+            backgroundColor:'#333333',
+            color:'white',
+            textAlign:'center',
+            padding:'4px 0'
+          }
         },
-        '& > div:last-child':{
-          width:'100%',
-          backgroundColor:'#333333',
+        '& > button':{
+          fontFamily:'Anelize',
+          margin:'20px 0',
+          border:'2px solid #33cc33',
+          backgroundColor: '#33cc33',
           color:'white',
-          textAlign:'center',
-          padding:'4px 0'
+          padding:'8px 20px',
+          cursor:'pointer',
+          '&:hover':{
+            color: '#33cc33',
+            backgroundColor:'white',
+          }
         }
       },
       '& > button':{
         fontFamily:'Anelize',
         margin:'20px 0',
-        border:'2px solid #33cc33',
-        backgroundColor: '#33cc33',
+        border:'2px solid #ff1a1a',
+        backgroundColor: '#ff1a1a',
         color:'white',
-        padding:'8px 20px',
+        padding:'8px 40px',
         cursor:'pointer',
         '&:hover':{
-          color: '#33cc33',
+          color: '#ff1a1a',
           backgroundColor:'white',
         }
       }
     },
-    '& > button':{
-      fontFamily:'Anelize',
-      margin:'20px 0',
-      border:'2px solid #ff1a1a',
-      backgroundColor: '#ff1a1a',
-      color:'white',
-      padding:'8px 40px',
-      cursor:'pointer',
-      '&:hover':{
-        color: '#ff1a1a',
-        backgroundColor:'white',
-      }
-    }
   },
 
   'field':{
@@ -198,6 +211,12 @@ const styles = {
   },
 
   /*---------- End Delete Club Modal ----------------------------------------*/
+
+  'message':{
+    width:'80% !important',
+    border:'0 solid white !important',
+    margin:'40px 0 !important'
+  },
 
   /*========== END STYLES ===================================================*/
 }
