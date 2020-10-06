@@ -156,4 +156,25 @@ class ClubsController extends Controller{
       return response()->json(['message'=>$this->getErrorMessage($e)], 500);
     }
   }
+
+  public function updateCoins(Request $request){
+    $idClub = $request['idClub'];
+    $coins = $request['coins'];
+
+    try{
+
+      DB::statement("UPDATE clubs SET coins = (coins + :coins) WHERE id = :id", [
+        'coins'=>$coins,
+        'id'=>$idClub
+      ]);
+
+      $club = DB::select(DB::raw(
+        "SELECT * FROM clubs WHERE id=:id"
+      ), ['id'=>$idClub])[0];
+
+      return response()->json(['message'=>'Monedas actualizadas correctamente', 'club'=>$club], 200);
+    }catch(\Exception $e){
+      return response()->json(['message'=>$this->getErrorMessage($e)], 500);
+    }
+  }
 }

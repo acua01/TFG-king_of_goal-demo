@@ -1826,6 +1826,56 @@ export const useActionsServerRequests = (state, dispatch) => {
     }
   }
 
+  const sendRequestToUpdateCoins = async(data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/update_coins', data);
+
+      sessionStorage.setItem('club', JSON.stringify(response.data.club));
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'authentication',
+        data:{
+          auth: true,
+          admin: strToBool(sessionStorage.getItem('admin')),
+          username: sessionStorage.getItem('username'),
+          club: response.data.club
+        }
+      });
+
+      showSnackbar('success', response.data.message);
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e) {
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
   /*========== END CLUBS ====================================================*/
 
   /*========== PACKS ======================================================*/
@@ -2380,6 +2430,7 @@ export const useActionsServerRequests = (state, dispatch) => {
     sendRequestToDeleteClub,
     sendRequestToSellCard,
     sendRequestToSaveCards,
+    sendRequestToUpdateCoins,
 
     /*---------- End Clubs --------------------------------------------------*/
 

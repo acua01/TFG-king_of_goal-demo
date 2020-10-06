@@ -8,7 +8,7 @@
   /* End React's packages */
 
   /* JSS */
-  import styles from './SquadActiveStyles';
+  import styles from './SquadStyles';
   /* END JSS */
 
   /* Routes */
@@ -39,7 +39,7 @@
 
 /*========== END IMPORTS ====================================================*/
 
-const SquadActive = props => {
+const Squad = props => {
 
   const {classes, changeView} = props;
   const {state, actions} = useContext(StoreContext);
@@ -49,38 +49,32 @@ const SquadActive = props => {
   const [chemistryState, setChemistryState] = useState(0);
 
   const [arrayPositionsState, setArrayPositionsState] = useState([]);
-  const [arrayLinesState, setArrayLinesState] = useState([]);
-  const [arrayClubCardsState, setArrayClubCardsState] = useState([]);
-  const [arrayClubCardsShowState, setArrayClubCardsShowState] = useState([]);
+  const [arraySelectionCardsState, setArraySelectionCardsState] = useState([]);
 
   const [activePositionState, setActivePositionState] = useState('');
-  const [interchangePositionState, setInterchangePositionState] = useState('');
+  const [interchangePositionState, setInterchangePositionState] = useState(false);
 
-  const [choosePlayerModalState, setChoosePlayerModalState] = useState(false);
-  const [filterModalState, setFilterModalState] = useState(false);
-
-  const [typeFilterState, setTypeFilterState] = useState('');
-  const [playerFilterState, setPlayerFilterState] = useState('');
-  const [leagueFilterState, setLeagueFilterState] = useState('');
-  const [teamFilterState, setTeamFilterState] = useState('');
-  const [countryFilterState, setCountryFilterState] = useState('');
-  const [positionFilterState, setPositionFilterState] = useState('');
-  const [rareFilterState, setRareFilterState] = useState('');
-  const [specialFilterState, setSpecialFilterState] = useState('');
-
-  const [orderTypeState, setOrderTypeState] = useState('');
-  const [orderByState, setOrderByState] = useState('');
-
-  const [activePageState, setActivePageState] = useState(1);
-  const [itemsPerPageState, setItemsPerPageState] = useState(10);
+  const [choosePlayerModalState, setChoosePlayerModalState] = useState(false);  
 
   const [cardMenuModalState, setCardMenuModalState] = useState(false);
+
+  const [draftFinishedState, setDraftFinishedState] = useState(false);
 
   /*========== USE EFFECT ===================================================*/
 
     useEffect(() => {
-      setRatingState(state.app.squads.current.rating);
-      setChemistryState(state.app.squads.current.chemistry);
+      actions.setBreadcrumb([
+        {
+          name: 'Inicio',
+          path: '/inicio'
+        },
+        {
+          name: 'Draft',
+          path: '/inicio/draft'
+        },
+      ]);
+      
+      actions.startDraft();
     },[]);
 
     useEffect(() => {
@@ -110,25 +104,27 @@ const SquadActive = props => {
         Position(23, 0, 'res5', 'res5', '', 0, 0, 0, 0, 0, '#ff4d4d', 0),
       ];
 
+      setArrayPositionsState(arrayPositions);
+
       let totalRating = 0;
       let totalChemistry = 0;
 
       arrayPositions.map(p => {
-        const card = state.app.squads.cards.find(c => {
+        const cardPosition = state.app.draft.cards.find(c => {
           return p.name == c.position
         });
         
-        if(card){
-          p.idSquadCard = card.id;
+        if(cardPosition){
+          p.idSquadCard = cardPosition.id;
 
-          const clubCard = state.app.clubCards.all.find(c => {
-            return card.id_club_card == c.club_card_id
+          const card = state.app.cards.all.find(c => {
+            return cardPosition.id_card == c.card_id
           });
 
-          if(clubCard){
-            p.player = clubCard;
+          if(card){
+            p.player = card;
             if(p.name.indexOf('res') == -1){
-              totalRating+=clubCard.card_rating;
+              totalRating+=card.card_rating;
             }
             
             checkPositionChemistry(p);
@@ -186,30 +182,25 @@ const SquadActive = props => {
 
       setArrayPositionsState(arrayPositions);
         
-      actions.updateSquadValue(totalRating, totalChemistry);
+      actions.updateDraftRating(totalRating);
+      actions.updateDraftChemistry(totalChemistry);
 
-      let arrayClubCards = [];
-      let arrayIdClubCards = [];
-      let arrayIdSquadPlayers = [];
+      let draftFinishedFlag = true;
 
       arrayPositions.map(p => {
-        if(p.player){
-          arrayIdSquadPlayers.push(p.player.player_id);
-        }       
-      });
-
-      state.app.clubCards.all.map(c => {
-        if(!arrayIdClubCards.includes(c.card_id)){
-          arrayIdClubCards.push(c.card_id);
-          if(!arrayIdSquadPlayers.includes(c.player_id)){
-            arrayClubCards.push(c);
-          }
+        if(!p.player){
+          draftFinishedFlag = false;
         }
       });
 
-      setArrayClubCardsState(arrayClubCards);
-      setArrayClubCardsShowState(arrayClubCards);
-    }, [state.app.squads.cards]);
+      if(draftFinishedFlag){
+        const button = document.getElementById('finishButton');
+        button.classList.remove("disabled");
+
+        setDraftFinishedState(true);
+      }
+
+    }, [state.app.draft.cards]);
 
   /*========== END USE EFFECT ===============================================*/
 
@@ -217,283 +208,71 @@ const SquadActive = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Filter cards
+    * Description: Update squad card
     *--------------------------------------------------------------------------
     */
 
-    const onClickConfirmFilterButtonHandler = () => {
-      let arrayResult = arrayClubCardsState.filter(card => {
-        return (!typeFilterState || (card.type_id === typeFilterState)) &&
-          (!playerFilterState || (card.player_id === playerFilterState)) &&
-          (!leagueFilterState || (card.league_id === leagueFilterState)) &&
-          (!teamFilterState || (card.team_id === teamFilterState)) &&
-          (!countryFilterState || (card.country_id === countryFilterState)) &&
-          (!positionFilterState || (card.position_id === positionFilterState)) &&
-          (rareFilterState === '' || card.type_rare === rareFilterState) &&
-          (specialFilterState === '' || card.type_special === specialFilterState)
+    const getRandomCards = (position) => {
+      let arraySelection = []; 
+      let arrayIdCards = [];    
+      let arrayIdSquadPlayers = [];
+
+      arrayPositionsState.map(p => {
+        if(p.player){
+          arrayIdSquadPlayers.push(p.player.player_id);
+        }
       });
 
-      switch(orderTypeState){
-        case 'name':
-          if(orderByState === 'asc'){
-            arrayResult.sort((a, b) => {
-              if(a.player_name > b.player_name) {
-                return 1;
-              }
-              if(a.player_name < b.player_name) {
-                return -1;
-              }
-              return 0;
-            });
-          }else if(orderByState === 'desc'){
-            arrayResult.sort((a, b) => {
-              if(a.player_name < b.player_name) {
-                return 1;
-              }
-              if(a.player_name > b.player_name) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          break;
-        case 'rating':
-          if(orderByState === 'asc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_rating > b.card_rating) {
-                return 1;
-              }
-              if(a.card_rating < b.card_rating) {
-                return -1;
-              }
-              return 0;
-            });
-          }else if(orderByState === 'desc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_rating < b.card_rating) {
-                return 1;
-              }
-              if(a.card_rating > b.card_rating) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          break;
-        case 'value':
-          if(orderByState === 'asc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_value > b.card_value) {
-                return 1;
-              }
-              if(a.card_value < b.card_value) {
-                return -1;
-              }
-              return 0;
-            });
-          }else if(orderByState === 'desc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_value < b.card_value) {
-                return 1;
-              }
-              if(a.card_value > b.card_value) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          break;
-        case 'pace':
-          if(orderByState === 'asc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_pace > b.card_pace) {
-                return 1;
-              }
-              if(a.card_pace < b.card_pace) {
-                return -1;
-              }
-              return 0;
-            });
-          }else if(orderByState === 'desc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_pace < b.card_pace) {
-                return 1;
-              }
-              if(a.card_pace > b.card_pace) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          break;
-        case 'shooting':
-          if(orderByState === 'asc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_shooting > b.card_shooting) {
-                return 1;
-              }
-              if(a.card_shooting < b.card_shooting) {
-                return -1;
-              }
-              return 0;
-            });
-          }else if(orderByState === 'desc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_shooting < b.card_shooting) {
-                return 1;
-              }
-              if(a.card_shooting > b.card_shooting) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          break;
-        case 'passing':
-          if(orderByState === 'asc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_passing > b.card_passing) {
-                return 1;
-              }
-              if(a.card_passing < b.card_passing) {
-                return -1;
-              }
-              return 0;
-            });
-          }else if(orderByState === 'desc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_passing < b.card_passing) {
-                return 1;
-              }
-              if(a.card_passing > b.card_passing) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          break;
-        case 'dribbling':
-          if(orderByState === 'asc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_dribbling > b.card_dribbling) {
-                return 1;
-              }
-              if(a.card_dribbling < b.card_dribbling) {
-                return -1;
-              }
-              return 0;
-            });
-          }else if(orderByState === 'desc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_dribbling < b.card_dribbling) {
-                return 1;
-              }
-              if(a.card_dribbling > b.card_dribbling) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          break;
-        case 'defending':
-          if(orderByState === 'asc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_defending > b.card_defending) {
-                return 1;
-              }
-              if(a.card_defending < b.card_defending) {
-                return -1;
-              }
-              return 0;
-            });
-          }else if(orderByState === 'desc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_defending < b.card_defending) {
-                return 1;
-              }
-              if(a.card_defending > b.card_defending) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          break;
-        case 'physicality':
-          if(orderByState === 'asc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_physicality > b.card_physicality) {
-                return 1;
-              }
-              if(a.card_physicality < b.card_physicality) {
-                return -1;
-              }
-              return 0;
-            });
-          }else if(orderByState === 'desc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_physicality < b.card_physicality) {
-                return 1;
-              }
-              if(a.card_physicality > b.card_physicality) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          break;
-        case 'skills':
-          if(orderByState === 'asc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_skills > b.card_skills) {
-                return 1;
-              }
-              if(a.card_skills < b.card_skills) {
-                return -1;
-              }
-              return 0;
-            });
-          }else if(orderByState === 'desc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_skills < b.card_skills) {
-                return 1;
-              }
-              if(a.card_skills > b.card_skills) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          break;
-        case 'bad_leg':
-          if(orderByState === 'asc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_bad_leg > b.card_bad_leg) {
-                return 1;
-              }
-              if(a.card_bad_leg < b.card_bad_leg) {
-                return -1;
-              }
-              return 0;
-            });
-          }else if(orderByState === 'desc'){
-            arrayResult.sort((a, b) => {
-              if(a.card_bad_leg < b.card_bad_leg) {
-                return 1;
-              }
-              if(a.card_bad_leg > b.card_bad_leg) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          break;
-        default:
+      const arrayCards = state.app.cards.all.filter(c => {
+        if(position.position == 'por'){
+          return c.position_abbreviation == 'por';
+        }else if(position.position == 'li'){
+          return c.position_abbreviation == 'li' || c.position_abbreviation == 'cai';
+        }else if(position.position == 'dfc'){
+          return c.position_abbreviation == 'dfc'
+        }else if(position.position == 'ld'){
+          return c.position_abbreviation == 'ld' || c.position_abbreviation == 'cad';
+        }else if(position.position == 'mc'){
+          return c.position_abbreviation == 'mc' || c.position_abbreviation == 'mco' || c.position_abbreviation == 'mcd';
+        }else if(position.position == 'mco'){
+          return c.position_abbreviation == 'mco' || c.position_abbreviation == 'mc' || c.position_abbreviation == 'sd';
+        }else if(position.position == 'ei'){
+          return c.position_abbreviation == 'ei' || c.position_abbreviation == 'mi' || c.position_abbreviation == 'sdi';
+        }else if(position.position == 'dc'){
+          return c.position_abbreviation == 'dc' || c.position_abbreviation == 'sd';
+        }else if(position.position == 'ed'){
+          return c.position_abbreviation == 'ed' || c.position_abbreviation == 'md' || c.position_abbreviation == 'sdd';
+        }else if(position.position == 'alt1'){
+          return c.position_abbreviation == 'por';
+        }else if(position.position == 'alt2' || position.position == 'alt3'){
+          return c.position_abbreviation == 'dfc' || c.position_abbreviation == 'li' || c.position_abbreviation == 'cai' || c.position_abbreviation == 'ld' || c.position_abbreviation == 'cad';
+        }else if(position.position == 'alt4' || position.position == 'alt5'){
+          return c.position_abbreviation == 'mcd' || c.position_abbreviation == 'mc' || c.position_abbreviation == 'mco' || c.position_abbreviation == 'mi' || c.position_abbreviation == 'md';
+        }else if(position.position == 'alt6' || position.position == 'alt7'){
+          return c.position_abbreviation == 'ei' || c.position_abbreviation == 'sdi' || c.position_abbreviation == 'dc' || c.position_abbreviation == 'sd' || c.position_abbreviation == 'ed' || c.position_abbreviation == 'sdd';
+        }else if(position.position.indexOf('res') != -1){
+          return true;
+        }
+      });
+      
+      for(let i = 0; i < 5; i++){
+        const nRandom = Math.floor(Math.random() * arrayCards.length);
 
+        const cardRandom = arrayCards[nRandom];
+
+        if(!arrayIdCards.includes(cardRandom.card_id)){
+          arrayIdCards.push(cardRandom.card_id);
+          if(!arrayIdSquadPlayers.includes(cardRandom.player_id)){
+            arraySelection.push(cardRandom);
+          }else{
+            i--;
+          }
+        }else{
+          i--;
+        }
       }
-
-      setArrayClubCardsShowState(arrayResult);
-      setActivePageState(1);
-      setFilterModalState(false);
+      
+      setArraySelectionCardsState(arraySelection);
     }
 
     /*
@@ -501,63 +280,41 @@ const SquadActive = props => {
     * Description: Update squad card
     *--------------------------------------------------------------------------
     */
-
-    const onClickClubCardHandler = card => {
-      window.scrollTo(0,0);
-
+    
+    const onClickSelectionCardHandler = card => {
       const playerRepeat = arrayPositionsState.find(p => {
         return card.player_id == p.player.player_id
       });
 
-      if(!playerRepeat){
-        actions.sendRequestToUpdateSquadCard({
-          idSquad: state.app.squads.current.id,
-          positions: [
-            {
-              idCard: card.club_card_id,
-              idSquadCard: activePositionState.idSquadCard
-            }            
-          ]        
+      if(!playerRepeat){        
+        const arrayPositions = [...arrayPositionsState];
+        const arrayPositionsReducer = [];
+
+        arrayPositions.map(p => {
+          if(p.id == activePositionState.id){
+            p.player = card;
+          }
+
+          arrayPositionsReducer.push({
+            id: p.id,
+            position: p.name,
+            id_card: p.player.card_id ? p.player.card_id : null
+          });
         });
+
+        actions.setDraftCards(arrayPositionsReducer);
+        setArrayPositionsState(arrayPositions);
       }else{
         showSnackbar('error', 'Ya hay una versión de este jugador en la plantilla');
       }    
-
       setChoosePlayerModalState(false);
-      setCardMenuModalState(false);
-    }
-
-    /*
-    *--------------------------------------------------------------------------
-    * Description: Remove squad card
-    *--------------------------------------------------------------------------
-    */
-
-    const onClickRemoveCardHandler = () => {
-      window.scrollTo(0,0);
-
-      actions.sendRequestToUpdateSquadCard({
-        idSquad: state.app.squads.current.id,
-        positions: [
-          {
-            idCard: null,
-            idSquadCard: activePositionState.idSquadCard
-          }
-        ]       
-      });
-      setCardMenuModalState(false);
     }
 
     const onClickGoBackButtonHandler = () => {
-      actions.sendRequestToUpdateSquad({
-        id:state.app.squads.current.id,
-        name:state.app.squads.current.name,
-        rating:state.app.squads.current.rating,
-        chemistry:state.app.squads.current.chemistry,
-        idClub: state.app.authentication.club.id
-      });
+ 
     }
-
+    
+    
     const onClickInterchangePositionButtonHandler = () => {
       setCardMenuModalState(false);
 
@@ -599,28 +356,48 @@ const SquadActive = props => {
         positionsReserves[i].classList.remove("active");
       }
 
-      let idCard;
+      const aux = {...activePositionState};
+
+      const card1 = aux.player;
+
+      let card2;
 
       if(position.player){
-        idCard = position.player.club_card_id;
+        card2 = position.player;
       }else{
-        idCard = null;
+        card2 = null;
       }
 
-      actions.sendRequestToUpdateSquadCard({
-        idSquad: state.app.squads.current.id,  
-        positions: [
-          {
-            idSquadCard: activePositionState.idSquadCard,
-            idCard: idCard,
-          },
-          {
-            idSquadCard: position.idSquadCard,
-            idCard: activePositionState.player.club_card_id,
-          },
-        ],
-      });
+      if(card2){
+        const arrayPositions = [];
+        const arrayPositionsReducer = [];
 
+        arrayPositionsState.map(p => {
+          let object = {...p};
+
+          if(p.id == aux.id){
+            object.player = card2;
+          }
+
+          if(p.id == position.id){
+            object.player = card1;
+          }
+
+          arrayPositionsReducer.push({
+            id: object.id,
+            position: object.name,
+            id_card: object.player.card_id ? object.player.card_id : null
+          });
+
+          arrayPositions.push(object);
+        });
+
+        setArrayPositionsState(arrayPositions);
+
+        actions.setDraftCards(arrayPositionsReducer);
+        
+      }
+            
       setActivePositionState('');
       setInterchangePositionState(false);
     }
@@ -886,7 +663,7 @@ const SquadActive = props => {
               }else{
                 setCardMenuModalState(true);
                 setActivePositionState(p);
-              }
+              }             
             }}
           />
         );
@@ -894,14 +671,14 @@ const SquadActive = props => {
         htmlPlayer = (
           <img
             src={urlServer + '/storage/position_empty.png'}
-            onClick={() => {
-              
+            onClick={() => {     
               if(interchangePositionState){
                 interchangePosition(p);
               }else{           
                 setChoosePlayerModalState(true);
                 setActivePositionState(p);
-              } 
+                getRandomCards(p);
+              }
             }}
           />
         );
@@ -986,6 +763,7 @@ const SquadActive = props => {
               }else{
                 setChoosePlayerModalState(true);
                 setActivePositionState(p);
+                getRandomCards(p);
               } 
             }}
           />
@@ -1051,6 +829,7 @@ const SquadActive = props => {
               }else{
                 setChoosePlayerModalState(true);
                 setActivePositionState(p);
+                getRandomCards(p);
               } 
             }}
           />
@@ -1069,11 +848,11 @@ const SquadActive = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Contains the HTML of my club cards
+    * Description: Contains the HTML of the player selection
     *--------------------------------------------------------------------------
     */
 
-    const htmlClubCards = arrayClubCardsShowState.slice(itemsPerPageState * activePageState - itemsPerPageState, itemsPerPageState * activePageState).map((card, index) => {
+    const htmlSelectionCards = arraySelectionCardsState.map((card, index) => {
       return (
         <Card
           type={card.type_image}
@@ -1090,115 +869,20 @@ const SquadActive = props => {
           dribbling={card.card_dribbling}
           defending={card.card_defending}
           physicality={card.card_physicality}
-          click={() => onClickClubCardHandler(card)}
+          click={() => onClickSelectionCardHandler(card)}
         />
       )
     });
 
-    /*
-    *--------------------------------------------------------------------------
-    * Description: Contains the types of the dropdown
-    *--------------------------------------------------------------------------
-    */
-
-    const arrTypes = [];
-    state.app.cardsTypes.all.map((type, index) => {
-      arrTypes.push({
-        key: index,
-        text: type.name,
-        image: {avatar: false, src: urlServer + type.image},
-        value: type.id,
-      });
-    });
-
-    /*
-    *--------------------------------------------------------------------------
-    * Description: Contains the players of the dropdown
-    *--------------------------------------------------------------------------
-    */
-
-    const arrPlayers = [];
-    state.app.players.all.map((player, index) => {
-      arrPlayers.push({
-        key: index,
-        text: player.name,
-        image: {avatar: false, src: urlServer + player.image},
-        value: player.id,
-      });
-    });
-
-    /*
-    *--------------------------------------------------------------------------
-    * Description: Contains the leagues of the dropdown
-    *--------------------------------------------------------------------------
-    */
-
-    const arrLeagues = [];
-    state.app.leagues.all.map((league, index) => {
-      arrLeagues.push({
-        key: index,
-        text: league.name,
-        image: {avatar: false, src: urlServer + league.image},
-        value: league.id,
-      });
-    });
-
-    /*
-    *--------------------------------------------------------------------------
-    * Description: Contains the teams of the dropdown
-    *--------------------------------------------------------------------------
-    */
-
-    const arrTeams = [];
-    state.app.teams.all.map((team, index) => {
-      arrTeams.push({
-        key: index,
-        text: team.team_name,
-        image: {avatar: false, src: urlServer + team.team_image},
-        value: team.team_id,
-      });
-    });
-
-    /*
-    *--------------------------------------------------------------------------
-    * Description: Contains the countries of the dropdown
-    *--------------------------------------------------------------------------
-    */
-
-    const arrCountries = [];
-    state.app.countries.all.map((country, index) => {
-      arrCountries.push({
-        key: index,
-        text: country.name,
-        image: {avatar: false, src: urlServer + country.image},
-        value: country.id,
-      });
-    });
-
-    /*
-    *--------------------------------------------------------------------------
-    * Description: Contains the positions of the dropdown
-    *--------------------------------------------------------------------------
-    */
-
-    const arrPositions = [];
-    state.app.positions.all.map((position, index) => {
-      arrPositions.push({
-        key: index,
-        text: position.abbreviation.toUpperCase() + ' ' + position.name,
-        value: position.id,
-      });
-    });
-
     const canvasRef = useRef(null);
 
-  /*========== END VARIABLES ================================================*/ 
+  /*========== END VARIABLES ================================================*/
 
   return(
-    <div className={classes.squadActive}>
+    <div className={classes.squad}>
       <button className="goBack"
         onClick={() => {
-          onClickGoBackButtonHandler();
+          //onClickGoBackButtonHandler();
           history.push('/inicio');
         }}
       >
@@ -1207,7 +891,7 @@ const SquadActive = props => {
 
       <div className={classes.squadData}>
         <div className="title">
-          <h2>{state.app.squads.current.name}</h2>
+          <h2>Draft</h2>
         </div>
         <div className="data">
           <div className="rating">
@@ -1236,6 +920,16 @@ const SquadActive = props => {
             </div>
           </div>
         </div>
+        <button className="finish disabled"
+          id="finishButton"
+          onClick={() => {
+            if(draftFinishedState){
+              changeView('Result');
+            }           
+          }}
+        >
+          Finalizar
+        </button>
       </div>
 
       <div 
@@ -1282,267 +976,15 @@ const SquadActive = props => {
       <Modal
         className={classes.choosePlayerModal}
         open={choosePlayerModalState}
-        onClose={() => {
-          setChoosePlayerModalState(false);
-        }}
       >
         <Modal.Content>
-
-        <button onClick={() => setFilterModalState(true)}>
-          <Icon name='filter'/>
-          <span>Filtrar</span>
-        </button>
-
-        {arrayClubCardsShowState.length > 0 ?
-          <Fragment>
-            {/*---------- Cards ----------------------------------------------*/}
-
-            <div className="cardsContainer">
-              {htmlClubCards}
-            </div>
-
-            {/*---------- End Cards ------------------------------------------*/}
-
-            {/*---------- Pagination -----------------------------------------*/}
-
-            {Math.ceil(arrayClubCardsShowState.length / itemsPerPageState) > 1 ?
-              <Pagination
-                className={classes.pagination}
-                defaultActivePage={activePageState}
-                activePage={activePageState}
-                totalPages={Math.ceil(arrayClubCardsShowState.length / itemsPerPageState)}
-                onClick={() => window.scrollTo(0,0)}
-                onPageChange={(event, {activePage}) => setActivePageState(activePage)}
-              />
-            :
-              null
-            }
-
-            {/*---------- End Pagination -------------------------------------*/}
-
-          </Fragment>
-        :
-          <Message
-            className={classes.message}
-            icon='info'
-            header='No se ha encontrado ninguna carta.'
-            color='yellow'
-          />
-        }
+          <div className="cardsContainer">
+            {htmlSelectionCards}
+          </div>
         </Modal.Content>
-        <Modal.Actions>
-          <button onClick={() => setChoosePlayerModalState(false)}>Cerrar</button>
-        </Modal.Actions>
       </Modal>
 
       {/*---------- End Choose Card Modal --------------------------------*/}
-
-      {/*---------- Filter Modal -------------------------------------------*/}
-
-      <Modal
-        className={classes.filterModal}
-        size='mini' open={filterModalState}
-        onClose={() => setFilterModalState(false)}
-      >
-        <Modal.Content>
-          <Tab
-            className={classes.filter}
-            menu={{borderless:true}}
-            panes={[
-            {
-              menuItem: 'Buscar',
-              render: () =>
-                <div className="filterOptions">
-                  <div className={classes.field}>
-                    <label for="type"><Icon name='square' className={classes.icon} size="large"/></label>
-                    <Dropdown id="type" className={classes.dropdown} placeholder='Selecciona el tipo' search selection clearable options={arrTypes} value={typeFilterState} onChange={(event, {value}) => setTypeFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="player"><Icon name='user' className={classes.icon} size="large"/></label>
-                    <Dropdown id="player" className={classes.dropdown} placeholder='Selecciona el jugador' search selection clearable options={arrPlayers} value={playerFilterState} onChange={(event, {value}) => setPlayerFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="league"><Icon name='globe' className={classes.icon} size="large"/></label>
-                    <Dropdown id="league" className={classes.dropdown} placeholder='Selecciona la liga' search selection clearable options={arrLeagues} value={leagueFilterState} onChange={(event, {value}) => setLeagueFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="team"><Icon name='shield' className={classes.icon} size="large"/></label>
-                    <Dropdown id="team" className={classes.dropdown} placeholder='Selecciona el equipo' search selection clearable options={arrTeams} value={teamFilterState} onChange={(event, {value}) => setTeamFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="country"><Icon name='flag' className={classes.icon} size="large"/></label>
-                    <Dropdown id="country" className={classes.dropdown} placeholder='Selecciona el país' search selection clearable options={arrCountries} value={countryFilterState} onChange={(event, {value}) => setCountryFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="position"><Icon name='puzzle piece' className={classes.icon} size="large"/></label>
-                    <Dropdown id="position" className={classes.dropdown} placeholder='Selecciona la posición' search selection clearable options={arrPositions} value={positionFilterState} onChange={(event, {value}) => setPositionFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="rare"><Icon name='square' className={classes.icon} size="large"/></label>
-                    <Dropdown
-                      id="rare"
-                      className={classes.dropdown}
-                      placeholder='Único'
-                      search
-                      selection
-                      clearable
-                      options={[
-                        {
-                          key: 1,
-                          text: 'Sí',
-                          value: 1,
-                        },
-                        {
-                          key: 2,
-                          text: 'No',
-                          value: 0,
-                        }
-                      ]}
-                      value={rareFilterState}
-                      onChange={(event, {value}) => setRareFilterState({value}.value)}/>
-                  </div>
-                  <div className={classes.field}>
-                    <label for="rare"><Icon name='square' className={classes.icon} size="large"/></label>
-                    <Dropdown
-                      id="special"
-                      className={classes.dropdown}
-                      placeholder='Especial'
-                      search
-                      selection
-                      clearable
-                      options={[
-                        {
-                          key: 1,
-                          text: 'Sí',
-                          value: 1,
-                        },
-                        {
-                          key: 2,
-                          text: 'No',
-                          value: 0,
-                        }
-                      ]}
-                      value={specialFilterState}
-                      onChange={(event, {value}) => setSpecialFilterState({value}.value)}/>
-                  </div>
-                </div>
-            },
-            {
-              menuItem: 'Ordenar',
-              render: () =>
-                <Fragment>
-                  <Message
-                    className={classes.message}
-                    icon='info'
-                    header='Estadística jugador / (Estadística portero)'
-                    color='blue'
-                  />
-                  <div className="filterOptions">
-                    <div className={classes.field}>
-                      <label for="name"><Icon name='sort' className={classes.icon} size="large"/></label>
-                      <Dropdown
-                        id="name"
-                        className={classes.dropdown}
-                        placeholder='Ordenar por'
-                        search
-                        selection
-                        clearable
-                        options={[
-                          {
-                            key: 1,
-                            text: 'Nombre',
-                            value: 'name',
-                          },
-                          {
-                            key: 2,
-                            text: 'Valoración',
-                            value: 'rating',
-                          },
-                          {
-                            key: 3,
-                            text: 'Valor',
-                            value: 'value',
-                          },
-                          {
-                            key: 4,
-                            text: 'Ritmo / (Estirada)',
-                            value: 'pace',
-                          },
-                          {
-                            key: 5,
-                            text: 'Tiro / (Parada)',
-                            value: 'shooting',
-                          },
-                          {
-                            key: 6,
-                            text: 'Pase / (Saque)',
-                            value: 'passing',
-                          },
-                          {
-                            key: 7,
-                            text: 'Regate / (Reflejos)',
-                            value: 'dribbling',
-                          },
-                          {
-                            key: 8,
-                            text: 'Defensa / (Velocidad)',
-                            value: 'defending',
-                          },
-                          {
-                            key: 9,
-                            text: 'Físico / (Posicionamiento)',
-                            value: 'physicality',
-                          },
-                          {
-                            key: 10,
-                            text: 'Filigranas',
-                            value: 'skills',
-                          },
-                          {
-                            key: 11,
-                            text: 'Pierna mala',
-                            value: 'bad_leg',
-                          },
-                        ]}
-                        value={orderTypeState}
-                        onChange={(event, {value}) => setOrderTypeState({value}.value)}/>
-                    </div>
-                    <div className={classes.field}>
-                      <label for="order"><Icon name='sort content ascending' className={classes.icon} size="large"/></label>
-                      <Dropdown
-                        id="order"
-                        className={classes.dropdown}
-                        placeholder='Orden'
-                        search
-                        selection
-                        clearable
-                        options={[
-                          {
-                            key: 1,
-                            text: 'Mayor a menor',
-                            value: 'desc',
-                          },
-                          {
-                            key: 2,
-                            text: 'Menor a mayor',
-                            value: 'asc',
-                          }
-                        ]}
-                        value={orderByState}
-                        onChange={(event, {value}) => setOrderByState({value}.value)}/>
-                    </div>
-                  </div>
-                </Fragment>
-            },
-          ]}/>
-
-        </Modal.Content>
-        <Modal.Actions>
-          <button onClick={onClickConfirmFilterButtonHandler}>Confirmar</button>
-        </Modal.Actions>
-      </Modal>
-
-      {/*---------- End Filter Modal ---------------------------------------*/}
 
       {/*---------- Card Menu Modal ------------------------------------*/}
 
@@ -1571,14 +1013,6 @@ const SquadActive = props => {
               physicality={activePositionState.player.card_physicality}
             />
             <div className="options">
-              <div onClick={() => onClickRemoveCardHandler()}>Quitar de la plantilla</div>
-              <div
-                onClick={() => {
-                  setChoosePlayerModalState(true);
-                }}
-              >
-                Cambiar jugador
-              </div>
               <div
                 onClick={() => {
                   onClickInterchangePositionButtonHandler();
@@ -1600,7 +1034,7 @@ const SquadActive = props => {
 
       <button className="goBack"
         onClick={() => {
-          onClickGoBackButtonHandler();
+          //onClickGoBackButtonHandler();
           history.push('/inicio');
         }}
       >
@@ -1610,4 +1044,4 @@ const SquadActive = props => {
   );
 }
 
-export default injectSheet(styles)(SquadActive);
+export default injectSheet(styles)(Squad);

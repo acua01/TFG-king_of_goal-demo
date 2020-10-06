@@ -1,15 +1,15 @@
 export const sidebarItems = [
   {
-    title: 'Ver jugadores',
-    icon: 'users',
-    route: '/inicio',
-    enable: false
+    title: 'Draft',
+    icon: 'puzzle piece',
+    route: '/inicio/draft',
+    enable: true
   },
   {
     title: 'Tienda',
     icon: 'shop',
     route: '/inicio',
-    enable: false
+    enable: true
   },
   {
     title: 'Plantillas',

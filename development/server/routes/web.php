@@ -32,6 +32,7 @@ $router->group(['middleware' => 'auth:api'], function () use($router) {
   $router->post('/update_squad', 'SquadsController@update');
   $router->post('/squad_cards', 'SquadsController@getAllSquadCards');
   $router->post('/update_squad_card', 'SquadsController@updateSquadCard');
+  $router->post('/update_coins', 'ClubsController@updateCoins');
 
   $router->group(['middleware' => 'permission:manage permissions'], function () use($router) {
     $router->post('/permissions', 'PermissionsController@getAll');

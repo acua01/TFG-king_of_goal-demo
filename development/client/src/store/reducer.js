@@ -52,6 +52,11 @@ const initialStateMain = {
     current: {},
     cards: []
   },
+  draft:{
+    cards: [],
+    rating: 0,
+    chemistry: 0
+  }
 };
 
 const types = {

@@ -110,6 +110,62 @@ export const useActionsClient = (state, dispatch) => {
     });
   }
 
+  const startDraft = () => {
+
+    const arrayPositionsNames = ['por', 'li', 'dfc1', 'dfc2', 'ld', 'mc1', 'mco', 'mc2', 'ei', 'dc', 'ed',
+      'alt1', 'alt2', 'alt3', 'alt4', 'alt5', 'alt6', 'alt7', 'res1', 'res2', 'res3', 'res4', 'res5'
+    ];
+
+    let arrayCards = [];
+
+    for(let i = 0; i < arrayPositionsNames.length; i++){
+      arrayCards.push({
+        id: i + 1,
+        position: arrayPositionsNames[i],
+        id_card: null
+      });
+    }
+
+    dispatch({
+      type: types.GENERAL_TYPE,
+      section: 'draft',
+      data: {
+        cards: arrayCards
+      }
+    });
+  }
+
+  const setDraftCards = (positions) => {
+
+    dispatch({
+      type: types.GENERAL_TYPE,
+      section: 'draft',
+      data: {
+        cards: positions
+      }
+    });
+  }
+
+  const updateDraftRating = (rating) => {
+    dispatch({
+      type: types.GENERAL_TYPE,
+      section: 'draft',
+      data: {
+        rating
+      }
+    });
+  }
+
+  const updateDraftChemistry = (chemistry) => {
+    dispatch({
+      type: types.GENERAL_TYPE,
+      section: 'draft',
+      data: {
+        chemistry
+      }
+    });
+  }
+
   return {
     startLoading,
     endLoading,
@@ -118,6 +174,10 @@ export const useActionsClient = (state, dispatch) => {
     setBreadcrumb,
     setAll,
     setCurrent,
-    updateSquadValue
+    updateSquadValue,
+    setDraftCards,
+    startDraft,
+    updateDraftRating,
+    updateDraftChemistry
   };
 };

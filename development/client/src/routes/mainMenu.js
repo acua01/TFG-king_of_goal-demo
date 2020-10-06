@@ -1,10 +1,10 @@
 export const mainMenuItems = [
   {
-    title: 'Mercado',
-    description: 'Aquí podrás ver la información de todos los jugadores.',
-    icon: 'line graph',
-    route: '/inicio',
-    enable: false
+    title: 'Draft',
+    description: 'Gana monedas.',
+    icon: 'puzzle piece',
+    route: '/inicio/draft',
+    enable: true
   },
   {
     title: 'Tienda',
