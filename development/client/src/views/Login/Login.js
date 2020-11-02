@@ -45,7 +45,7 @@ const Login = props => {
 
   /*========== USE EFFECT ===================================================*/
 
-    /*
+    
     useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio');
@@ -53,7 +53,7 @@ const Login = props => {
         history.push('/');
       }
     },[state.app.authentication.auth]);
-    */
+    
 
   /*========== END USE EFFECT ===============================================*/
 

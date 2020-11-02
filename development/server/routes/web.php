@@ -17,11 +17,11 @@ $router->get('/{any:.*}', function () {
 
 $router->group(['middleware' => 'auth:api'], function () use($router) {
   $router->post('/first_load', 'FirstLoadController@getAll');
+  $router->post('/logout', 'AuthenticationController@logout');
   $router->post('/create_club', 'ClubsController@insert');
   $router->post('/update_club', 'ClubsController@update');
   $router->post('/delete_club', 'ClubsController@delete');
-  $router->post('/leagues', 'LeaguesController@getAll');
-  $router->post('/teams', 'TeamsController@getAll');
+  
   $router->post('/sell_card', 'ClubsController@sellCard');
   $router->post('/save_cards', 'ClubsController@saveCards');
   $router->post('/open_pack', 'PacksController@openPack');
@@ -104,3 +104,6 @@ $router->group(['middleware' => 'auth:api'], function () use($router) {
 
 $router->post('/register', 'AuthenticationController@register');
 $router->post('/login', 'AuthenticationController@login');
+
+$router->post('/leagues', 'LeaguesController@getAll');
+$router->post('/teams', 'TeamsController@getAll');

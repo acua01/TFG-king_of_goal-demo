@@ -47,7 +47,7 @@ const Register = props => {
 
   /*========== USE EFFECT ===================================================*/
 
-    /*
+    
     useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio');
@@ -55,7 +55,7 @@ const Register = props => {
         history.push('/registro');
       }
     },[state.app.authentication.auth]);
-    */
+    
     
   /*========== END USE EFFECT ===============================================*/
 
@@ -146,7 +146,7 @@ const Register = props => {
         <h1>Registro</h1>
         <div className={classes.field}>
           <label for="username"><Icon name='user' className={classes.icon} size="large"/></label>
-          <input type="text" id="username" placeholder="Nick (3-20 caracteres alfanuméricos)" minLength="3" maxLength="20" value={usernameState} onChange={(event) => setUsernameState(event.target.value)} required/>
+          <input type="text" id="username" placeholder="Nick" minLength="3" maxLength="20" value={usernameState} onChange={(event) => setUsernameState(event.target.value)} required/>
         </div>
         <div className={classes.field}>
           <label for="email"><Icon name='at' className={classes.icon} size="large"/></label>
@@ -154,7 +154,7 @@ const Register = props => {
         </div>
         <div className={classes.field}>
           <label for="password"><Icon name='lock' className={classes.icon} size="large"/></label>
-          <input type="password" id="password" placeholder="Contraseña (5-20 caracteres)" minLength="5" maxLength="20" value={passwordState} onChange={(event) => setPasswordState(event.target.value)} required/>
+          <input type="password" id="password" placeholder="Contraseña" minLength="5" maxLength="20" value={passwordState} onChange={(event) => setPasswordState(event.target.value)} required/>
         </div>
         <div className={classes.field}>
           <label for="password2"><Icon name='lock' className={classes.icon} size="large"/></label>

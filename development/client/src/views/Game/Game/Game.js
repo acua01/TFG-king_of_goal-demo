@@ -51,6 +51,18 @@ const GameLayout = props => {
   /*========== USE EFFECT ===================================================*/
 
     useEffect(() => {
+      if(state.app.authentication.auth){
+        if(state.app.authentication.club){
+          history.push('/inicio');
+        }else{
+          history.push('/crear_club');
+        }
+      }else{
+        history.push('/');
+      }
+    },[state.app.authentication.auth]);
+
+    useEffect(() => {
       if(state.app.authentication.club){
         setCoinsState(moneyFormat(state.app.authentication.club.coins));
       }
@@ -70,7 +82,9 @@ const GameLayout = props => {
 
     const onClickLogoutHandler = event => {
       event.preventDefault();
-      actions.logout(history);
+      actions.sendRequestToLogout(history, {
+        username: state.app.authentication.username
+      });
     }
 
   /*========== END FUNCTIONS ================================================*/

@@ -178,7 +178,6 @@ export const useActionsServerRequests = (state, dispatch) => {
       sessionStorage.setItem('token', response.data.token);
       sessionStorage.setItem('admin', response.data.is_admin);
       sessionStorage.setItem('username', response.data.user.username);
-      //sessionStorage.setItem('cards', JSON.stringify(response.data.club_cards));
 
       dispatch({
         type: types.GENERAL_TYPE,
@@ -188,11 +187,8 @@ export const useActionsServerRequests = (state, dispatch) => {
           admin: response.data.is_admin,
           username: response.data.user.username,
           club: response.data.user.id_club ? response.data.club : false,
-          //cards: response.data.club_cards
         }
       });
-
-      //askForFirstLoad();
 
       if(response.data.user.id_club){
         sessionStorage.setItem('club', JSON.stringify(response.data.club));
@@ -203,6 +199,63 @@ export const useActionsServerRequests = (state, dispatch) => {
       }
 
       showSnackbar('success', 'Has iniciado sesión correctamente.');
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+    }catch(e){
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: false,
+          message: ''
+        }
+      });
+
+      showMessages('error', e);
+    }
+  }
+
+  const sendRequestToLogout = async(history, data) => {
+    try{
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'loader',
+        data: {
+          isLoading: true,
+          message: 'Cargando...'
+        }
+      });
+
+      const response = await axios.post('/logout', data);
+
+      axios.defaults.headers.common['api_token'] = '';
+
+      sessionStorage.setItem('token', '');
+      sessionStorage.setItem('admin', '');
+      sessionStorage.setItem('username', '');
+      sessionStorage.setItem('club', '');
+
+      dispatch({
+        type: types.GENERAL_TYPE,
+        section: 'authentication',
+        data: {
+          auth: false,
+          admin: false,
+          username: '',
+          club: false
+        }
+      });
+
+      history.push('/login');
+
+      showSnackbar('success', 'Has cerrado sesión correctamente.');
 
       dispatch({
         type: types.GENERAL_TYPE,
@@ -2351,6 +2404,7 @@ export const useActionsServerRequests = (state, dispatch) => {
 
     sendRequestToRegisterUser,
     sendRequestToLoginUser,
+    sendRequestToLogout,
 
     /*---------- End Authentication -----------------------------------------*/
 

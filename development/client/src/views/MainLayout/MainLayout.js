@@ -54,19 +54,13 @@ const MainLayout = props => {
       //alert('auth comprobado');
     },[]);
 
-    /*
-    *--------------------------------------------------------------------------
-    * Description: Check if the user is auth to do the first load
-    *--------------------------------------------------------------------------
-    */
-
     useEffect(() => {
       if(state.app.authentication.auth && state.app.authentication.club){
         actions.askForFirstLoad({
           idClub: state.app.authentication.club.id
         });
       }
-    },[state.app.authentication.auth]);
+    },[state.app.authentication.auth, state.app.authentication.club]);
 
   /*========== END USE EFFECT ===============================================*/
 
@@ -140,14 +134,6 @@ const MainLayout = props => {
           src={urlServer + '/storage/acua.png'}
           alt="logo-acua" 
           title="Acua"
-          onClick={() => {
-            actions.sendRequestToSaveCards({
-              idClub: state.app.authentication.club.id,
-              idCards: state.app.cards.all.map(c => {
-                return c.card_id;
-              })
-            });
-          }}
         />
         <p>Developed by Alejandro Acuaviva Plazuelo</p>
       </footer>

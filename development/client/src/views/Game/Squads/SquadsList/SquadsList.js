@@ -115,6 +115,7 @@ const SquadsList = props => {
           showSnackbar('error', error);
         });
       }
+      setActiveSquadState('');
     }
 
     /*
@@ -143,6 +144,8 @@ const SquadsList = props => {
           showSnackbar('error', error);
         });
       }
+
+      setActiveSquadState('');
     }
 
     /*
@@ -345,7 +348,10 @@ const SquadsList = props => {
       <Modal 
         className={classes.createModal}
         open={createModalState} 
-        onClose={() => setCreateModalState(false)}
+        onClose={() => {
+          setCreateModalState(false);
+          setActiveSquadState('');
+        }}
       >
         <Modal.Content>
           <form onSubmit={(event) => {activeSquadState ? onSubmitUpdateSquadFormHandler(event) : onSubmitInsertSquadFormHandler(event)}}>
@@ -372,7 +378,10 @@ const SquadsList = props => {
         </Modal.Content>
         <Modal.Actions>
           <button 
-            onClick={() => setCreateModalState(false)}
+            onClick={() => {
+              setCreateModalState(false);
+              setActiveSquadState('');
+            }}
           >
             Cerrar
           </button>
@@ -387,7 +396,10 @@ const SquadsList = props => {
         className={classes.deleteModal}
         size='mini' 
         open={deleteModalState} 
-        onClose={() => setDeleteModalState(false)}
+        onClose={() => {
+          setDeleteModalState(false);
+          setActiveSquadState('');
+        }}
       >
         <Modal.Content>
           <p>
@@ -401,7 +413,10 @@ const SquadsList = props => {
             Sí
           </button>
           <button 
-            onClick={() => setDeleteModalState(false)}
+            onClick={() => {
+              setDeleteModalState(false);
+              setActiveSquadState('');
+            }}
           >
             No
           </button>

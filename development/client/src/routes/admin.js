@@ -61,7 +61,7 @@ export const adminMenuItems = [
     description: 'Jugadores.',
     icon: 'user',
     route: '/admin/jugadores',
-    admin:true
+    admin:false
   },
   {
     title: 'Países',

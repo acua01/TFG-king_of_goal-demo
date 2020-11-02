@@ -127,4 +127,21 @@ class AuthenticationController extends Controller{
       return response()->json(['message'=>$this->getErrorMessage($e)], 500);
     }
   }
+
+  // Logout
+
+  public function logout(Request $request){
+    $username = $request['username'];
+
+    try{
+      
+      DB::statement("UPDATE users SET api_token=null WHERE username=:username", [
+        'username'=>$username,
+      ]);
+
+      return response()->json(['message'=>'Has cerrado sesión correctamente.'], 200);
+    }catch(\Exception $e){
+      return response()->json(['message'=>$this->getErrorMessage($e)], 500);
+    }
+  }
 }

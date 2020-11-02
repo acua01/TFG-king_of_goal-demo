@@ -1,7 +1,7 @@
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {Fragment} from 'react';
+  import React, {Fragment, useEffect} from 'react';
   import {Route, Switch, Redirect, useRouteMatch} from 'react-router-dom';
   import injectSheet from 'react-jss';
   import {Icon} from 'semantic-ui-react';
@@ -44,7 +44,15 @@ const Admin = props => {
   const {url, path} = useRouteMatch();
 
   /*========== USE EFFECT ===================================================*/
-
+    /*
+    useEffect(() => {
+      if(state.app.authentication.admin){
+        history.push('/admin');
+      }else{
+        history.push('/');
+      }
+    },[state.app.authentication.admin]);
+    */
   /*========== END USE EFFECT ===============================================*/
 
   /*========== FUNCTIONS ====================================================*/

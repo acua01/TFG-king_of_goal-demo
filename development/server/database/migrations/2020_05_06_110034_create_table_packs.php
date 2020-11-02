@@ -17,7 +17,7 @@ class CreateTablePacks extends Migration
           $table->engine = 'InnoDB';
           $table->bigIncrements('id');
           $table->string('name', 50);
-          $table->string('description', 500);
+          $table->string('description', 255);
           $table->integer('number_players');
           $table->bigInteger('price');
           $table->string('image', 500)->nullable(true);

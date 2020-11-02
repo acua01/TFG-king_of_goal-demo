@@ -47,21 +47,10 @@ const CreateClub = props => {
   /*========== USE EFFECT ===================================================*/
 
     useEffect(() => {
-      //alert('Comprobando auth');
       actions.askForAllLeagues();
       actions.askForAllTeams();
-      //alert('auth comprobado');
-    },[state.app.authentication.auth]);
-
-    /*
-    useEffect(() => {
-      if(!state.app.authentication.auth){
-        alert('hola');
-        history.push('/');
-      }
-    },[state.app.authentication.auth]);
-    */
-    /*
+    },[]);
+    
     useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/crear_club');
@@ -69,7 +58,7 @@ const CreateClub = props => {
         history.push('/');
       }
     },[state.app.authentication.auth]);
-    */
+    
   /*========== END USE EFFECT ===============================================*/
 
   /*========== FUNCTIONS ====================================================*/
@@ -94,6 +83,12 @@ const CreateClub = props => {
 
       if(nameState.length < 3 || nameState.length > 30){
         errors.push('Introduce un nombre de mínimo 3 caracteres y máximo de 30.');
+      }
+
+      // Logo validation
+
+      if(imageState === ''){
+        errors.push('Elige un escudo.');
       }
 
       if(errors.length === 0){
