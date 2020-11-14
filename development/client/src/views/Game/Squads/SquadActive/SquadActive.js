@@ -49,7 +49,6 @@ const SquadActive = props => {
   const [chemistryState, setChemistryState] = useState(0);
 
   const [arrayPositionsState, setArrayPositionsState] = useState([]);
-  const [arrayLinesState, setArrayLinesState] = useState([]);
   const [arrayClubCardsState, setArrayClubCardsState] = useState([]);
   const [arrayClubCardsShowState, setArrayClubCardsShowState] = useState([]);
 
@@ -548,6 +547,12 @@ const SquadActive = props => {
       setCardMenuModalState(false);
     }
 
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Go back the view and update the squad cards
+    *--------------------------------------------------------------------------
+    */
+
     const onClickGoBackButtonHandler = () => {
       actions.sendRequestToUpdateSquad({
         id:state.app.squads.current.id,
@@ -557,6 +562,12 @@ const SquadActive = props => {
         idClub: state.app.authentication.club.id
       });
     }
+
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Interchange position button function
+    *--------------------------------------------------------------------------
+    */
 
     const onClickInterchangePositionButtonHandler = () => {
       setCardMenuModalState(false);
@@ -581,6 +592,12 @@ const SquadActive = props => {
 
       setInterchangePositionState(true);
     }
+
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Interchanges the position of two players
+    *--------------------------------------------------------------------------
+    */
 
     const interchangePosition = (position) => {
       const positionsHeadlines = document.querySelectorAll('#headlines .card');
@@ -624,6 +641,12 @@ const SquadActive = props => {
       setActivePositionState('');
       setInterchangePositionState(false);
     }
+
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Check if the position is correct and ups chemistry depends it
+    *--------------------------------------------------------------------------
+    */
 
     const checkPositionChemistry = (position) => {
       if (position.position == position.player.position_abbreviation){
@@ -725,6 +748,12 @@ const SquadActive = props => {
       position.chemistry += position.correctPosition;
     }
 
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Check the chemistry of the players and set the links types
+    *--------------------------------------------------------------------------
+    */
+
     const checkChemistryLinesType = (line) => {
       if(line.position1.player != '' && line.position2.player != ''){
         let coincidences = 0;
@@ -761,6 +790,12 @@ const SquadActive = props => {
       }
     }
 
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Draw a line
+    *--------------------------------------------------------------------------
+    */
+
     const drawLine = (canvasContext, line, heightImgCard) => {
       canvasContext.beginPath();
       canvasContext.lineWidth = 3;
@@ -769,6 +804,12 @@ const SquadActive = props => {
       canvasContext.lineTo(percentToPx(line.position2.left, canvasContext.canvas.width), line.position2.top + heightImgCard);
       canvasContext.stroke();
     }
+
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Check the links types around a player and return a object with the quantity of them
+    *--------------------------------------------------------------------------
+    */
     
     const linksPlayerAround = (lines, position) => {
       var linksAround = {
@@ -802,6 +843,12 @@ const SquadActive = props => {
       }
       return linksAround;
     }
+
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Up chemistry players depends on the links types around
+    *--------------------------------------------------------------------------
+    */
 
     const checkChemistryLinesChemistry = (lines, position) => {
       var positionLinks = linksPlayerAround(lines, position);
@@ -853,7 +900,7 @@ const SquadActive = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: html headlines
+    * Description: Contains the HTML of headlines players
     *--------------------------------------------------------------------------
     */
 
@@ -863,6 +910,7 @@ const SquadActive = props => {
       if(Object.keys(p.player).length > 0){
         htmlPlayer = (
           <Card
+            key={index}
             extraClasses='card'
             sizeType='mini'
             size='normal'
@@ -939,7 +987,7 @@ const SquadActive = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: html alternates
+    * Description: Contains the HTML of alternates players
     *--------------------------------------------------------------------------
     */
 
@@ -949,6 +997,7 @@ const SquadActive = props => {
       if(Object.keys(p.player).length > 0){
         htmlPlayer = (
           <Card
+            key={index}
             extraClasses='card'
             sizeType='mini'
             size='normal'
@@ -1004,7 +1053,7 @@ const SquadActive = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: html reserves
+    * Description: Contains the HTML of reserves players
     *--------------------------------------------------------------------------
     */
 
@@ -1014,6 +1063,7 @@ const SquadActive = props => {
       if(Object.keys(p.player).length > 0){
         htmlPlayer = (
           <Card
+            key={index}
             extraClasses='card'
             sizeType='mini'
             size='normal'
@@ -1076,6 +1126,7 @@ const SquadActive = props => {
     const htmlClubCards = arrayClubCardsShowState.slice(itemsPerPageState * activePageState - itemsPerPageState, itemsPerPageState * activePageState).map((card, index) => {
       return (
         <Card
+          key={index}
           type={card.type_image}
           textColor={card.type_text_color}
           player={card.player_image}
@@ -1190,6 +1241,12 @@ const SquadActive = props => {
       });
     });
 
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Canvas ref
+    *--------------------------------------------------------------------------
+    */
+
     const canvasRef = useRef(null);
 
   /*========== END VARIABLES ================================================*/ 
@@ -1204,6 +1261,8 @@ const SquadActive = props => {
       >
         <Icon name='reply'/>
       </button>
+
+      {/*---------- Squad Data ------------------------------------*/}
 
       <div className={classes.squadData}>
         <div className="title">
@@ -1238,6 +1297,10 @@ const SquadActive = props => {
         </div>
       </div>
 
+      {/*---------- End Squad Data ------------------------------------*/}
+
+      {/*---------- Headlines Players ------------------------------------*/}
+
       <div 
         className={classes.headlines}
         id="headlines"
@@ -1251,6 +1314,10 @@ const SquadActive = props => {
         </canvas>
         {htmlHeadlines}
       </div>
+
+      {/*---------- End Headlines Players ------------------------------------*/}
+
+      {/*---------- Bench Players ------------------------------------*/}
 
       <div className={classes.bench}>
         <div 
@@ -1277,6 +1344,8 @@ const SquadActive = props => {
         </div>
       </div>
 
+      {/*---------- End Bench Players ------------------------------------*/}
+
       {/*---------- Choose Card Modal ------------------------------------*/}
 
       <Modal
@@ -1295,6 +1364,7 @@ const SquadActive = props => {
 
         {arrayClubCardsShowState.length > 0 ?
           <Fragment>
+
             {/*---------- Cards ----------------------------------------------*/}
 
             <div className="cardsContainer">
@@ -1354,31 +1424,105 @@ const SquadActive = props => {
               render: () =>
                 <div className="filterOptions">
                   <div className={classes.field}>
-                    <label for="type"><Icon name='square' className={classes.icon} size="large"/></label>
-                    <Dropdown id="type" className={classes.dropdown} placeholder='Selecciona el tipo' search selection clearable options={arrTypes} value={typeFilterState} onChange={(event, {value}) => setTypeFilterState({value}.value)}/>
+                    <label for="type">
+                      <Icon name='square' className={classes.icon} size="large"/>
+                    </label>
+                    <Dropdown 
+                      id="type" 
+                      className={classes.dropdown} 
+                      placeholder='Selecciona el tipo' 
+                      search 
+                      selection 
+                      clearable 
+                      options={arrTypes} 
+                      value={typeFilterState} 
+                      onChange={(event, {value}) => setTypeFilterState({value}.value)}
+                    />
                   </div>
                   <div className={classes.field}>
-                    <label for="player"><Icon name='user' className={classes.icon} size="large"/></label>
-                    <Dropdown id="player" className={classes.dropdown} placeholder='Selecciona el jugador' search selection clearable options={arrPlayers} value={playerFilterState} onChange={(event, {value}) => setPlayerFilterState({value}.value)}/>
+                    <label for="player">
+                      <Icon name='user' className={classes.icon} size="large"/>
+                    </label>
+                    <Dropdown 
+                      id="player" 
+                      className={classes.dropdown} 
+                      placeholder='Selecciona el jugador' 
+                      search 
+                      selection 
+                      clearable 
+                      options={arrPlayers} 
+                      value={playerFilterState} 
+                      onChange={(event, {value}) => setPlayerFilterState({value}.value)}
+                    />
                   </div>
                   <div className={classes.field}>
-                    <label for="league"><Icon name='globe' className={classes.icon} size="large"/></label>
-                    <Dropdown id="league" className={classes.dropdown} placeholder='Selecciona la liga' search selection clearable options={arrLeagues} value={leagueFilterState} onChange={(event, {value}) => setLeagueFilterState({value}.value)}/>
+                    <label for="league">
+                      <Icon name='globe' className={classes.icon} size="large"/>
+                    </label>
+                    <Dropdown 
+                      id="league" 
+                      className={classes.dropdown} 
+                      placeholder='Selecciona la liga' 
+                      search 
+                      selection 
+                      clearable 
+                      options={arrLeagues} 
+                      value={leagueFilterState} 
+                      onChange={(event, {value}) => setLeagueFilterState({value}.value)}
+                    />
                   </div>
                   <div className={classes.field}>
-                    <label for="team"><Icon name='shield' className={classes.icon} size="large"/></label>
-                    <Dropdown id="team" className={classes.dropdown} placeholder='Selecciona el equipo' search selection clearable options={arrTeams} value={teamFilterState} onChange={(event, {value}) => setTeamFilterState({value}.value)}/>
+                    <label for="team">
+                      <Icon name='shield' className={classes.icon} size="large"/>
+                    </label>
+                    <Dropdown 
+                      id="team" 
+                      className={classes.dropdown} 
+                      placeholder='Selecciona el equipo' 
+                      search 
+                      selection 
+                      clearable 
+                      options={arrTeams} 
+                      value={teamFilterState} 
+                      onChange={(event, {value}) => setTeamFilterState({value}.value)}
+                    />
                   </div>
                   <div className={classes.field}>
-                    <label for="country"><Icon name='flag' className={classes.icon} size="large"/></label>
-                    <Dropdown id="country" className={classes.dropdown} placeholder='Selecciona el país' search selection clearable options={arrCountries} value={countryFilterState} onChange={(event, {value}) => setCountryFilterState({value}.value)}/>
+                    <label for="country">
+                      <Icon name='flag' className={classes.icon} size="large"/>
+                    </label>
+                    <Dropdown 
+                      id="country" 
+                      className={classes.dropdown} 
+                      placeholder='Selecciona el país' 
+                      search 
+                      selection 
+                      clearable 
+                      options={arrCountries} 
+                      value={countryFilterState} 
+                      onChange={(event, {value}) => setCountryFilterState({value}.value)}
+                    />
                   </div>
                   <div className={classes.field}>
-                    <label for="position"><Icon name='puzzle piece' className={classes.icon} size="large"/></label>
-                    <Dropdown id="position" className={classes.dropdown} placeholder='Selecciona la posición' search selection clearable options={arrPositions} value={positionFilterState} onChange={(event, {value}) => setPositionFilterState({value}.value)}/>
+                    <label for="position">
+                      <Icon name='puzzle piece' className={classes.icon} size="large"/>
+                    </label>
+                    <Dropdown 
+                      id="position" 
+                      className={classes.dropdown} 
+                      placeholder='Selecciona la posición' 
+                      search 
+                      selection 
+                      clearable 
+                      options={arrPositions} 
+                      value={positionFilterState} 
+                      onChange={(event, {value}) => setPositionFilterState({value}.value)}
+                    />
                   </div>
                   <div className={classes.field}>
-                    <label for="rare"><Icon name='square' className={classes.icon} size="large"/></label>
+                    <label for="rare">
+                      <Icon name='square' className={classes.icon} size="large"/>
+                    </label>
                     <Dropdown
                       id="rare"
                       className={classes.dropdown}
@@ -1402,7 +1546,9 @@ const SquadActive = props => {
                       onChange={(event, {value}) => setRareFilterState({value}.value)}/>
                   </div>
                   <div className={classes.field}>
-                    <label for="rare"><Icon name='square' className={classes.icon} size="large"/></label>
+                    <label for="rare">
+                      <Icon name='square' className={classes.icon} size="large"/>
+                    </label>
                     <Dropdown
                       id="special"
                       className={classes.dropdown}
@@ -1439,7 +1585,9 @@ const SquadActive = props => {
                   />
                   <div className="filterOptions">
                     <div className={classes.field}>
-                      <label for="name"><Icon name='sort' className={classes.icon} size="large"/></label>
+                      <label for="name">
+                        <Icon name='sort' className={classes.icon} size="large"/>
+                      </label>
                       <Dropdown
                         id="name"
                         className={classes.dropdown}
@@ -1508,7 +1656,9 @@ const SquadActive = props => {
                         onChange={(event, {value}) => setOrderTypeState({value}.value)}/>
                     </div>
                     <div className={classes.field}>
-                      <label for="order"><Icon name='sort content ascending' className={classes.icon} size="large"/></label>
+                      <label for="order">
+                        <Icon name='sort content ascending' className={classes.icon} size="large"/>
+                      </label>
                       <Dropdown
                         id="order"
                         className={classes.dropdown}

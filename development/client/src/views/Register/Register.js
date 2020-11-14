@@ -47,15 +47,13 @@ const Register = props => {
 
   /*========== USE EFFECT ===================================================*/
 
-    
     useEffect(() => {
       if(state.app.authentication.auth){
         history.push('/inicio');
       }else{
         history.push('/registro');
       }
-    },[state.app.authentication.auth]);
-    
+    },[state.app.authentication.auth]);    
     
   /*========== END USE EFFECT ===============================================*/
 
@@ -145,20 +143,62 @@ const Register = props => {
       <form onSubmit={onSubmitRegisterFormHandler}>
         <h1>Registro</h1>
         <div className={classes.field}>
-          <label for="username"><Icon name='user' className={classes.icon} size="large"/></label>
-          <input type="text" id="username" placeholder="Nick" minLength="3" maxLength="20" value={usernameState} onChange={(event) => setUsernameState(event.target.value)} required/>
+          <label for="username">
+            <Icon name='user' className={classes.icon} size="large"/>
+          </label>
+          <input 
+            type="text" 
+            id="username" 
+            placeholder="Nick" 
+            minLength="3" 
+            maxLength="20" 
+            value={usernameState} 
+            onChange={(event) => setUsernameState(event.target.value)} 
+            required
+          />
         </div>
         <div className={classes.field}>
-          <label for="email"><Icon name='at' className={classes.icon} size="large"/></label>
-          <input type="text" id="email" placeholder="Email" value={emailState} onChange={(event) => setEmailState(event.target.value)} required/>
+          <label for="email">
+            <Icon name='at' className={classes.icon} size="large"/>
+          </label>
+          <input 
+            type="text" 
+            id="email" 
+            placeholder="Email" 
+            value={emailState} 
+            onChange={(event) => setEmailState(event.target.value)} 
+            required
+          />
         </div>
         <div className={classes.field}>
-          <label for="password"><Icon name='lock' className={classes.icon} size="large"/></label>
-          <input type="password" id="password" placeholder="Contraseña" minLength="5" maxLength="20" value={passwordState} onChange={(event) => setPasswordState(event.target.value)} required/>
+          <label for="password">
+            <Icon name='lock' className={classes.icon} size="large"/>
+          </label>
+          <input 
+            type="password" 
+            id="password" 
+            placeholder="Contraseña" 
+            minLength="5" 
+            maxLength="20" 
+            value={passwordState} 
+            onChange={(event) => setPasswordState(event.target.value)} 
+            required
+          />
         </div>
         <div className={classes.field}>
-          <label for="password2"><Icon name='lock' className={classes.icon} size="large"/></label>
-          <input type="password" id="password2" placeholder="Repetir contraseña" minLength="5" maxLength="20" value={password2State} onChange={(event) => setPassword2State(event.target.value)} required/>
+          <label for="password2">
+            <Icon name='lock' className={classes.icon} size="large"/>
+          </label>
+          <input 
+            type="password" 
+            id="password2" 
+            placeholder="Repetir contraseña" 
+            minLength="5" 
+            maxLength="20" 
+            value={password2State} 
+            onChange={(event) => setPassword2State(event.target.value)} 
+            required
+          />
         </div>
         <input type="submit" value="Registrar" />
       </form>
@@ -169,8 +209,7 @@ const Register = props => {
         }}
       >
         <Icon name='reply'/>
-      </button>
-      
+      </button>      
     </div>
   );
 }

@@ -60,7 +60,7 @@ const CardsTypes = props => {
     useEffect(() => {
       actions.setBreadcrumb([
         {
-          name: 'Administracion',
+          name: 'Administración',
           path: '/admin'
         },
         {
@@ -68,10 +68,6 @@ const CardsTypes = props => {
           path: '/admin/tipos_cartas'
         },
       ]);
-    },[]);
-
-    useEffect(() => {
-      actions.askForAllCardsTypes();
     },[]);
 
     useEffect(() => {
@@ -235,7 +231,7 @@ const CardsTypes = props => {
     *--------------------------------------------------------------------------
     */
 
-    const onClickConfirmDeleteButtonHandler = idCardType => {
+    const onClickConfirmDeleteButtonHandler = () => {
       window.scrollTo(0,0);
       setDeleteModalState(false);
 
@@ -405,7 +401,12 @@ const CardsTypes = props => {
 
               {/*---------- Modal ------------------------------------------*/}
 
-              <Modal className={classes.modal} size='mini' open={deleteModalState} onClose={() => setDeleteModalState(false)}>
+              <Modal 
+                className={classes.modal} 
+                size='mini' 
+                open={deleteModalState} 
+                onClose={() => setDeleteModalState(false)}
+              >
                 <Modal.Content>
                   <p>¿Seguro que quieres eliminar este tipo de carta?</p>
                 </Modal.Content>
@@ -444,43 +445,103 @@ const CardsTypes = props => {
             <Icon name='angle left'/>
             <span>Volver a la lista</span>
           </button>
-          <h1>{activeCardTypeState ? <Fragment>Modificar tipo de carta</Fragment> : <Fragment>Insertar tipo de carta</Fragment>}</h1>
-          <form onSubmit={(event) => {activeCardTypeState ? onSubmitUpdateCardTypeFormHandler(event) : onSubmitInsertCardTypeFormHandler(event)}}>
+          <h1>
+            {activeCardTypeState ? <Fragment>Modificar tipo de carta</Fragment> : <Fragment>Insertar tipo de carta</Fragment>}
+          </h1>
+          <form 
+            onSubmit={(event) => {activeCardTypeState ? onSubmitUpdateCardTypeFormHandler(event) : onSubmitInsertCardTypeFormHandler(event)}}
+          >
             <div className={classes.field}>
-              <label for="name"><Icon name='header' className={classes.icon} size="large"/></label>
-              <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="50"/>
+              <label for="name">
+                <Icon name='header' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="name" 
+                placeholder="Nombre" 
+                value={nameState} 
+                onChange={(event) => setNameState(event.target.value)} 
+                maxLength="50"
+              />
             </div>
             <div className={classes.fileField}>
-              <label for="image"><Icon name='file image' className={classes.icon} size="large"/></label>
+              <label for="image">
+                <Icon name='file image' className={classes.icon} size="large"/>
+              </label>
               <ReactFileReader handleFiles={fileHandlerImage} base64={true} fileTypes={[".png"]}>
-                <input type="text" id="image" placeholder="Selecciona la imagen" value={imageState ? 'Imagen seleccionada' : ''}/>
+                <input 
+                  type="text" 
+                  id="image" 
+                  placeholder="Selecciona la imagen" 
+                  value={imageState ? 'Imagen seleccionada' : ''}
+                />
               </ReactFileReader>
-              <button onClick={(event) => {event.preventDefault(); setImageState('');}}><Icon name='delete'/></button>
+              <button 
+                onClick={(event) => {event.preventDefault(); setImageState('');}}
+              >
+                <Icon name='delete'/>
+              </button>
             </div>
 
-            {imageState && imageState.slice(0,8) === '/storage' ? <img src={urlServer + imageState} width="50" alt={imageState}/> : null}
+            {imageState && imageState.slice(0,8) === '/storage' ? 
+              <img src={urlServer + imageState} width="50" alt={imageState}/> 
+            : 
+              null
+            }
 
             <div className={classes.fileField}>
-              <label for="image_mini"><Icon name='file image' className={classes.icon} size="large"/></label>
+              <label for="image_mini">
+                <Icon name='file image' className={classes.icon} size="large"/>
+              </label>
               <ReactFileReader handleFiles={fileHandlerImageMini} base64={true} fileTypes={[".png"]}>
-                <input type="text" id="image_mini" placeholder="Selecciona la imagen mini" value={imageMiniState ? 'Imagen seleccionada' : ''}/>
+                <input 
+                  type="text" 
+                  id="image_mini" 
+                  placeholder="Selecciona la imagen mini" 
+                  value={imageMiniState ? 'Imagen seleccionada' : ''}
+                />
               </ReactFileReader>
-              <button onClick={(event) => {event.preventDefault(); setImageMiniState('');}}><Icon name='delete'/></button>
+              <button 
+                onClick={(event) => {event.preventDefault(); setImageMiniState('');}}
+              >
+                <Icon name='delete'/>
+              </button>
             </div>
 
-            {imageMiniState && imageMiniState.slice(0,8) === '/storage' ? <img src={urlServer + imageMiniState} width="50" alt={imageMiniState}/> : null}
+            {imageMiniState && imageMiniState.slice(0,8) === '/storage' ? 
+              <img src={urlServer + imageMiniState} width="50" alt={imageMiniState}/> 
+            : 
+              null
+            }
 
             <div className={classes.field}>
-              <label for="textColor"><Icon name='paint brush' className={classes.icon} size="large"/></label>
-              <input type="text" id="textColor" placeholder="Color texto" value={textColorState} onChange={(event) => setTextColorState(event.target.value)} maxLength="7"/>
+              <label for="textColor">
+                <Icon name='paint brush' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="textColor" 
+                placeholder="Color texto" 
+                value={textColorState} 
+                onChange={(event) => setTextColorState(event.target.value)} 
+                maxLength="7"
+              />
             </div>
 
             <div className={classes.checkboxField}>
-              <Checkbox label='Único' checked={rareState} onClick={(event, data) => setRareState(data.checked)}/>
+              <Checkbox 
+                label='Único' 
+                checked={rareState} 
+                onClick={(event, data) => setRareState(data.checked)}
+              />
             </div>
 
             <div className={classes.checkboxField}>
-              <Checkbox label='Especial' checked={specialState} onClick={(event, data) => setSpecialState(data.checked)}/>
+              <Checkbox 
+                label='Especial' 
+                checked={specialState} 
+                onClick={(event, data) => setSpecialState(data.checked)}
+              />
             </div>
 
             <button type="submit">

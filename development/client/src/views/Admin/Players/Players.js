@@ -59,7 +59,7 @@ const Players = props => {
     useEffect(() => {
       actions.setBreadcrumb([
         {
-          name: 'Administracion',
+          name: 'Administración',
           path: '/admin'
         },
         {
@@ -67,28 +67,6 @@ const Players = props => {
           path: '/admin/jugadores'
         },
       ]);
-    },[]);
-
-    /*
-    useEffect(() => {
-      if(state.app.authentication.auth){
-        history.push('/inicio/admin/jugadores');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth]);
-    */
-    /*
-    useEffect(() => {
-      if(state.app.authentication.admin){
-        history.push('/inicio/admin/jugadores');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth, state.app.authentication.admin]);
-    */
-    useEffect(() => {
-      actions.askForAllPlayers();
     },[]);
 
     useEffect(() => {
@@ -174,10 +152,6 @@ const Players = props => {
   			errors.push('El nombre completo debe tener un máximo de 255 caracteres.');
   		}
 
-      // Image
-
-      // Height
-
       return errors;
     }
 
@@ -262,7 +236,7 @@ const Players = props => {
     *--------------------------------------------------------------------------
     */
 
-    const onClickConfirmDeleteButtonHandler = idPlayer => {
+    const onClickConfirmDeleteButtonHandler = () => {
       window.scrollTo(0,0);
       setDeleteModalState(false);
 
@@ -406,7 +380,11 @@ const Players = props => {
 
               {/*---------- Modal ------------------------------------------*/}
 
-              <Modal className={classes.modal} size='mini' open={deleteModalState} onClose={() => setDeleteModalState(false)}>
+              <Modal 
+                className={classes.modal} 
+                size='mini' open={deleteModalState} 
+                onClose={() => setDeleteModalState(false)}
+              >
                 <Modal.Content>
                   <p>¿Seguro que quieres eliminar este jugador?</p>
                 </Modal.Content>
@@ -445,33 +423,85 @@ const Players = props => {
             <Icon name='angle left'/>
             <span>Volver a la lista</span>
           </button>
-          <h1>{activePlayerState ? <Fragment>Modificar jugador</Fragment> : <Fragment>Insertar jugador</Fragment>}</h1>
-          <form onSubmit={(event) => {activePlayerState ? onSubmitUpdatePlayerFormHandler(event) : onSubmitInsertPlayerFormHandler(event)}}>
+          <h1>
+            {activePlayerState ? <Fragment>Modificar jugador</Fragment> : <Fragment>Insertar jugador</Fragment>}
+          </h1>
+          <form 
+            onSubmit={(event) => {activePlayerState ? onSubmitUpdatePlayerFormHandler(event) : onSubmitInsertPlayerFormHandler(event)}}
+          >
             <div className={classes.field}>
-              <label for="name"><Icon name='header' className={classes.icon} size="large"/></label>
-              <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="30"/>
+              <label for="name">
+                <Icon name='header' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="name" 
+                placeholder="Nombre" 
+                value={nameState} 
+                onChange={(event) => setNameState(event.target.value)} 
+                maxLength="30"
+              />
             </div>
             <div className={classes.field}>
-              <label for="full_name"><Icon name='header' className={classes.icon} size="large"/></label>
-              <input type="text" id="full_name" placeholder="Nombre completo" value={fullNameState} onChange={(event) => setFullNameState(event.target.value)} maxLength="255"/>
+              <label for="full_name">
+                <Icon name='header' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="full_name" 
+                placeholder="Nombre completo" 
+                value={fullNameState} 
+                onChange={(event) => setFullNameState(event.target.value)} 
+                maxLength="255"
+              />
             </div>
             <div className={classes.field}>
-              <label for="height"><Icon name='male' className={classes.icon} size="large"/></label>
-              <input type="text" id="height" placeholder="Altura" value={heightState} onChange={(event) => setHeightState(event.target.value)}/>
+              <label for="height">
+                <Icon name='male' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="height" 
+                placeholder="Altura" 
+                value={heightState} 
+                onChange={(event) => setHeightState(event.target.value)}
+              />
             </div>
             <div className={classes.field}>
-              <label for="birth"><Icon name='birthday cake' className={classes.icon} size="large"/></label>
-              <input type="date" id="birth" placeholder="Fecha de nacimiento" value={birthState} onChange={(event) => setBirthState(event.target.value)}/>
+              <label for="birth">
+                <Icon name='birthday cake' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="date" 
+                id="birth" 
+                placeholder="Fecha de nacimiento" 
+                value={birthState} onChange={(event) => setBirthState(event.target.value)}
+              />
             </div>
             <div className={classes.fileField}>
-              <label for="image"><Icon name='file image' className={classes.icon} size="large"/></label>
+              <label for="image">
+                <Icon name='file image' className={classes.icon} size="large"/>
+              </label>
               <ReactFileReader handleFiles={fileHandler} base64={true} fileTypes={[".png"]}>
-                <input type="text" id="image" placeholder="Selecciona una imagen" value={imageState ? 'Imagen seleccionada' : ''}/>
+                <input 
+                  type="text" 
+                  id="image" 
+                  placeholder="Selecciona una imagen" 
+                  value={imageState ? 'Imagen seleccionada' : ''}
+                />
               </ReactFileReader>
-              <button onClick={(event) => {event.preventDefault(); setImageState('');}}><Icon name='delete'/></button>
+              <button 
+                onClick={(event) => {event.preventDefault(); setImageState('');}}
+              >
+                <Icon name='delete'/>
+              </button>
             </div>
 
-            {imageState && imageState.slice(0,8) === '/storage' ? <img src={urlServer + imageState} width="50" alt={imageState}/> : null}
+            {imageState && imageState.slice(0,8) === '/storage' ? 
+              <img src={urlServer + imageState} width="50" alt={imageState}/>
+            : 
+              null
+            }
 
             <button type="submit">
               {activePlayerState ?

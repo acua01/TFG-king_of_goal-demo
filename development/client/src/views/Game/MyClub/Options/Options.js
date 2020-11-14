@@ -86,7 +86,7 @@ const Options = props => {
     *--------------------------------------------------------------------------
     */
 
-    const onClickTeamDivHandler = (event, index, team) => {
+    const onClickTeamDivHandler = (index, team) => {
       const teams = document.querySelectorAll('#teamsContainer > div');
 
       for(let i = 0; i < teams.length; i++){
@@ -221,20 +221,38 @@ const Options = props => {
 
       <div>
         <h1>Opciones</h1>
+
+        {/*---------- Name Form --------------------------------------------*/}
+
         <form onSubmit={onSubmitUpdateClubFormHandler}>
           <div className="team">
             <div onClick={() => setTeamsModalState(true)}>
               {state.app.authentication.club.image ?
-                <img src={urlServer + imageState} alt={state.app.authentication.club.name + ' logo'}/>
+                <img 
+                  src={urlServer + imageState} 
+                  alt={state.app.authentication.club.name + ' logo'}
+                />
               :
-                <img src={urlServer + '/storage/team.png'} alt={state.app.authentication.club.name + ' logo'}/>
+                <img 
+                  src={urlServer + '/storage/team.png'} 
+                  alt={state.app.authentication.club.name + ' logo'}
+                />
               }
             </div>
             <div><Icon name='edit'/></div>
           </div>
           <div className={classes.field}>
-            <label for="name"><Icon name='edit' className={classes.icon} size="large"/></label>
-            <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="50"/>
+            <label for="name">
+              <Icon name='edit' className={classes.icon} size="large"/>
+            </label>
+            <input 
+              type="text" 
+              id="name" 
+              placeholder="Nombre" 
+              value={nameState} 
+              onChange={(event) => setNameState(event.target.value)} 
+              maxLength="50"
+            />
           </div>
           <button type="submit">
             <Icon name='save'/>
@@ -242,11 +260,28 @@ const Options = props => {
           </button>
         </form>
 
+        {/*---------- End Name Form ------------------------------------------*/}
+
         {/*---------- Teams Modal --------------------------------------------*/}
 
-        <Modal className={classes.teamsModal} size='mini' open={teamsModalState} onClose={() => setTeamsModalState(false)}>
+        <Modal 
+          className={classes.teamsModal} 
+          size='mini' 
+          open={teamsModalState} 
+          onClose={() => setTeamsModalState(false)}
+        >
           <Modal.Content>
-            <Dropdown id="league" className={classes.dropdown} placeholder='Selecciona una liga' search selection clearable options={arrLeagues} value={leagueState} onChange={(event, {value}) => setLeagueState({value}.value)}/>
+            <Dropdown 
+              id="league" 
+              className={classes.dropdown} 
+              placeholder='Selecciona una liga' 
+              search 
+              selection 
+              clearable 
+              options={arrLeagues} 
+              value={leagueState} 
+              onChange={(event, {value}) => setLeagueState({value}.value)}
+            />
 
             {leagueState ?
               <Fragment>
@@ -283,7 +318,11 @@ const Options = props => {
 
         {/*---------- Delete Club Modal --------------------------------------*/}
 
-        <Modal className={classes.deleteClubModal} size='mini' open={deleteClubModalState} onClose={() => setDeleteClubModalState(false)}>
+        <Modal 
+          className={classes.deleteClubModal} 
+          size='mini' open={deleteClubModalState} 
+          onClose={() => setDeleteClubModalState(false)}
+        >
           <Modal.Content>
             <p>¿Seguro que quieres eliminar el club? No podrás recuperarlo una vez borrado.</p>
           </Modal.Content>

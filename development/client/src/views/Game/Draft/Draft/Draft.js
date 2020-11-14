@@ -1,9 +1,7 @@
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {Fragment, useContext, useState, useEffect} from 'react';
-  import {useHistory} from 'react-router-dom';
-  import {Icon, Dropdown, Message} from 'semantic-ui-react';
+  import React, {useState} from 'react';
   import injectSheet from 'react-jss';
   /* End React's packages */
 
@@ -29,7 +27,7 @@
   /* End Custom Functions */
 
   /* Custom Variables */
-  import {StoreContext} from '../../../../context/StoreContext';
+
   /* End Custom Variables */
 
   /* Custom Styles Variables */
@@ -41,8 +39,6 @@
 const Draft = props => {
 
   const {classes} = props;
-  const {state, actions} = useContext(StoreContext);
-  const history = useHistory();
   const [contentState, setContentState] = useState('Squad');
 
   /*========== USE EFFECT ===================================================*/

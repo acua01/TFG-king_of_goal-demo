@@ -56,7 +56,7 @@ const Countries = props => {
     useEffect(() => {
       actions.setBreadcrumb([
         {
-          name: 'Administracion',
+          name: 'Administración',
           path: '/admin'
         },
         {
@@ -64,28 +64,6 @@ const Countries = props => {
           path: '/admin/paises'
         },
       ]);
-    },[]);
-
-    /*
-    useEffect(() => {
-      if(state.app.authentication.auth){
-        history.push('/inicio/admin/paises');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth]);
-    */
-    /*
-    useEffect(() => {
-      if(state.app.authentication.admin){
-        history.push('/inicio/admin/paises');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth, state.app.authentication.admin]);
-    */
-    useEffect(() => {
-      actions.askForAllCountries();
     },[]);
 
     useEffect(() => {
@@ -225,7 +203,7 @@ const Countries = props => {
     *--------------------------------------------------------------------------
     */
 
-    const onClickConfirmDeleteButtonHandler = idCountry => {
+    const onClickConfirmDeleteButtonHandler = () => {
       window.scrollTo(0,0);
       setDeleteModalState(false);
 
@@ -364,7 +342,12 @@ const Countries = props => {
 
               {/*---------- Modal ------------------------------------------*/}
 
-              <Modal className={classes.modal} size='mini' open={deleteModalState} onClose={() => setDeleteModalState(false)}>
+              <Modal 
+                className={classes.modal} 
+                size='mini' 
+                open={deleteModalState} 
+                onClose={() => setDeleteModalState(false)}
+              >
                 <Modal.Content>
                   <p>¿Seguro que quieres eliminar este país?</p>
                 </Modal.Content>
@@ -403,21 +386,49 @@ const Countries = props => {
             <Icon name='angle left'/>
             <span>Volver a la lista</span>
           </button>
-          <h1>{activeCountryState ? <Fragment>Modificar país</Fragment> : <Fragment>Insertar país</Fragment>}</h1>
-          <form onSubmit={(event) => {activeCountryState ? onSubmitUpdateCountryFormHandler(event) : onSubmitInsertCountryFormHandler(event)}}>
+          <h1>
+            {activeCountryState ? <Fragment>Modificar país</Fragment> : <Fragment>Insertar país</Fragment>}
+          </h1>
+          <form 
+            onSubmit={(event) => {activeCountryState ? onSubmitUpdateCountryFormHandler(event) : onSubmitInsertCountryFormHandler(event)}}
+          >
             <div className={classes.field}>
-              <label for="name"><Icon name='header' className={classes.icon} size="large"/></label>
-              <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="30"/>
+              <label for="name">
+                <Icon name='header' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="name" 
+                placeholder="Nombre" 
+                value={nameState} 
+                onChange={(event) => setNameState(event.target.value)} 
+                maxLength="30"
+              />
             </div>
             <div className={classes.fileField}>
-              <label for="image"><Icon name='file image' className={classes.icon} size="large"/></label>
+              <label for="image">
+                <Icon name='file image' className={classes.icon} size="large"/>
+              </label>
               <ReactFileReader handleFiles={fileHandler} base64={true} fileTypes={[".png"]}>
-                <input type="text" id="image" placeholder="Selecciona una imagen" value={imageState ? 'Imagen seleccionada' : ''}/>
+                <input 
+                  type="text" 
+                  id="image" 
+                  placeholder="Selecciona una imagen" 
+                  value={imageState ? 'Imagen seleccionada' : ''}
+                />
               </ReactFileReader>
-              <button onClick={(event) => {event.preventDefault(); setImageState('');}}><Icon name='delete'/></button>
+              <button 
+                onClick={(event) => {event.preventDefault(); setImageState('');}}
+              >
+                <Icon name='delete'/>
+              </button>
             </div>
 
-            {imageState && imageState.slice(0,8) === '/storage' ? <img src={urlServer + imageState} width="50" alt={imageState}/> : null}
+            {imageState && imageState.slice(0,8) === '/storage' ? 
+              <img src={urlServer + imageState} width="50" alt={imageState}/> 
+            : 
+              null
+            }
 
             <button type="submit">
               {activeCountryState ?

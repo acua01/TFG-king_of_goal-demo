@@ -1,9 +1,9 @@
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {Fragment, useContext, useState, useEffect, useRef} from 'react';
+  import React, {useContext, useState, useEffect, useRef} from 'react';
   import {useHistory} from 'react-router-dom';
-  import {Icon, Dropdown, Message, Modal, Pagination, Tab} from 'semantic-ui-react';
+  import {Icon, Modal} from 'semantic-ui-react';
   import injectSheet from 'react-jss';
   /* End React's packages */
 
@@ -208,7 +208,7 @@ const Squad = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Update squad card
+    * Description: Select 5 random cards of the position passed
     *--------------------------------------------------------------------------
     */
 
@@ -277,7 +277,7 @@ const Squad = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Update squad card
+    * Description: Card of the selection function
     *--------------------------------------------------------------------------
     */
     
@@ -310,10 +310,11 @@ const Squad = props => {
       setChoosePlayerModalState(false);
     }
 
-    const onClickGoBackButtonHandler = () => {
- 
-    }
-    
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Interchange position button function
+    *--------------------------------------------------------------------------
+    */
     
     const onClickInterchangePositionButtonHandler = () => {
       setCardMenuModalState(false);
@@ -338,6 +339,12 @@ const Squad = props => {
 
       setInterchangePositionState(true);
     }
+
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Interchanges the position of two players
+    *--------------------------------------------------------------------------
+    */
 
     const interchangePosition = (position) => {
       const positionsHeadlines = document.querySelectorAll('#headlines .card');
@@ -401,6 +408,12 @@ const Squad = props => {
       setActivePositionState('');
       setInterchangePositionState(false);
     }
+
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Check if the position is correct and ups chemistry depends it
+    *--------------------------------------------------------------------------
+    */
 
     const checkPositionChemistry = (position) => {
       if (position.position == position.player.position_abbreviation){
@@ -502,6 +515,12 @@ const Squad = props => {
       position.chemistry += position.correctPosition;
     }
 
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Check the chemistry of the players and set the links types
+    *--------------------------------------------------------------------------
+    */
+
     const checkChemistryLinesType = (line) => {
       if(line.position1.player != '' && line.position2.player != ''){
         let coincidences = 0;
@@ -538,6 +557,12 @@ const Squad = props => {
       }
     }
 
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Draw a line
+    *--------------------------------------------------------------------------
+    */
+
     const drawLine = (canvasContext, line, heightImgCard) => {
       canvasContext.beginPath();
       canvasContext.lineWidth = 3;
@@ -546,6 +571,12 @@ const Squad = props => {
       canvasContext.lineTo(percentToPx(line.position2.left, canvasContext.canvas.width), line.position2.top + heightImgCard);
       canvasContext.stroke();
     }
+
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Check the links types around a player and return a object with the quantity of them
+    *--------------------------------------------------------------------------
+    */
     
     const linksPlayerAround = (lines, position) => {
       var linksAround = {
@@ -579,6 +610,12 @@ const Squad = props => {
       }
       return linksAround;
     }
+
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Up chemistry players depends on the links types around
+    *--------------------------------------------------------------------------
+    */
 
     const checkChemistryLinesChemistry = (lines, position) => {
       var positionLinks = linksPlayerAround(lines, position);
@@ -630,7 +667,7 @@ const Squad = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: html headlines
+    * Description: Contains the HTML of headlines players
     *--------------------------------------------------------------------------
     */
 
@@ -640,6 +677,7 @@ const Squad = props => {
       if(Object.keys(p.player).length > 0){
         htmlPlayer = (
           <Card
+            key={index}
             extraClasses='card'
             sizeType='mini'
             size='normal'
@@ -716,7 +754,7 @@ const Squad = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: html alternates
+    * Description: Contains the HTML of alternates players
     *--------------------------------------------------------------------------
     */
 
@@ -726,6 +764,7 @@ const Squad = props => {
       if(Object.keys(p.player).length > 0){
         htmlPlayer = (
           <Card
+            key={index}
             extraClasses='card'
             sizeType='mini'
             size='normal'
@@ -782,7 +821,7 @@ const Squad = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: html reserves
+    * Description: Contains the HTML of reserves players
     *--------------------------------------------------------------------------
     */
 
@@ -882,12 +921,13 @@ const Squad = props => {
     <div className={classes.squad}>
       <button className="goBack"
         onClick={() => {
-          //onClickGoBackButtonHandler();
           history.push('/inicio');
         }}
       >
         <Icon name='reply'/>
       </button>
+
+      {/*---------- Squad Data ------------------------------------*/}
 
       <div className={classes.squadData}>
         <div className="title">
@@ -932,6 +972,10 @@ const Squad = props => {
         </button>
       </div>
 
+      {/*---------- End Squad Data ------------------------------------*/}
+
+      {/*---------- Headlines Players ------------------------------------*/}
+
       <div 
         className={classes.headlines}
         id="headlines"
@@ -945,6 +989,10 @@ const Squad = props => {
         </canvas>
         {htmlHeadlines}
       </div>
+
+      {/*---------- End Headlines Players ------------------------------------*/}
+
+      {/*---------- Bench Players ------------------------------------*/}
 
       <div className={classes.bench}>
         <div 
@@ -970,6 +1018,8 @@ const Squad = props => {
           </div>
         </div>
       </div>
+
+      {/*---------- End Bench Players ------------------------------------*/}
 
       {/*---------- Choose Card Modal ------------------------------------*/}
 
@@ -1034,7 +1084,6 @@ const Squad = props => {
 
       <button className="goBack"
         onClick={() => {
-          //onClickGoBackButtonHandler();
           history.push('/inicio');
         }}
       >

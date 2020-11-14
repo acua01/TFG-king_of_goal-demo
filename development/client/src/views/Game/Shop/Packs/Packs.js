@@ -151,6 +151,8 @@ const Packs = props => {
       <div>
         <h1>Tienda</h1>
 
+        {/*---------- Packs List ---------------------------------------------*/}
+
         <div className={classes.packsList}>
           {state.app.packs.all.length > 0 ?
             <Fragment>
@@ -166,11 +168,19 @@ const Packs = props => {
           }
           
         </div>
+
+        {/*---------- End Packs List ------------------------------------------*/}
+
       </div>
 
         {/*---------- Buy Confirm Modal ------------------------------------------*/}
 
-        <Modal className={classes.buyModal} size='mini' open={buyModalState} onClose={() => setBuyModalState(false)}>
+        <Modal 
+          className={classes.buyModal} 
+          size='mini' 
+          open={buyModalState} 
+          onClose={() => setBuyModalState(false)}
+        >
           <Modal.Content>
             <p>
               ¿Seguro que quieres abrir este sobre por 
@@ -187,7 +197,7 @@ const Packs = props => {
           </Modal.Actions>
         </Modal>
 
-        {/*---------- Buy Confirm End Modal --------------------------------------*/}
+        {/*---------- End Buy Confirm Modal --------------------------------------*/}
 
       <button className="goBack"
         onClick={() => {

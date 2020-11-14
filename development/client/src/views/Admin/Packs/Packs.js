@@ -59,7 +59,7 @@ const Packs = props => {
     useEffect(() => {
       actions.setBreadcrumb([
         {
-          name: 'Administracion',
+          name: 'Administración',
           path: '/admin'
         },
         {
@@ -67,30 +67,6 @@ const Packs = props => {
           path: '/admin/sobres'
         },
       ]);
-    },[]);
-
-    /*
-    useEffect(() => {
-      if(state.app.authentication.auth){
-        history.push('/inicio/admin/ligas');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth]);
-    */
-
-    /*
-    useEffect(() => {
-      if(state.app.authentication.admin){
-        history.push('/inicio/admin/ligas');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth, state.app.authentication.admin]);
-    */
-
-    useEffect(() => {
-      actions.askForAllPacks();
     },[]);
 
     useEffect(() => {
@@ -149,19 +125,7 @@ const Packs = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Validates the form and returns an array with the errors
-    *--------------------------------------------------------------------------
-    */
-
-    const fnValidateForm = () => {
-      let errors = [];
-
-      return errors;
-    }
-
-    /*
-    *--------------------------------------------------------------------------
-    * Description: Validates the form and sends data to server to insert
+    * Description: Sends data to server to insert
     *--------------------------------------------------------------------------
     */
 
@@ -170,26 +134,18 @@ const Packs = props => {
 
       window.scrollTo(0,0);
 
-      const errors = fnValidateForm();
-
-      if(errors.length === 0){
-        actions.sendRequestToInsertPack({
-          name:nameState,
-          description:descriptionState,
-          numberPlayers:numberPlayersState,
-          price:priceState,
-          image:imageState,
-        });
-      }else{
-        errors.map(error => {
-          showSnackbar('error', error);
-        });
-      }
+      actions.sendRequestToInsertPack({
+        name:nameState,
+        description:descriptionState,
+        numberPlayers:numberPlayersState,
+        price:priceState,
+        image:imageState,
+      });
     }
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Validates the form and sends data to server to update
+    * Description: Sends data to server to update
     *--------------------------------------------------------------------------
     */
 
@@ -197,22 +153,15 @@ const Packs = props => {
       event.preventDefault();
       window.scrollTo(0,0);
 
-      const errors = fnValidateForm();
+      actions.sendRequestToUpdatePack({
+        id:activePackState.id,
+        name:nameState,
+        description:descriptionState,
+        numberPlayers:numberPlayersState,
+        price:priceState,
+        image:imageState,
+      });
 
-      if(errors.length === 0){
-        actions.sendRequestToUpdatePack({
-          id:activePackState.id,
-          name:nameState,
-          description:descriptionState,
-          numberPlayers:numberPlayersState,
-          price:priceState,
-          image:imageState,
-        });
-      }else{
-        errors.map(error => {
-          showSnackbar('error', error);
-        });
-      }
       setViewState('table');
     }
 
@@ -238,7 +187,7 @@ const Packs = props => {
     *--------------------------------------------------------------------------
     */
 
-    const onClickConfirmDeleteButtonHandler = idPack => {
+    const onClickConfirmDeleteButtonHandler = () => {
       window.scrollTo(0,0);
       setDeleteModalState(false);
 
@@ -388,7 +337,12 @@ const Packs = props => {
 
               {/*---------- Modal ------------------------------------------*/}
 
-              <Modal className={classes.modal} size='mini' open={deleteModalState} onClose={() => setDeleteModalState(false)}>
+              <Modal 
+                className={classes.modal} 
+                size='mini' 
+                open={deleteModalState} 
+                onClose={() => setDeleteModalState(false)}
+              >
                 <Modal.Content>
                   <p>¿Seguro que quieres eliminar este sobre?</p>
                 </Modal.Content>
@@ -427,33 +381,87 @@ const Packs = props => {
             <Icon name='angle left'/>
             <span>Volver a la lista</span>
           </button>
-          <h1>{activePackState ? <Fragment>Modificar sobre</Fragment> : <Fragment>Insertar sobre</Fragment>}</h1>
-          <form onSubmit={(event) => {activePackState ? onSubmitUpdatePackFormHandler(event) : onSubmitInsertPackFormHandler(event)}}>
+          <h1>
+            {activePackState ? <Fragment>Modificar sobre</Fragment> : <Fragment>Insertar sobre</Fragment>}
+          </h1>
+          <form 
+            onSubmit={(event) => {activePackState ? onSubmitUpdatePackFormHandler(event) : onSubmitInsertPackFormHandler(event)}}
+          >
             <div className={classes.field}>
-              <label for="name"><Icon name='header' className={classes.icon} size="large"/></label>
-              <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="50"/>
+              <label for="name">
+                <Icon name='header' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="name" 
+                placeholder="Nombre" 
+                value={nameState} 
+                onChange={(event) => setNameState(event.target.value)} 
+                maxLength="50"
+              />
             </div>
             <div className={classes.field}>
-              <label for="description"><Icon name='align justify' className={classes.icon} size="large"/></label>
-              <input type="text" id="description" placeholder="Descripción" value={descriptionState} onChange={(event) => setDescriptionState(event.target.value)}/>
+              <label for="description">
+                <Icon name='align justify' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="description" 
+                placeholder="Descripción" 
+                value={descriptionState} 
+                onChange={(event) => setDescriptionState(event.target.value)}
+              />
             </div>
             <div className={classes.field}>
-              <label for="number_players"><Icon name='users' className={classes.icon} size="large"/></label>
-              <input type="number" min="1" id="number_players" placeholder="Nº jugadores" value={numberPlayersState} onChange={(event) => setNumberPlayersState(event.target.value)}/>
+              <label for="number_players">
+                <Icon name='users' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="number" 
+                min="1" 
+                id="number_players" 
+                placeholder="Nº jugadores" 
+                value={numberPlayersState} 
+                onChange={(event) => setNumberPlayersState(event.target.value)}
+              />
             </div>
             <div className={classes.field}>
-              <label for="price"><Icon name='money' className={classes.icon} size="large"/></label>
-              <input type="number" min="0" id="price" placeholder="Precio" value={priceState} onChange={(event) => setPriceState(event.target.value)}/>
+              <label for="price">
+                <Icon name='money' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="number" 
+                min="0" 
+                id="price" 
+                placeholder="Precio" 
+                value={priceState} 
+                onChange={(event) => setPriceState(event.target.value)}
+              />
             </div>
             <div className={classes.fileField}>
-              <label for="image"><Icon name='file image' className={classes.icon} size="large"/></label>
+              <label for="image">
+                <Icon name='file image' className={classes.icon} size="large"/>
+              </label>
               <ReactFileReader handleFiles={fileHandler} base64={true} fileTypes={[".png"]}>
-                <input type="text" id="image" placeholder="Selecciona una imagen" value={imageState ? 'Imagen seleccionada' : ''}/>
+                <input 
+                  type="text" 
+                  id="image" 
+                  placeholder="Selecciona una imagen" 
+                  value={imageState ? 'Imagen seleccionada' : ''}
+                />
               </ReactFileReader>
-              <button onClick={(event) => {event.preventDefault(); setImageState('');}}><Icon name='delete'/></button>
+              <button 
+                onClick={(event) => {event.preventDefault(); setImageState('');}}
+              >
+                <Icon name='delete'/>
+              </button>
             </div>
 
-            {imageState && imageState.slice(0,8) === '/storage' ? <img src={urlServer + imageState} width="50" alt={imageState}/> : null}
+            {imageState && imageState.slice(0,8) === '/storage' ? 
+              <img src={urlServer + imageState} width="50" alt={imageState}/>
+            : 
+              null
+            }
 
             <button type="submit">
               {activePackState ?

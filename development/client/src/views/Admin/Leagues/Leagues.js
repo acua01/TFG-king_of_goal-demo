@@ -56,7 +56,7 @@ const Leagues = props => {
     useEffect(() => {
       actions.setBreadcrumb([
         {
-          name: 'Administracion',
+          name: 'Administración',
           path: '/admin'
         },
         {
@@ -64,28 +64,6 @@ const Leagues = props => {
           path: '/admin/ligas'
         },
       ]);
-    },[]);
-
-    /*
-    useEffect(() => {
-      if(state.app.authentication.auth){
-        history.push('/inicio/admin/ligas');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth]);
-    */
-    /*
-    useEffect(() => {
-      if(state.app.authentication.admin){
-        history.push('/inicio/admin/ligas');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth, state.app.authentication.admin]);
-    */
-    useEffect(() => {
-      actions.askForAllLeagues();
     },[]);
 
     useEffect(() => {
@@ -225,7 +203,7 @@ const Leagues = props => {
     *--------------------------------------------------------------------------
     */
 
-    const onClickConfirmDeleteButtonHandler = idLeague => {
+    const onClickConfirmDeleteButtonHandler = () => {
       window.scrollTo(0,0);
       setDeleteModalState(false);
 
@@ -364,7 +342,12 @@ const Leagues = props => {
 
               {/*---------- Modal ------------------------------------------*/}
 
-              <Modal className={classes.modal} size='mini' open={deleteModalState} onClose={() => setDeleteModalState(false)}>
+              <Modal 
+                className={classes.modal} 
+                size='mini' 
+                open={deleteModalState} 
+                onClose={() => setDeleteModalState(false)}
+              >
                 <Modal.Content>
                   <p>¿Seguro que quieres eliminar esta liga?</p>
                 </Modal.Content>
@@ -403,21 +386,49 @@ const Leagues = props => {
             <Icon name='angle left'/>
             <span>Volver a la lista</span>
           </button>
-          <h1>{activeLeagueState ? <Fragment>Modificar liga</Fragment> : <Fragment>Insertar liga</Fragment>}</h1>
-          <form onSubmit={(event) => {activeLeagueState ? onSubmitUpdateLeagueFormHandler(event) : onSubmitInsertLeagueFormHandler(event)}}>
+          <h1>
+            {activeLeagueState ? <Fragment>Modificar liga</Fragment> : <Fragment>Insertar liga</Fragment>}
+          </h1>
+          <form 
+            onSubmit={(event) => {activeLeagueState ? onSubmitUpdateLeagueFormHandler(event) : onSubmitInsertLeagueFormHandler(event)}}
+          >
             <div className={classes.field}>
-              <label for="name"><Icon name='header' className={classes.icon} size="large"/></label>
-              <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="50"/>
+              <label for="name">
+                <Icon name='header' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="name" 
+                placeholder="Nombre" 
+                value={nameState} 
+                onChange={(event) => setNameState(event.target.value)} 
+                maxLength="50"
+              />
             </div>
             <div className={classes.fileField}>
-              <label for="image"><Icon name='file image' className={classes.icon} size="large"/></label>
+              <label for="image">
+                <Icon name='file image' className={classes.icon} size="large"/>
+              </label>
               <ReactFileReader handleFiles={fileHandler} base64={true} fileTypes={[".png"]}>
-                <input type="text" id="image" placeholder="Selecciona una imagen" value={imageState ? 'Imagen seleccionada' : ''}/>
+                <input 
+                  type="text" 
+                  id="image" 
+                  placeholder="Selecciona una imagen" 
+                  value={imageState ? 'Imagen seleccionada' : ''}
+                />
               </ReactFileReader>
-              <button onClick={(event) => {event.preventDefault(); setImageState('');}}><Icon name='delete'/></button>
+              <button 
+                onClick={(event) => {event.preventDefault(); setImageState('');}}
+              >
+                <Icon name='delete'/>
+              </button>
             </div>
 
-            {imageState && imageState.slice(0,8) === '/storage' ? <img src={urlServer + imageState} width="50" alt={imageState}/> : null}
+            {imageState && imageState.slice(0,8) === '/storage' ? 
+              <img src={urlServer + imageState} width="50" alt={imageState}/> 
+            : 
+              null
+            }
 
             <button type="submit">
               {activeLeagueState ?

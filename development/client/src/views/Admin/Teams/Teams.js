@@ -57,7 +57,7 @@ const Teams = props => {
     useEffect(() => {
       actions.setBreadcrumb([
         {
-          name: 'Administracion',
+          name: 'Administración',
           path: '/admin'
         },
         {
@@ -65,11 +65,6 @@ const Teams = props => {
           path: '/admin/equipos'
         },
       ]);
-    },[]);
-
-    useEffect(() => {
-      actions.askForAllTeams();
-      actions.askForAllLeagues();
     },[]);
 
     useEffect(() => {
@@ -120,21 +115,7 @@ const Teams = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Validates the form and returns an array with the errors
-    *--------------------------------------------------------------------------
-    */
-
-    const fnValidateForm = () => {
-      let errors = [];
-
-      // Name validation
-
-      return errors;
-    }
-
-    /*
-    *--------------------------------------------------------------------------
-    * Description: Validates the form and sends data to server to insert
+    * Description: Sends data to server to insert
     *--------------------------------------------------------------------------
     */
 
@@ -143,24 +124,16 @@ const Teams = props => {
 
       window.scrollTo(0,0);
 
-      const errors = fnValidateForm();
-
-      if(errors.length === 0){
-        actions.sendRequestToInsertTeam({
-          name:nameState,
-          image:imageState,
-          idLeague:leagueState,
-        });
-      }else{
-        errors.map(error => {
-          showSnackbar('error', error);
-        });
-      }
+      actions.sendRequestToInsertTeam({
+        name:nameState,
+        image:imageState,
+        idLeague:leagueState,
+      });
     }
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Validates the form and sends data to server to update
+    * Description: Sends data to server to update
     *--------------------------------------------------------------------------
     */
 
@@ -168,20 +141,13 @@ const Teams = props => {
       event.preventDefault();
       window.scrollTo(0,0);
 
-      const errors = fnValidateForm();
+      actions.sendRequestToUpdateTeam({
+        id:activeTeamState.team_id,
+        name:nameState,
+        image:imageState,
+        idLeague:leagueState,
+      });
 
-      if(errors.length === 0){
-        actions.sendRequestToUpdateTeam({
-          id:activeTeamState.team_id,
-          name:nameState,
-          image:imageState,
-          idLeague:leagueState,
-        });
-      }else{
-        errors.map(error => {
-          showSnackbar('error', error);
-        });
-      }
       setViewState('table');
     }
 
@@ -207,7 +173,7 @@ const Teams = props => {
     *--------------------------------------------------------------------------
     */
 
-    const onClickConfirmDeleteButtonHandler = idTeam => {
+    const onClickConfirmDeleteButtonHandler = () => {
       window.scrollTo(0,0);
       setDeleteModalState(false);
 
@@ -372,7 +338,12 @@ const Teams = props => {
 
               {/*---------- Modal ------------------------------------------*/}
 
-              <Modal className={classes.modal} size='mini' open={deleteModalState} onClose={() => setDeleteModalState(false)}>
+              <Modal 
+                className={classes.modal} 
+                size='mini' 
+                open={deleteModalState} 
+                onClose={() => setDeleteModalState(false)}
+              >
                 <Modal.Content>
                   <p>¿Seguro que quieres eliminar este equipo?</p>
                 </Modal.Content>
@@ -411,25 +382,65 @@ const Teams = props => {
             <Icon name='angle left'/>
             <span>Volver a la lista</span>
           </button>
-          <h1>{activeTeamState ? <Fragment>Modificar equipo</Fragment> : <Fragment>Insertar equipo</Fragment>}</h1>
-          <form onSubmit={(event) => {activeTeamState ? onSubmitUpdateTeamFormHandler(event) : onSubmitInsertTeamFormHandler(event)}}>
+          <h1>
+            {activeTeamState ? <Fragment>Modificar equipo</Fragment> : <Fragment>Insertar equipo</Fragment>}
+          </h1>
+          <form 
+            onSubmit={(event) => {activeTeamState ? onSubmitUpdateTeamFormHandler(event) : onSubmitInsertTeamFormHandler(event)}}
+          >
             <div className={classes.field}>
-              <label for="name"><Icon name='header' className={classes.icon} size="large"/></label>
-              <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="50"/>
+              <label for="name">
+                <Icon name='header' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="name" 
+                placeholder="Nombre" 
+                value={nameState} 
+                onChange={(event) => setNameState(event.target.value)} 
+                maxLength="50"
+              />
             </div>
             <div className={classes.field}>
-              <label for="league"><Icon name='globe' className={classes.icon} size="large"/></label>
-              <Dropdown id="league" className={classes.dropdown} placeholder='Selecciona la liga' search selection clearable options={arrLeagues} value={leagueState} onChange={(event, {value}) => setLeagueState({value}.value)}/>
+              <label for="league">
+                <Icon name='globe' className={classes.icon} size="large"/>
+              </label>
+              <Dropdown 
+                id="league" 
+                className={classes.dropdown} 
+                placeholder='Selecciona la liga' 
+                search 
+                selection 
+                clearable 
+                options={arrLeagues} 
+                value={leagueState} 
+                onChange={(event, {value}) => setLeagueState({value}.value)}
+              />
             </div>
             <div className={classes.fileField}>
-              <label for="image"><Icon name='file image' className={classes.icon} size="large"/></label>
+              <label for="image">
+                <Icon name='file image' className={classes.icon} size="large"/>
+              </label>
               <ReactFileReader handleFiles={fileHandler} base64={true} fileTypes={[".png"]}>
-                <input type="text" id="image" placeholder="Selecciona una imagen" value={imageState ? 'Imagen seleccionada' : ''}/>
+                <input 
+                  type="text" 
+                  id="image" 
+                  placeholder="Selecciona una imagen" 
+                  value={imageState ? 'Imagen seleccionada' : ''}
+                />
               </ReactFileReader>
-              <button onClick={(event) => {event.preventDefault(); setImageState('');}}><Icon name='delete'/></button>
+              <button 
+                onClick={(event) => {event.preventDefault(); setImageState('');}}
+              >
+                <Icon name='delete'/>
+              </button>
             </div>
 
-            {imageState && imageState.slice(0,8) === '/storage' ? <img src={urlServer + imageState} width="50" alt={imageState}/> : null}
+            {imageState && imageState.slice(0,8) === '/storage' ? 
+              <img src={urlServer + imageState} width="50" alt={imageState}/> 
+            : 
+              null
+            }
 
             <button type="submit">
               {activeTeamState ?

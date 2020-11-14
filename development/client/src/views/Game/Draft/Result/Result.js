@@ -1,9 +1,9 @@
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {Fragment, useContext, useState, useEffect} from 'react';
+  import React, {useContext, useState, useEffect} from 'react';
   import {useHistory} from 'react-router-dom';
-  import {Icon, Dropdown, Message, Modal} from 'semantic-ui-react';
+  import {Icon} from 'semantic-ui-react';
   import injectSheet from 'react-jss';
   /* End React's packages */
 
@@ -105,7 +105,7 @@ const Result = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Reward
+    * Description: Get the reward and ups the coins
     *--------------------------------------------------------------------------
     */
 

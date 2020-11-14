@@ -105,21 +105,44 @@ const Login = props => {
 
       <Responsive minWidth={644} as={Fragment}>
         <div className={classes.leftSide}>
-          <img src={urlServer + '/storage/logo/logo_light.png'} alt="logo-king-of-goal" title="King of Goal"/>
+          <img 
+            src={urlServer + '/storage/logo/logo_light.png'} 
+            alt="logo-king-of-goal" 
+            title="King of Goal"
+          />
         </div>
         <div className={classes.rightSide}>
           <form onSubmit={onSubmitLoginFormHandler}>
             <h1>Iniciar sesión</h1>
             <div className={classes.field}>
-              <label for="email"><Icon name='at' className={classes.icon} size="large"/></label>
-              <input type="text" id="email" placeholder="Email" value={emailState} onChange={(event) => setEmailState(event.target.value)}/>
+              <label for="email">
+                <Icon name='at' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="email" 
+                placeholder="Email" 
+                value={emailState} 
+                onChange={(event) => setEmailState(event.target.value)}
+              />
             </div>
             <div className={classes.field}>
-              <label for="password"><Icon name='lock' className={classes.icon} size="large"/></label>
-              <input type="password" id="password" placeholder="Contraseña" value={passwordState} onChange={(event) => setPasswordState(event.target.value)}/>
+              <label for="password">
+                <Icon name='lock' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="password" 
+                id="password" 
+                placeholder="Contraseña" 
+                value={passwordState} 
+                onChange={(event) => setPasswordState(event.target.value)}
+              />
             </div>
             <input type="submit" value="Entrar"/>
-            <p>¿No tienes cuenta aún? <span onClick={() => props.history.push('/registro')}>Regístrate</span></p>
+            <p>
+              ¿No tienes cuenta aún? 
+              <span onClick={() => props.history.push('/registro')}> Regístrate</span>
+            </p>
           </form>
         </div>
       </Responsive>
@@ -133,15 +156,36 @@ const Login = props => {
           <form onSubmit={onSubmitLoginFormHandler}>
             <h1>Iniciar sesión</h1>
             <div className={classes.field}>
-              <label for="email"><Icon name='at' className={classes.icon} size="large"/></label>
-              <input type="text" id="email" placeholder="Email" value={emailState} onChange={(event) => setEmailState(event.target.value)}/>
+              <label for="email">
+                <Icon name='at' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="email" 
+                placeholder="Email" 
+                value={emailState} 
+                onChange={(event) => setEmailState(event.target.value)}
+              />
             </div>
             <div className={classes.field}>
-              <label for="password"><Icon name='lock' className={classes.icon} size="large"/></label>
-              <input type="password" id="password" placeholder="Contraseña" value={passwordState} onChange={(event) => setPasswordState(event.target.value)}/>
+              <label for="password">
+                <Icon name='lock' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="password" 
+                id="password" 
+                placeholder="Contraseña" 
+                value={passwordState} 
+                onChange={(event) => setPasswordState(event.target.value)}
+              />
             </div>
+
             <input type="submit" value="Entrar"/>
-            <p>¿No tienes cuenta aún? <span onClick={() => history.push('/registro')}>Regístrate</span></p>
+
+            <p>
+              ¿No tienes cuenta aún? 
+              <span onClick={() => history.push('/registro')}> Regístrate</span>
+            </p>
           </form>
         </div>
       </Responsive>

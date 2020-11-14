@@ -2,8 +2,7 @@
 
   /* React's packages */
   import React, {Fragment, useContext, useState, useEffect} from 'react';
-  import {useHistory} from 'react-router-dom';
-  import {Icon, Dropdown, Message, Pagination} from 'semantic-ui-react';
+  import {Message, Pagination} from 'semantic-ui-react';
   import injectSheet from 'react-jss';
   /* End React's packages */
 
@@ -41,7 +40,6 @@ const PackOpening = props => {
 
   const {classes, changeView} = props;
   const {state, actions} = useContext(StoreContext);
-  const history = useHistory();
 
   const [cardsArrayState, setCardsArrayState] = useState([]);
 
@@ -111,13 +109,14 @@ const PackOpening = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Contains the HTML of my club cards
+    * Description: Contains the HTML of the cards
     *--------------------------------------------------------------------------
     */
 
     const htmlCards = cardsArrayState.slice(itemsPerPageState * activePageState - itemsPerPageState, itemsPerPageState * activePageState).map((card, index) => {
       return (
         <Card
+          key={index}
           type={card.type_image}
           textColor={card.type_text_color}
           player={card.player_image}
@@ -142,7 +141,6 @@ const PackOpening = props => {
     <div className={classes.packOpening}>
     
       {viewState == 'Player' ?
-
         <div className={classes.playerView}>
           {Object.keys(firstCardState).length > 0 ?
             <Card

@@ -45,31 +45,11 @@ const Menu = props => {
     useEffect(() => {
       actions.setBreadcrumb([
         {
-          name: 'Administracion',
+          name: 'Administración',
           path: '/admin'
         },
       ]);
     },[]);
-
-    /*
-    useEffect(() => {
-      if(state.app.authentication.auth){
-        history.push('/inicio/admin');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth]);
-    */
-
-    /*
-    useEffect(() => {
-      if(state.app.authentication.admin){
-        history.push('/inicio/admin');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth, state.app.authentication.admin]);
-    */
 
   /*========== END USE EFFECT ===============================================*/
 

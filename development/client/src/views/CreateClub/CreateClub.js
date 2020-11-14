@@ -178,11 +178,31 @@ const CreateClub = props => {
       <h1>Crear club</h1>
       <form onSubmit={onSubmitCreateClubFormHandler}>
         <div className={classes.field}>
-          <label for="name"><Icon name='header' className={classes.icon} size="large"/></label>
-          <input type="text" id="name" placeholder="Introduce el nombre del club" minLength="3" maxLength="30" value={nameState} onChange={(event) => setNameState(event.target.value)}/>
+          <label for="name">
+            <Icon name='header' className={classes.icon} size="large"/>
+          </label>
+          <input 
+            type="text" 
+            id="name" 
+            placeholder="Introduce el nombre del club" 
+            minLength="3" 
+            maxLength="30" 
+            value={nameState} 
+            onChange={(event) => setNameState(event.target.value)}
+          />
         </div>
         <p>Selecciona el escudo</p>
-        <Dropdown id="league" className={classes.dropdown} placeholder='Selecciona una liga' search selection clearable options={arrLeagues} value={leagueState} onChange={(event, {value}) => setLeagueState({value}.value)}/>
+        <Dropdown 
+          id="league" 
+          className={classes.dropdown} 
+          placeholder='Selecciona una liga' 
+          search 
+          selection 
+          clearable 
+          options={arrLeagues} 
+          value={leagueState} 
+          onChange={(event, {value}) => setLeagueState({value}.value)}
+        />
         <div className={classes.teamsContainer} id="teamsContainer">
           {htmlTeams}
         </div>
@@ -190,7 +210,6 @@ const CreateClub = props => {
       </form>
     </div>
   )
-
 }
 
 export default injectSheet(styles)(CreateClub);

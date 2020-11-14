@@ -3,7 +3,7 @@
   /* React's packages */
   import React, {Fragment, useContext, useState, useEffect} from 'react';
   import {useHistory} from 'react-router-dom';
-  import {Icon, Dropdown, Message, Modal} from 'semantic-ui-react';
+  import {Icon, Message, Modal} from 'semantic-ui-react';
   import injectSheet from 'react-jss';
   /* End React's packages */
 
@@ -80,7 +80,7 @@ const SquadsList = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: see squad
+    * Description: Move to the active squad view
     *--------------------------------------------------------------------------
     */
 
@@ -94,7 +94,7 @@ const SquadsList = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: insert squad
+    * Description: Insert squad
     *--------------------------------------------------------------------------
     */
 
@@ -120,7 +120,7 @@ const SquadsList = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: update squad
+    * Description: Update squad
     *--------------------------------------------------------------------------
     */
 
@@ -226,7 +226,7 @@ const SquadsList = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: html squads
+    * Description: Contains the HTML of the squads list
     *--------------------------------------------------------------------------
     */
 
@@ -315,6 +315,8 @@ const SquadsList = props => {
           <Icon name='add'/>
           <span>Crear plantilla</span>
         </button>
+        
+        {/*---------- Squads List ------------------------------------------*/}
 
         <div className={classes.squadsList}>
           {state.app.squads.all.length > 0 ?
@@ -331,6 +333,8 @@ const SquadsList = props => {
           }
           
         </div>
+
+        {/*---------- End Squads List ------------------------------------------*/}
 
         <button
           onClick={() => {
@@ -354,10 +358,21 @@ const SquadsList = props => {
         }}
       >
         <Modal.Content>
-          <form onSubmit={(event) => {activeSquadState ? onSubmitUpdateSquadFormHandler(event) : onSubmitInsertSquadFormHandler(event)}}>
+          <form 
+            onSubmit={(event) => {activeSquadState ? onSubmitUpdateSquadFormHandler(event) : onSubmitInsertSquadFormHandler(event)}}
+          >
             <div className={classes.field}>
-              <label for="name"><Icon name='header' className={classes.icon} size="large"/></label>
-              <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="50"/>
+              <label for="name">
+                <Icon name='header' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="name" 
+                placeholder="Nombre" 
+                value={nameState} 
+                onChange={(event) => setNameState(event.target.value)} 
+                maxLength="50"
+              />
             </div>
 
             <button 

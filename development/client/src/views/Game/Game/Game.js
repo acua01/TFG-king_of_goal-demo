@@ -180,7 +180,10 @@ const GameLayout = props => {
         >
         {state.app.authentication.club ?
           <div className={classes.sidebarUserData}>
-            <img src={urlServer + state.app.authentication.club.image} alt={state.app.authentication.club.name}/>
+            <img 
+              src={urlServer + state.app.authentication.club.image} 
+              alt={state.app.authentication.club.name}
+            />
             <p>{state.app.authentication.club.name}</p>
             <p>{state.app.authentication.username}</p>
           </div>
@@ -188,7 +191,11 @@ const GameLayout = props => {
           null
         }
           
-          <Menu.Item as='a' className={classes.sidebarItem} onClick={() => {history.push('/');setSidebarDisplayState(false);}}>
+          <Menu.Item 
+            as='a' 
+            className={classes.sidebarItem} 
+            onClick={() => {history.push('/');setSidebarDisplayState(false);}}
+          >
             <Icon name='home' />
             Inicio
           </Menu.Item>
@@ -214,7 +221,10 @@ const GameLayout = props => {
               </button>
               {state.app.authentication.club ?
                 <div className={classes.userData}>
-                  <img src={urlServer + state.app.authentication.club.image} alt={state.app.authentication.club.name}/>
+                  <img 
+                    src={urlServer + state.app.authentication.club.image} 
+                    alt={state.app.authentication.club.name}
+                  />
                   <div className={classes.userDataNames}>
                     <p>{state.app.authentication.club.name}</p>
                     <p>{state.app.authentication.username}</p>
@@ -230,7 +240,11 @@ const GameLayout = props => {
               
             </div>
             <div>
-              <img src={urlServer + '/storage/logo/logo_light.png'} alt="logo-king-of-goal" title="King of Goal"/>
+              <img 
+                src={urlServer + '/storage/logo/logo_light.png'} 
+                alt="logo-king-of-goal" 
+                title="King of Goal"
+              />
             </div>
           </header>
 

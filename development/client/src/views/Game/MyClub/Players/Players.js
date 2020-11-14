@@ -425,7 +425,7 @@ const Players = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Contains the types of the dropdown
+    * Description: Contains the cards types of the dropdown
     *--------------------------------------------------------------------------
     */
 
@@ -591,8 +591,16 @@ const Players = props => {
                   physicality={activeCardState.card_physicality}
                 />
                 <div className="options">
-                  <div onClick={() => {setCardDataModalState(true);setCardMenuModalState(false)}}>Ver datos</div>
-                  <div onClick={() => setSellModalState(true)}>Vender</div>
+                  <div 
+                    onClick={() => {setCardDataModalState(true);setCardMenuModalState(false)}}
+                  >
+                    Ver datos
+                  </div>
+                  <div 
+                    onClick={() => setSellModalState(true)}
+                  >
+                    Vender
+                  </div>
                 </div>
               </Modal.Content>
               <Modal.Actions>
@@ -679,7 +687,12 @@ const Players = props => {
 
             {/*---------- Sell Confirm Modal ------------------------------------------*/}
 
-            <Modal className={classes.sellModal} size='mini' open={sellModalState} onClose={() => setSellModalState(false)}>
+            <Modal 
+              className={classes.sellModal} 
+              size='mini' 
+              open={sellModalState} 
+              onClose={() => setSellModalState(false)}
+            >
               <Modal.Content>
                 <p>
                   ¿Seguro que quieres vender a este jugador por 
@@ -725,31 +738,105 @@ const Players = props => {
                 render: () =>
                   <div className="filterOptions">
                     <div className={classes.field}>
-                      <label for="type"><Icon name='square' className={classes.icon} size="large"/></label>
-                      <Dropdown id="type" className={classes.dropdown} placeholder='Selecciona el tipo' search selection clearable options={arrTypes} value={typeFilterState} onChange={(event, {value}) => setTypeFilterState({value}.value)}/>
+                      <label for="type">
+                        <Icon name='square' className={classes.icon} size="large"/>
+                      </label>
+                      <Dropdown 
+                        id="type" 
+                        className={classes.dropdown} 
+                        placeholder='Selecciona el tipo' 
+                        search 
+                        selection 
+                        clearable 
+                        options={arrTypes} 
+                        value={typeFilterState} 
+                        onChange={(event, {value}) => setTypeFilterState({value}.value)}
+                      />
                     </div>
                     <div className={classes.field}>
-                      <label for="player"><Icon name='user' className={classes.icon} size="large"/></label>
-                      <Dropdown id="player" className={classes.dropdown} placeholder='Selecciona el jugador' search selection clearable options={arrPlayers} value={playerFilterState} onChange={(event, {value}) => setPlayerFilterState({value}.value)}/>
+                      <label for="player">
+                        <Icon name='user' className={classes.icon} size="large"/>
+                      </label>
+                      <Dropdown 
+                        id="player" 
+                        className={classes.dropdown} 
+                        placeholder='Selecciona el jugador' 
+                        search 
+                        selection 
+                        clearable 
+                        options={arrPlayers} 
+                        value={playerFilterState} 
+                        onChange={(event, {value}) => setPlayerFilterState({value}.value)}
+                      />
                     </div>
                     <div className={classes.field}>
-                      <label for="league"><Icon name='globe' className={classes.icon} size="large"/></label>
-                      <Dropdown id="league" className={classes.dropdown} placeholder='Selecciona la liga' search selection clearable options={arrLeagues} value={leagueFilterState} onChange={(event, {value}) => setLeagueFilterState({value}.value)}/>
+                      <label for="league">
+                        <Icon name='globe' className={classes.icon} size="large"/>
+                      </label>
+                      <Dropdown 
+                        id="league" 
+                        className={classes.dropdown} 
+                        placeholder='Selecciona la liga' 
+                        search 
+                        selection 
+                        clearable 
+                        options={arrLeagues} 
+                        value={leagueFilterState} 
+                        onChange={(event, {value}) => setLeagueFilterState({value}.value)}
+                      />
                     </div>
                     <div className={classes.field}>
-                      <label for="team"><Icon name='shield' className={classes.icon} size="large"/></label>
-                      <Dropdown id="team" className={classes.dropdown} placeholder='Selecciona el equipo' search selection clearable options={arrTeams} value={teamFilterState} onChange={(event, {value}) => setTeamFilterState({value}.value)}/>
+                      <label for="team">
+                        <Icon name='shield' className={classes.icon} size="large"/>
+                      </label>
+                      <Dropdown 
+                        id="team" 
+                        className={classes.dropdown} 
+                        placeholder='Selecciona el equipo' 
+                        search 
+                        selection 
+                        clearable 
+                        options={arrTeams} 
+                        value={teamFilterState} 
+                        onChange={(event, {value}) => setTeamFilterState({value}.value)}
+                      />
                     </div>
                     <div className={classes.field}>
-                      <label for="country"><Icon name='flag' className={classes.icon} size="large"/></label>
-                      <Dropdown id="country" className={classes.dropdown} placeholder='Selecciona el país' search selection clearable options={arrCountries} value={countryFilterState} onChange={(event, {value}) => setCountryFilterState({value}.value)}/>
+                      <label for="country">
+                        <Icon name='flag' className={classes.icon} size="large"/>
+                      </label>
+                      <Dropdown 
+                        id="country" 
+                        className={classes.dropdown} 
+                        placeholder='Selecciona el país' 
+                        search 
+                        selection 
+                        clearable 
+                        options={arrCountries} 
+                        value={countryFilterState} 
+                        onChange={(event, {value}) => setCountryFilterState({value}.value)}
+                      />
                     </div>
                     <div className={classes.field}>
-                      <label for="position"><Icon name='puzzle piece' className={classes.icon} size="large"/></label>
-                      <Dropdown id="position" className={classes.dropdown} placeholder='Selecciona la posición' search selection clearable options={arrPositions} value={positionFilterState} onChange={(event, {value}) => setPositionFilterState({value}.value)}/>
+                      <label for="position">
+                        <Icon name='puzzle piece' className={classes.icon} size="large"/>
+                      </label>
+                      <Dropdown 
+                        id="position" 
+                        className={classes.dropdown} 
+                        placeholder='Selecciona la posición' 
+                        search 
+                        selection 
+                        clearable 
+                        options={arrPositions} 
+                        value={positionFilterState} 
+                        onChange={(event, {value}) => setPositionFilterState({value}.value)}
+                      />
                     </div>
                     <div className={classes.field}>
-                      <label for="rare"><Icon name='square' className={classes.icon} size="large"/></label>
+                      <label for="rare">
+                        <Icon name='square' className={classes.icon} size="large"/>
+                      </label>
                       <Dropdown
                         id="rare"
                         className={classes.dropdown}
@@ -773,7 +860,9 @@ const Players = props => {
                         onChange={(event, {value}) => setRareFilterState({value}.value)}/>
                     </div>
                     <div className={classes.field}>
-                      <label for="rare"><Icon name='square' className={classes.icon} size="large"/></label>
+                      <label for="rare">
+                        <Icon name='square' className={classes.icon} size="large"/>
+                      </label>
                       <Dropdown
                         id="special"
                         className={classes.dropdown}
@@ -810,7 +899,9 @@ const Players = props => {
                     />
                     <div className="filterOptions">
                       <div className={classes.field}>
-                        <label for="name"><Icon name='sort' className={classes.icon} size="large"/></label>
+                        <label for="name">
+                          <Icon name='sort' className={classes.icon} size="large"/>
+                        </label>
                         <Dropdown
                           id="name"
                           className={classes.dropdown}
@@ -879,7 +970,9 @@ const Players = props => {
                           onChange={(event, {value}) => setOrderTypeState({value}.value)}/>
                       </div>
                       <div className={classes.field}>
-                        <label for="order"><Icon name='sort content ascending' className={classes.icon} size="large"/></label>
+                        <label for="order">
+                          <Icon name='sort content ascending' className={classes.icon} size="large"/>
+                        </label>
                         <Dropdown
                           id="order"
                           className={classes.dropdown}

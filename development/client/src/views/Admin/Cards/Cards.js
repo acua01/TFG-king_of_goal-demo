@@ -4,7 +4,6 @@
   import React, {Fragment, useState, useEffect} from 'react';
   import injectSheet from 'react-jss';
   import {Icon, Pagination, Message, Modal, Dropdown, Tab} from 'semantic-ui-react';
-  import ReactFileReader from 'react-file-reader';
   /* End React's packages */
 
   /* JSS */
@@ -87,7 +86,7 @@ const Cards = props => {
     useEffect(() => {
       actions.setBreadcrumb([
         {
-          name: 'Administracion',
+          name: 'Administración',
           path: '/admin'
         },
         {
@@ -95,15 +94,6 @@ const Cards = props => {
           path: '/admin/cartas'
         },
       ]);
-    },[]);
-
-    useEffect(() => {
-      actions.askForAllCards();
-      actions.askForAllCardsTypes();
-      actions.askForAllPlayers();
-      actions.askForAllTeams();
-      actions.askForAllCountries();
-      actions.askForAllPositions();
     },[]);
 
     useEffect(() => {
@@ -210,21 +200,7 @@ const Cards = props => {
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Validates the form and returns an array with the errors
-    *--------------------------------------------------------------------------
-    */
-
-    const fnValidateForm = () => {
-      let errors = [];
-
-      // Name validation
-
-      return errors;
-    }
-
-    /*
-    *--------------------------------------------------------------------------
-    * Description: Validates the form and sends data to server to insert
+    * Description: Sends data to server to insert
     *--------------------------------------------------------------------------
     */
 
@@ -232,37 +208,29 @@ const Cards = props => {
       event.preventDefault();
       window.scrollTo(0,0);
 
-      const errors = fnValidateForm();
-
-      if(errors.length === 0){
-        actions.sendRequestToInsertCard({
-          rating:ratingState,
-          value:valueState,
-          pace:paceState,
-          shooting:shootingState,
-          passing:passingState,
-          dribbling:dribblingState,
-          defending:defendingState,
-          physicality:physicalityState,
-          goodLeg:goodLegState,
-          skills:skillsState,
-          badLeg:badLegState,
-          idType:typeState,
-          idPlayer:playerState,
-          idTeam:teamState,
-          idCountry:countryState,
-          idPosition:positionState,
-        });
-      }else{
-        errors.map(error => {
-          showSnackbar('error', error);
-        });
-      }
+      actions.sendRequestToInsertCard({
+        rating:ratingState,
+        value:valueState,
+        pace:paceState,
+        shooting:shootingState,
+        passing:passingState,
+        dribbling:dribblingState,
+        defending:defendingState,
+        physicality:physicalityState,
+        goodLeg:goodLegState,
+        skills:skillsState,
+        badLeg:badLegState,
+        idType:typeState,
+        idPlayer:playerState,
+        idTeam:teamState,
+        idCountry:countryState,
+        idPosition:positionState,
+      });
     }
 
     /*
     *--------------------------------------------------------------------------
-    * Description: Validates the form and sends data to server to update
+    * Description: Sends data to server to update
     *--------------------------------------------------------------------------
     */
 
@@ -270,33 +238,26 @@ const Cards = props => {
       event.preventDefault();
       window.scrollTo(0,0);
 
-      const errors = fnValidateForm();
+      actions.sendRequestToUpdateCard({
+        id:activeCardState.card_id,
+        rating:ratingState,
+        value:valueState,
+        pace:paceState,
+        shooting:shootingState,
+        passing:passingState,
+        dribbling:dribblingState,
+        defending:defendingState,
+        physicality:physicalityState,
+        goodLeg:goodLegState,
+        skills:skillsState,
+        badLeg:badLegState,
+        idType:typeState,
+        idPlayer:playerState,
+        idTeam:teamState,
+        idCountry:countryState,
+        idPosition:positionState,
+      });
 
-      if(errors.length === 0){
-        actions.sendRequestToUpdateCard({
-          id:activeCardState.card_id,
-          rating:ratingState,
-          value:valueState,
-          pace:paceState,
-          shooting:shootingState,
-          passing:passingState,
-          dribbling:dribblingState,
-          defending:defendingState,
-          physicality:physicalityState,
-          goodLeg:goodLegState,
-          skills:skillsState,
-          badLeg:badLegState,
-          idType:typeState,
-          idPlayer:playerState,
-          idTeam:teamState,
-          idCountry:countryState,
-          idPosition:positionState,
-        });
-      }else{
-        errors.map(error => {
-          showSnackbar('error', error);
-        });
-      }
       setViewState('table');
     }
 
@@ -322,7 +283,7 @@ const Cards = props => {
     *--------------------------------------------------------------------------
     */
 
-    const onClickConfirmDeleteButtonHandler = idCard => {
+    const onClickConfirmDeleteButtonHandler = () => {
       window.scrollTo(0,0);
       setDeleteModalState(false);
 
@@ -680,7 +641,6 @@ const Cards = props => {
               </div>
             </div>
           </td>
-
         </tr>
       );
     });
@@ -852,7 +812,12 @@ const Cards = props => {
 
               {/*---------- Modal ------------------------------------------*/}
 
-              <Modal className={classes.modal} size='mini' open={deleteModalState} onClose={() => setDeleteModalState(false)}>
+              <Modal 
+                className={classes.modal} 
+                size='mini' 
+                open={deleteModalState} 
+                onClose={() => setDeleteModalState(false)}
+              >
                 <Modal.Content>
                   <p>¿Seguro que quieres eliminar esta carta?</p>
                 </Modal.Content>
@@ -881,31 +846,105 @@ const Cards = props => {
                       render: () =>
                         <div className="filterOptions">
                           <div className={classes.field}>
-                            <label for="type"><Icon name='square' className={classes.icon} size="large"/></label>
-                            <Dropdown id="type" className={classes.dropdown} placeholder='Selecciona el tipo' search selection clearable options={arrTypes} value={typeFilterState} onChange={(event, {value}) => setTypeFilterState({value}.value)}/>
+                            <label for="type">
+                              <Icon name='square' className={classes.icon} size="large"/>
+                            </label>
+                            <Dropdown 
+                              id="type" 
+                              className={classes.dropdown} 
+                              placeholder='Selecciona el tipo' 
+                              search 
+                              selection 
+                              clearable 
+                              options={arrTypes} 
+                              value={typeFilterState} 
+                              onChange={(event, {value}) => setTypeFilterState({value}.value)}
+                            />
                           </div>
                           <div className={classes.field}>
-                            <label for="player"><Icon name='user' className={classes.icon} size="large"/></label>
-                            <Dropdown id="player" className={classes.dropdown} placeholder='Selecciona el jugador' search selection clearable options={arrPlayers} value={playerFilterState} onChange={(event, {value}) => setPlayerFilterState({value}.value)}/>
+                            <label for="player">
+                              <Icon name='user' className={classes.icon} size="large"/>
+                            </label>
+                            <Dropdown 
+                              id="player" 
+                              className={classes.dropdown} 
+                              placeholder='Selecciona el jugador' 
+                              search 
+                              selection 
+                              clearable 
+                              options={arrPlayers} 
+                              value={playerFilterState} 
+                              onChange={(event, {value}) => setPlayerFilterState({value}.value)}
+                            />
                           </div>
                           <div className={classes.field}>
-                            <label for="league"><Icon name='globe' className={classes.icon} size="large"/></label>
-                            <Dropdown id="league" className={classes.dropdown} placeholder='Selecciona la liga' search selection clearable options={arrLeagues} value={leagueFilterState} onChange={(event, {value}) => setLeagueFilterState({value}.value)}/>
+                            <label for="league">
+                              <Icon name='globe' className={classes.icon} size="large"/>
+                            </label>
+                            <Dropdown 
+                              id="league" 
+                              className={classes.dropdown} 
+                              placeholder='Selecciona la liga' 
+                              search 
+                              selection 
+                              clearable 
+                              options={arrLeagues} 
+                              value={leagueFilterState} 
+                              onChange={(event, {value}) => setLeagueFilterState({value}.value)}
+                            />
                           </div>
                           <div className={classes.field}>
-                            <label for="team"><Icon name='shield' className={classes.icon} size="large"/></label>
-                            <Dropdown id="team" className={classes.dropdown} placeholder='Selecciona el equipo' search selection clearable options={arrTeams} value={teamFilterState} onChange={(event, {value}) => setTeamFilterState({value}.value)}/>
+                            <label for="team">
+                              <Icon name='shield' className={classes.icon} size="large"/>
+                            </label>
+                            <Dropdown 
+                              id="team" 
+                              className={classes.dropdown} 
+                              placeholder='Selecciona el equipo' 
+                              search 
+                              selection 
+                              clearable 
+                              options={arrTeams} 
+                              value={teamFilterState} 
+                              onChange={(event, {value}) => setTeamFilterState({value}.value)}
+                            />
                           </div>
                           <div className={classes.field}>
-                            <label for="country"><Icon name='flag' className={classes.icon} size="large"/></label>
-                            <Dropdown id="country" className={classes.dropdown} placeholder='Selecciona el país' search selection clearable options={arrCountries} value={countryFilterState} onChange={(event, {value}) => setCountryFilterState({value}.value)}/>
+                            <label for="country">
+                              <Icon name='flag' className={classes.icon} size="large"/>
+                            </label>
+                            <Dropdown 
+                              id="country" 
+                              className={classes.dropdown} 
+                              placeholder='Selecciona el país' 
+                              search 
+                              selection 
+                              clearable 
+                              options={arrCountries} 
+                              value={countryFilterState} 
+                              onChange={(event, {value}) => setCountryFilterState({value}.value)}
+                            />
                           </div>
                           <div className={classes.field}>
-                            <label for="position"><Icon name='puzzle piece' className={classes.icon} size="large"/></label>
-                            <Dropdown id="position" className={classes.dropdown} placeholder='Selecciona la posición' search selection clearable options={arrPositions} value={positionFilterState} onChange={(event, {value}) => setPositionFilterState({value}.value)}/>
+                            <label for="position">
+                              <Icon name='puzzle piece' className={classes.icon} size="large"/>
+                            </label>
+                            <Dropdown 
+                              id="position" 
+                              className={classes.dropdown} 
+                              placeholder='Selecciona la posición' 
+                              search 
+                              selection 
+                              clearable 
+                              options={arrPositions} 
+                              value={positionFilterState} 
+                              onChange={(event, {value}) => setPositionFilterState({value}.value)}
+                            />
                           </div>
                           <div className={classes.field}>
-                            <label for="rare"><Icon name='square' className={classes.icon} size="large"/></label>
+                            <label for="rare">
+                              <Icon name='square' className={classes.icon} size="large"/>
+                            </label>
                             <Dropdown
                               id="rare"
                               className={classes.dropdown}
@@ -926,10 +965,13 @@ const Cards = props => {
                                 }
                               ]}
                               value={rareFilterState}
-                              onChange={(event, {value}) => setRareFilterState({value}.value)}/>
+                              onChange={(event, {value}) => setRareFilterState({value}.value)}
+                            />
                           </div>
                           <div className={classes.field}>
-                            <label for="rare"><Icon name='square' className={classes.icon} size="large"/></label>
+                            <label for="rare">
+                              <Icon name='square' className={classes.icon} size="large"/>
+                            </label>
                             <Dropdown
                               id="special"
                               className={classes.dropdown}
@@ -950,7 +992,8 @@ const Cards = props => {
                                 }
                               ]}
                               value={specialFilterState}
-                              onChange={(event, {value}) => setSpecialFilterState({value}.value)}/>
+                              onChange={(event, {value}) => setSpecialFilterState({value}.value)}
+                            />
                           </div>
                         </div>
                     },
@@ -966,7 +1009,9 @@ const Cards = props => {
                           />
                           <div className="filterOptions">
                             <div className={classes.field}>
-                              <label for="name"><Icon name='sort' className={classes.icon} size="large"/></label>
+                              <label for="name">
+                                <Icon name='sort' className={classes.icon} size="large"/>
+                              </label>
                               <Dropdown
                                 id="name"
                                 className={classes.dropdown}
@@ -1032,10 +1077,13 @@ const Cards = props => {
                                   },
                                 ]}
                                 value={orderTypeState}
-                                onChange={(event, {value}) => setOrderTypeState({value}.value)}/>
+                                onChange={(event, {value}) => setOrderTypeState({value}.value)}
+                              />
                             </div>
                             <div className={classes.field}>
-                              <label for="order"><Icon name='sort content ascending' className={classes.icon} size="large"/></label>
+                              <label for="order">
+                                <Icon name='sort content ascending' className={classes.icon} size="large"/>
+                              </label>
                               <Dropdown
                                 id="order"
                                 className={classes.dropdown}
@@ -1056,7 +1104,8 @@ const Cards = props => {
                                   }
                                 ]}
                                 value={orderByState}
-                                onChange={(event, {value}) => setOrderByState({value}.value)}/>
+                                onChange={(event, {value}) => setOrderByState({value}.value)}
+                              />
                             </div>
                           </div>
                         </Fragment>
@@ -1098,72 +1147,242 @@ const Cards = props => {
             <Icon name='angle left'/>
             <span>Volver a la lista</span>
           </button>
-          <h1>{activeCardState ? <Fragment>Modificar carta</Fragment> : <Fragment>Insertar carta</Fragment>}</h1>
-          <form onSubmit={(event) => {activeCardState ? onSubmitUpdateCardFormHandler(event) : onSubmitInsertCardFormHandler(event)}}>
+          <h1>
+            {activeCardState ? <Fragment>Modificar carta</Fragment> : <Fragment>Insertar carta</Fragment>}
+          </h1>
+          <form 
+            onSubmit={(event) => {activeCardState ? onSubmitUpdateCardFormHandler(event) : onSubmitInsertCardFormHandler(event)}}
+          >
             <div>
               <div className={classes.field}>
-                <label for="rating"><Icon name='star' className={classes.icon} size="large"/></label>
-                <input type="number" min="1" max="99" id="rating" placeholder="Valoración" value={ratingState} onChange={(event) => setRatingState(event.target.value)}/>
+                <label for="rating">
+                  <Icon name='star' className={classes.icon} size="large"/>
+                </label>
+                <input 
+                  type="number" 
+                  min="1" 
+                  max="99" 
+                  id="rating" 
+                  placeholder="Valoración" 
+                  value={ratingState} 
+                  onChange={(event) => setRatingState(event.target.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="value"><Icon name='money' className={classes.icon} size="large"/></label>
-                <input type="number" min="0" id="value" placeholder="Valor" value={valueState} onChange={(event) => setValueState(event.target.value)}/>
+                <label for="value">
+                  <Icon name='money' className={classes.icon} size="large"/>
+                </label>
+                <input 
+                  type="number" 
+                  min="0" 
+                  id="value" 
+                  placeholder="Valor" 
+                  value={valueState} 
+                  onChange={(event) => setValueState(event.target.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="pace"><Icon name='address card' className={classes.icon} size="large"/></label>
-                <input type="number" min="1" max="99" id="pace" placeholder="Ritmo" value={paceState} onChange={(event) => setPaceState(event.target.value)}/>
+                <label for="pace">
+                  <Icon name='address card' className={classes.icon} size="large"/>
+                </label>
+                <input 
+                  type="number" 
+                  min="1" 
+                  max="99" 
+                  id="pace" 
+                  placeholder="Ritmo" 
+                  value={paceState} 
+                  onChange={(event) => setPaceState(event.target.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="shooting"><Icon name='address card' className={classes.icon} size="large"/></label>
-                <input type="number" min="1" max="99" id="shooting" placeholder="Tiro" value={shootingState} onChange={(event) => setShootingState(event.target.value)}/>
+                <label for="shooting">
+                  <Icon name='address card' className={classes.icon} size="large"/>
+                </label>
+                <input 
+                  type="number" 
+                  min="1" 
+                  max="99" 
+                  id="shooting" 
+                  placeholder="Tiro" 
+                  value={shootingState} 
+                  onChange={(event) => setShootingState(event.target.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="passing"><Icon name='address card' className={classes.icon} size="large"/></label>
-                <input type="number" min="1" max="99" id="passing" placeholder="Pase" value={passingState} onChange={(event) => setPassingState(event.target.value)}/>
+                <label for="passing">
+                  <Icon name='address card' className={classes.icon} size="large"/>
+                </label>
+                <input 
+                  type="number" 
+                  min="1" 
+                  max="99" 
+                  id="passing" 
+                  placeholder="Pase" 
+                  value={passingState} 
+                  onChange={(event) => setPassingState(event.target.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="dribbling"><Icon name='address card' className={classes.icon} size="large"/></label>
-                <input type="number" min="1" max="99" id="dribbling" placeholder="Regate" value={dribblingState} onChange={(event) => setDribblingState(event.target.value)}/>
+                <label for="dribbling">
+                  <Icon name='address card' className={classes.icon} size="large"/>
+                </label>
+                <input 
+                  type="number" 
+                  min="1" 
+                  max="99" 
+                  id="dribbling" 
+                  placeholder="Regate" 
+                  value={dribblingState} 
+                  onChange={(event) => setDribblingState(event.target.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="defending"><Icon name='address card' className={classes.icon} size="large"/></label>
-                <input type="number" min="1" max="99" id="defending" placeholder="Defensa" value={defendingState} onChange={(event) => setDefendingState(event.target.value)}/>
+                <label for="defending">
+                  <Icon name='address card' className={classes.icon} size="large"/>
+                </label>
+                <input 
+                  type="number" 
+                  min="1" 
+                  max="99" 
+                  id="defending" 
+                  placeholder="Defensa" 
+                  value={defendingState} onChange={(event) => setDefendingState(event.target.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="physicality"><Icon name='address card' className={classes.icon} size="large"/></label>
-                <input type="number" min="1" max="99" id="physicality" placeholder="Físico" value={physicalityState} onChange={(event) => setPhysicalityState(event.target.value)}/>
+                <label for="physicality">
+                  <Icon name='address card' className={classes.icon} size="large"/>
+                </label>
+                <input 
+                  type="number" 
+                  min="1" 
+                  max="99" 
+                  id="physicality" 
+                  placeholder="Físico" 
+                  value={physicalityState} 
+                  onChange={(event) => setPhysicalityState(event.target.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="goodLeg"><Icon name='address card' className={classes.icon} size="large"/></label>
-                <input type="text" id="goodLeg" placeholder="Pierna buena" value={goodLegState} onChange={(event) => setGoodLegState(event.target.value)}/>
+                <label for="goodLeg">
+                  <Icon name='address card' className={classes.icon} size="large"/>
+                </label>
+                <input 
+                  type="text" 
+                  id="goodLeg" 
+                  placeholder="Pierna buena" 
+                  value={goodLegState} 
+                  onChange={(event) => setGoodLegState(event.target.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="skills"><Icon name='star' className={classes.icon} size="large"/></label>
-                <input type="number" min="1" max="5" id="skills" placeholder="Filigranas" value={skillsState} onChange={(event) => setSkillsState(event.target.value)}/>
+                <label for="skills">
+                  <Icon name='star' className={classes.icon} size="large"/>
+                </label>
+                <input 
+                  type="number" 
+                  min="1" 
+                  max="5" 
+                  id="skills" 
+                  placeholder="Filigranas" 
+                  value={skillsState} 
+                  onChange={(event) => setSkillsState(event.target.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="badLeg"><Icon name='star' className={classes.icon} size="large"/></label>
-                <input type="number" min="1" max="5" id="badLeg" placeholder="Pierna mala" value={badLegState} onChange={(event) => setBadLegState(event.target.value)}/>
+                <label for="badLeg">
+                  <Icon name='star' className={classes.icon} size="large"/>
+                </label>
+                <input 
+                  type="number" 
+                  min="1" 
+                  max="5" 
+                  id="badLeg" 
+                  placeholder="Pierna mala" 
+                  value={badLegState} 
+                  onChange={(event) => setBadLegState(event.target.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="type"><Icon name='square' className={classes.icon} size="large"/></label>
-                <Dropdown id="type" className={classes.dropdown} placeholder='Selecciona el tipo' search selection clearable options={arrTypes} value={typeState} onChange={(event, {value}) => setTypeState({value}.value)}/>
+                <label for="type">
+                  <Icon name='square' className={classes.icon} size="large"/>
+                </label>
+                <Dropdown 
+                  id="type" 
+                  className={classes.dropdown} 
+                  placeholder='Selecciona el tipo' 
+                  search 
+                  selection 
+                  clearable 
+                  options={arrTypes} 
+                  value={typeState} 
+                  onChange={(event, {value}) => setTypeState({value}.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="player"><Icon name='user' className={classes.icon} size="large"/></label>
-                <Dropdown id="player" className={classes.dropdown} placeholder='Selecciona el jugador' search selection clearable options={arrPlayers} value={playerState} onChange={(event, {value}) => setPlayerState({value}.value)}/>
+                <label for="player">
+                  <Icon name='user' className={classes.icon} size="large"/>
+                </label>
+                <Dropdown 
+                  id="player" 
+                  className={classes.dropdown} 
+                  placeholder='Selecciona el jugador' 
+                  search 
+                  selection 
+                  clearable 
+                  options={arrPlayers} 
+                  value={playerState} 
+                  onChange={(event, {value}) => setPlayerState({value}.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="team"><Icon name='shield' className={classes.icon} size="large"/></label>
-                <Dropdown id="team" className={classes.dropdown} placeholder='Selecciona el equipo' search selection clearable options={arrTeams} value={teamState} onChange={(event, {value}) => setTeamState({value}.value)}/>
+                <label for="team">
+                  <Icon name='shield' className={classes.icon} size="large"/>
+                </label>
+                <Dropdown 
+                  id="team" 
+                  className={classes.dropdown} 
+                  placeholder='Selecciona el equipo' 
+                  search 
+                  selection 
+                  clearable 
+                  options={arrTeams} 
+                  value={teamState} 
+                  onChange={(event, {value}) => setTeamState({value}.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="country"><Icon name='flag' className={classes.icon} size="large"/></label>
-                <Dropdown id="country" className={classes.dropdown} placeholder='Selecciona el país' search selection clearable options={arrCountries} value={countryState} onChange={(event, {value}) => setCountryState({value}.value)}/>
+                <label for="country">
+                  <Icon name='flag' className={classes.icon} size="large"/>
+                </label>
+                <Dropdown 
+                  id="country" 
+                  className={classes.dropdown} 
+                  placeholder='Selecciona el país' 
+                  search 
+                  selection 
+                  clearable 
+                  options={arrCountries} 
+                  value={countryState} 
+                  onChange={(event, {value}) => setCountryState({value}.value)}
+                />
               </div>
               <div className={classes.field}>
-                <label for="position"><Icon name='puzzle piece' className={classes.icon} size="large"/></label>
-                <Dropdown id="position" className={classes.dropdown} placeholder='Selecciona la posición' search selection clearable options={arrPositions} value={positionState} onChange={(event, {value}) => setPositionState({value}.value)}/>
+                <label for="position">
+                  <Icon name='puzzle piece' className={classes.icon} size="large"/>
+                </label>
+                <Dropdown 
+                  id="position" 
+                  className={classes.dropdown} 
+                  placeholder='Selecciona la posición' 
+                  search 
+                  selection 
+                  clearable 
+                  options={arrPositions} 
+                  value={positionState} 
+                  onChange={(event, {value}) => setPositionState({value}.value)}
+                />
               </div>
             </div>
             <button type="submit">

@@ -44,7 +44,7 @@ const Admin = props => {
   const {url, path} = useRouteMatch();
 
   /*========== USE EFFECT ===================================================*/
-    /*
+    
     useEffect(() => {
       if(state.app.authentication.admin){
         history.push('/admin');
@@ -52,7 +52,7 @@ const Admin = props => {
         history.push('/');
       }
     },[state.app.authentication.admin]);
-    */
+    
   /*========== END USE EFFECT ===============================================*/
 
   /*========== FUNCTIONS ====================================================*/
@@ -102,6 +102,7 @@ const Admin = props => {
 
   return(
     <div className={classes.admin}>
+
       {/*---------- BreadCrumb -----------------------------------------*/}
 
       <div className={classes.breadCrumb}>
@@ -110,10 +111,15 @@ const Admin = props => {
 
       {/*---------- End BreadCrumb -------------------------------------*/}
 
+      {/*---------- Content --------------------------------------------*/}
+
       <Switch>
         {htmlRoutes}
         <Redirect to={path}/>
       </Switch>
+
+      {/*---------- End Content ----------------------------------------*/}
+
     </div>
   )
 }

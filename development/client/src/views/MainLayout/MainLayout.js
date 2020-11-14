@@ -49,9 +49,7 @@ const MainLayout = props => {
   /*========== USE EFFECT ===================================================*/
 
     useEffect(() => {
-      //alert('Comprobando auth');
       actions.checkAuth();
-      //alert('auth comprobado');
     },[]);
 
     useEffect(() => {

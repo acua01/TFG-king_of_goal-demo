@@ -37,7 +37,7 @@
 
 const MainMenu = props => {
 
-  const {classes, history, actions, state} = props;
+  const {classes, actions, state} = props;
 
   /*========== USE EFFECT ===================================================*/
 
@@ -49,27 +49,6 @@ const MainMenu = props => {
         }
       ]);
     },[]);
-
-    /*
-    useEffect(() => {
-      if(state.app.authentication.auth){
-        history.push('/inicio');
-        //actions.setBreadcrumb('/inicio');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth]);
-    */
-
-    /*
-    useEffect(() => {
-      if(state.app.authentication.club){
-        history.push('/inicio');
-      }else{
-        history.push('/crear_club');
-      }
-    },[state.app.authentication.auth]);
-    */
 
   /*========== END USE EFFECT ===============================================*/
 
@@ -88,6 +67,7 @@ const MainMenu = props => {
     const htmlMainMenuItems = mainMenuItems.map((item, index) => {
       const htmlItem = (
         <MenuItem
+          key={index}
           title={item.title}
           description={item.description}
           icon={item.icon}

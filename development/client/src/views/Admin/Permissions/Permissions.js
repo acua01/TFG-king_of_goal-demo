@@ -52,7 +52,7 @@ const Permissions = props => {
     useEffect(() => {
       actions.setBreadcrumb([
         {
-          name: 'Administracion',
+          name: 'Administración',
           path: '/admin'
         },
         {
@@ -61,26 +61,6 @@ const Permissions = props => {
         },
       ]);
     },[]);
-
-    /*
-    useEffect(() => {
-      if(state.app.authentication.auth){
-        history.push('/inicio/admin/permisos');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth]);
-    /*
-
-    /*
-    useEffect(() => {
-      if(state.app.authentication.admin){
-        history.push('/inicio/admin/permisos');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth, state.app.authentication.admin]);
-    */
 
     useEffect(() => {
       actions.askForAllPermissions();
@@ -222,7 +202,7 @@ const Permissions = props => {
     *--------------------------------------------------------------------------
     */
 
-    const onClickConfirmDeleteButtonHandler = idPermission => {
+    const onClickConfirmDeleteButtonHandler = () => {
       window.scrollTo(0,0);
       setDeleteModalState(false);
 
@@ -340,7 +320,12 @@ const Permissions = props => {
 
               {/*---------- Modal ------------------------------------------*/}
 
-              <Modal className={classes.modal} size='mini' open={deleteModalState} onClose={() => setDeleteModalState(false)}>
+              <Modal 
+                className={classes.modal} 
+                size='mini' 
+                open={deleteModalState} 
+                onClose={() => setDeleteModalState(false)}
+              >
                 <Modal.Content>
                   <p>¿Seguro que quieres eliminar este permiso?</p>
                 </Modal.Content>
@@ -379,11 +364,24 @@ const Permissions = props => {
             <Icon name='angle left'/>
             <span>Volver a la lista</span>
           </button>
-          <h1>{activePermissionState ? <Fragment>Modificar permiso</Fragment> : <Fragment>Insertar permiso</Fragment>}</h1>
-          <form onSubmit={(event) => {activePermissionState ? onSubmitUpdatePermissionFormHandler(event) : onSubmitInsertPermissionFormHandler(event)}}>
+          <h1>
+            {activePermissionState ? <Fragment>Modificar permiso</Fragment> : <Fragment>Insertar permiso</Fragment>}
+          </h1>
+          <form 
+            onSubmit={(event) => {activePermissionState ? onSubmitUpdatePermissionFormHandler(event) : onSubmitInsertPermissionFormHandler(event)}}
+          >
             <div className={classes.field}>
-              <label for="name"><Icon name='header' className={classes.icon} size="large"/></label>
-              <input type="text" id="name" placeholder="Nombre" value={nameState} onChange={(event) => setNameState(event.target.value)} maxLength="30"/>
+              <label for="name">
+                <Icon name='header' className={classes.icon} size="large"/>
+              </label>
+              <input 
+                type="text" 
+                id="name" 
+                placeholder="Nombre" 
+                value={nameState} 
+                onChange={(event) => setNameState(event.target.value)} 
+                maxLength="30"
+              />
             </div>
             <button type="submit">
               {activePermissionState ?

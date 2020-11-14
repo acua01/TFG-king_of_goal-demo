@@ -1,9 +1,8 @@
 /*========== IMPORTS ========================================================*/
 
   /* React's packages */
-  import React, {Fragment, useContext, useState, useEffect} from 'react';
+  import React, {useContext, useState} from 'react';
   import {useHistory} from 'react-router-dom';
-  import {Icon, Dropdown, Message} from 'semantic-ui-react';
   import injectSheet from 'react-jss';
   /* End React's packages */
 
@@ -41,8 +40,6 @@
 const Shop = props => {
 
   const {classes} = props;
-  const {state, actions} = useContext(StoreContext);
-  const history = useHistory();
   const [contentState, setContentState] = useState('Packs');
 
   /*========== USE EFFECT ===================================================*/
@@ -50,6 +47,12 @@ const Shop = props => {
   /*========== END USE EFFECT ===============================================*/
 
   /*========== FUNCTIONS ====================================================*/
+
+    /*
+    *--------------------------------------------------------------------------
+    * Description: Return the HTML of the view
+    *--------------------------------------------------------------------------
+    */
 
     const getView = () => {
       let html = null;

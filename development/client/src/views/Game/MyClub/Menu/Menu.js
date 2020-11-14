@@ -38,7 +38,7 @@
 
 const Menu = props => {
 
-  const {classes, history, actions, state} = props;
+  const {classes, history, actions} = props;
 
   /*========== USE EFFECT ===================================================*/
 
@@ -54,16 +54,6 @@ const Menu = props => {
         },
       ]);
     },[]);
-
-    /*
-    useEffect(() => {
-      if(state.app.authentication.auth){
-        history.push('/inicio/admin');
-      }else{
-        history.push('/');
-      }
-    },[state.app.authentication.auth]);
-    */
 
   /*========== END USE EFFECT ===============================================*/
 
@@ -82,6 +72,7 @@ const Menu = props => {
     const htmlMyClubMenuItems = myClubMenuItems.map((item, index) => {
       const htmlItem = (
         <MenuItem
+          key={index}
           title={item.title}
           description={item.description}
           icon={item.icon}
