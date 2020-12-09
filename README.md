@@ -1,6 +1,6 @@
 # king_of_goal
 
-Para realizar el despliegue hacemos lo siguiente:
+## Despliegue 🚀:trollface:
 
 1) Descargamos el fichero despliegue.zip aquí.
 
