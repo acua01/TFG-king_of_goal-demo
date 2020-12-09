@@ -4,8 +4,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
+/**
+ * @authenticated
+ * 
+ * @group Country Management
+ *
+ * APIs for managing countries
+ */
 class CountriesController extends Controller{
 
+  /**
+	 * Get all countries
+	 */
   public function getAll(){
     try{
       $countries = Controller::getAllCountries();
@@ -16,6 +26,11 @@ class CountriesController extends Controller{
     }
   }
 
+  /**
+	 * Get country by id
+	 *
+   * @bodyParam  id int required Id of the country. Example: 1
+	 */
   public function getById(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -39,14 +54,17 @@ class CountriesController extends Controller{
     }
   }
 
+  /**
+	 * Insert country
+	 *
+   * @bodyParam  name string required Name of the country. Example: España
+   * @bodyParam  image string Base64 image of the country. Example: base64
+	 */
   public function insert(Request $request){
     $messages = [
-      // name
-
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 30 caracteres.',
-
     ];
 
     $this->validate($request, [
@@ -86,6 +104,11 @@ class CountriesController extends Controller{
 
   }
 
+  /**
+	 * Delete country
+	 *
+   * @bodyParam  id int required Id of the country. Example: 1
+	 */
   public function delete(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -112,18 +135,25 @@ class CountriesController extends Controller{
 
   }
 
+  /**
+	 * Update country
+	 *
+   * @bodyParam  id int required Id of the country. Example: 1
+   * @bodyParam  name string required Name of the country. Example: España
+   * @bodyParam  image string Base64 image of the country. Example: base64
+	 */
   public function update(Request $request){
     $messages = [
-      // name
-
+      'id.required'=>'Introduce el id.',
+      'id.integer'=>'El id debe ser un integer.',
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 30 caracteres.',
-
     ];
 
     $this->validate($request, [
       'name'=>'required|string|max:30',
+      'id'=>'required|integer',
     ], $messages);
 
     $id = $request['id'];

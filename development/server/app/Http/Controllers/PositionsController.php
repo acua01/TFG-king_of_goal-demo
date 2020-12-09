@@ -4,8 +4,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
+/**
+ * @authenticated
+ * 
+ * @group Position Management
+ *
+ * APIs for managing positions
+ */
 class PositionsController extends Controller{
 
+  /**
+	 * Get all positions
+	 */
   public function getAll(){
     try{
       $positions = Controller::getAllPositions();
@@ -16,6 +26,11 @@ class PositionsController extends Controller{
     }
   }
 
+  /**
+	 * Get position by id
+	 *
+   * @bodyParam  id int required Id of the position. Example: 1
+	 */
   public function getById(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',

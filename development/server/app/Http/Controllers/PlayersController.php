@@ -4,8 +4,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
+/**
+ * @authenticated
+ * 
+ * @group Player Management
+ *
+ * APIs for managing players
+ */
 class PlayersController extends Controller{
 
+  /**
+	 * Get all players
+	 */
   public function getAll(){
     try{
       $players = Controller::getAllPlayers();
@@ -16,6 +26,11 @@ class PlayersController extends Controller{
     }
   }
 
+  /**
+	 * Get player by id
+	 *
+   * @bodyParam  id int required Id of the player. Example: 1
+	 */
   public function getById(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -39,26 +54,26 @@ class PlayersController extends Controller{
     }
   }
 
+  /**
+	 * Insert player
+	 *
+   * @bodyParam  name string required Name of the player. Example: El Choco
+   * @bodyParam  full_name string required Full name of the player. Example: El Choco Lozano
+   * @bodyParam  image string Base64 image of the player. Example: base64
+   * @bodyParam  height int required Height of the player. Example: 175
+   * @bodyParam  birth string Birth of the player. Example: 26/10/1998
+	 */
   public function insert(Request $request){
     $messages = [
-      // name
-
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 30 caracteres.',
-
-      // full name
-
       'full_name.required'=>'Introduce el nombre completo.',
       'full_name.string'=>'El nombre completo debe ser una cadena.',
       'full_name.max'=>'El nombre completo debe tener un máximo de 255 caracteres.',
       'full_name.unique'=>'El nombre completo introducido ya existe.',
-
-      // height
-
       'height.required'=>'Introduce la altura.',
       'height.numeric'=>'La altura debe ser numérico.',
-      //'height.max'=>'La altura debe tener un máximo de 3 dígitos.',
     ];
 
     $this->validate($request, [
@@ -106,6 +121,11 @@ class PlayersController extends Controller{
 
   }
 
+  /**
+	 * Delete player
+	 *
+   * @bodyParam  id int required Id of the player. Example: 1
+	 */
   public function delete(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -132,25 +152,28 @@ class PlayersController extends Controller{
 
   }
 
+  /**
+	 * Update player
+	 *
+   * @bodyParam  id int required Id of the player. Example: 1
+   * @bodyParam  name string required Name of the player. Example: El Choco
+   * @bodyParam  full_name string required Full name of the player. Example: El Choco Lozano
+   * @bodyParam  image string Base64 image of the player. Example: base64
+   * @bodyParam  height int required Height of the player. Example: 175
+   * @bodyParam  birth string Birth of the player. Example: 26/10/1998
+	 */
   public function update(Request $request){
     $messages = [
-      // name
-
+      'id.required'=>'Introduce el id.',
+      'id.integer'=>'El id debe ser un integer.',
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 30 caracteres.',
-
-      // full name
-
       'full_name.required'=>'Introduce el nombre completo.',
       'full_name.string'=>'El nombre completo debe ser una cadena.',
       'full_name.max'=>'El nombre completo debe tener un máximo de 255 caracteres.',
-
-      // height
-
       'height.required'=>'Introduce la altura.',
       'height.numeric'=>'La altura debe ser numérico.',
-      //'height.max'=>'La altura debe tener un máximo de 3 dígitos.',
     ];
 
     $this->validate($request, [

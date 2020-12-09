@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.2.5",
         "laravel/lumen-framework": "^6.0",
+        "mpociot/laravel-apidoc-generator": "^4.8",
         "spatie/laravel-cors": "^1.6",
         "spatie/laravel-permission": "^3.11"
     },

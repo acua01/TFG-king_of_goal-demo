@@ -4,8 +4,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
+/**
+ * @authenticated
+ * 
+ * @group Card Management
+ *
+ * APIs for managing cards
+ */
 class CardsController extends Controller{
 
+  /**
+	 * Get all cards
+	 */
   public function getAll(){
     try{
       $cards = Controller::getAllCards();
@@ -16,6 +26,11 @@ class CardsController extends Controller{
     }
   }
 
+  /**
+	 * Get card by id
+	 *
+   * @bodyParam  id int required Id of the card. Example: 1
+	 */
   public function getById(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -39,6 +54,26 @@ class CardsController extends Controller{
     }
   }
 
+  /**
+	 * Insert card
+	 *
+   * @bodyParam  rating int required Rating of the card. Example: 99
+   * @bodyParam  value int required Value of the card. Example: 500
+   * @bodyParam  pace int required Pace of the card. Example: 99
+   * @bodyParam  shooting int required Shooting of the card. Example: 99
+   * @bodyParam  passing int required Pasing of the card. Example: 99
+   * @bodyParam  dribbling int required Dribbling of the card. Example: 99
+   * @bodyParam  defending int required Defending of the card. Example: 99
+   * @bodyParam  physicality int required Physicality of the card. Example: 99
+   * @bodyParam  goodLeg string required Good leg of the card. Example: Derecha
+   * @bodyParam  skills int required Skills of the card. Example: 5
+   * @bodyParam  badLeg int required Bad leg of the card. Example: 5
+   * @bodyParam  idType int required Id type of the card. Example: 1
+   * @bodyParam  idPlayer int required Id player of the card. Example: 1
+   * @bodyParam  idTeam int required Id team of the card. Example: 1
+   * @bodyParam  idCountry int required Id country of the card. Example: 1
+   * @bodyParam  idPosition int required Id position of the card. Example: 1
+	 */
   public function insert(Request $request){
     $messages = [
 
@@ -176,6 +211,11 @@ class CardsController extends Controller{
 
   }
 
+  /**
+	 * Delete card
+	 *
+   * @bodyParam  id int required Id of the card. Example: 1
+	 */
   public function delete(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -202,6 +242,27 @@ class CardsController extends Controller{
 
   }
 
+  /**
+	 * Update card
+	 *
+   * @bodyParam  id int required Id of the card. Example: 1
+   * @bodyParam  rating int required Rating of the card. Example: 99
+   * @bodyParam  value int required Value of the card. Example: 500
+   * @bodyParam  pace int required Pace of the card. Example: 99
+   * @bodyParam  shooting int required Shooting of the card. Example: 99
+   * @bodyParam  passing int required Pasing of the card. Example: 99
+   * @bodyParam  dribbling int required Dribbling of the card. Example: 99
+   * @bodyParam  defending int required Defending of the card. Example: 99
+   * @bodyParam  physicality int required Physicality of the card. Example: 99
+   * @bodyParam  goodLeg string required Good leg of the card. Example: Derecha
+   * @bodyParam  skills int required Skills of the card. Example: 5
+   * @bodyParam  badLeg int required Bad leg of the card. Example: 5
+   * @bodyParam  idType int required Id type of the card. Example: 1
+   * @bodyParam  idPlayer int required Id player of the card. Example: 1
+   * @bodyParam  idTeam int required Id team of the card. Example: 1
+   * @bodyParam  idCountry int required Id country of the card. Example: 1
+   * @bodyParam  idPosition int required Id position of the card. Example: 1
+	 */
   public function update(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',

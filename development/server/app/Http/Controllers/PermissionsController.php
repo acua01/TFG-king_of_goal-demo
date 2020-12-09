@@ -6,8 +6,18 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
 use DB;
 
+/**
+ * @authenticated
+ * 
+ * @group Permission Management
+ *
+ * APIs for managing permissions
+ */
 class PermissionsController extends Controller{
 
+  /**
+	 * Get all permissions
+	 */
   public function getAll(){
     try{
       $permissions = Controller::getAllPermissions();
@@ -18,6 +28,11 @@ class PermissionsController extends Controller{
     }
   }
 
+  /**
+	 * Get permission by id
+	 *
+   * @bodyParam  id int required Id of the permission. Example: 1
+	 */
   public function getById(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -41,6 +56,11 @@ class PermissionsController extends Controller{
     }
   }
 
+  /**
+	 * Insert permission
+	 *
+   * @bodyParam  name string required Name of the permission. Example: Permiso
+	 */
   public function insert(Request $request){
     $messages = [
       'name.required'=>'Introduce el nombre.',
@@ -72,6 +92,11 @@ class PermissionsController extends Controller{
 
   }
 
+  /**
+	 * Delete permission
+	 *
+   * @bodyParam  id int required Id of the permission. Example: 1
+	 */
   public function delete(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -98,13 +123,18 @@ class PermissionsController extends Controller{
 
   }
 
+  /**
+	 * Update permission
+	 *
+   * @bodyParam  id int required Id of the permission. Example: 1
+   * @bodyParam  name string required Name of the permission. Example: España
+	 */
   public function update(Request $request){
     $messages = [
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 20 caracteres.',
       'name.regex'=>'El nombre debe tener caracteres alfanuméricos.',
-
       'id.required'=>'Introduce el id.',
       'id.integer'=>'El id debe ser un integer.',
     ];

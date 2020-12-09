@@ -4,8 +4,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
+/**
+ * @authenticated
+ * 
+ * @group Card Type Management
+ *
+ * APIs for managing cards types
+ */
 class CardsTypesController extends Controller{
 
+  /**
+	 * Get all cards types
+	 */
   public function getAll(){
     try{
       $cardsTypes = Controller::getAllCardsTypes();
@@ -16,6 +26,11 @@ class CardsTypesController extends Controller{
     }
   }
 
+  /**
+	 * Get card type by id
+	 *
+   * @bodyParam  id int required Id of the card type. Example: 1
+	 */
   public function getById(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -39,20 +54,24 @@ class CardsTypesController extends Controller{
     }
   }
 
+  /**
+	 * Insert card type
+	 *
+   * @bodyParam  name string required Name of the card type. Example: Oro
+   * @bodyParam  image string Base64 image of the card type. Example: base64
+   * @bodyParam  imageMini string Base64 image mini of the card type. Example: base64
+   * @bodyParam  textColor string Text color of the card type. Example: #ffffff
+   * @bodyParam  rare boolean If is rare the card type. Example: true
+   * @bodyParam  special boolean If is special the card type. Example: true
+	 */
   public function insert(Request $request){
     $messages = [
-      // name
-
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 50 caracteres.',
-
-      // text color
-
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 7 caracteres.',
-
     ];
 
     $this->validate($request, [
@@ -120,6 +139,11 @@ class CardsTypesController extends Controller{
 
   }
 
+  /**
+	 * Delete card type
+	 *
+   * @bodyParam  id int required Id of the card type. Example: 1
+	 */
   public function delete(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -146,14 +170,24 @@ class CardsTypesController extends Controller{
 
   }
 
+  /**
+	 * Update card type
+	 *
+   * @bodyParam  id int required Id of the card type. Example: 1
+   * @bodyParam  name string required Name of the card type. Example: Oro
+   * @bodyParam  image string Base64 image of the card type. Example: base64
+   * @bodyParam  imageMini string Base64 image mini of the card type. Example: base64
+   * @bodyParam  textColor string Text color of the card type. Example: #ffffff
+   * @bodyParam  rare boolean If is rare the card type. Example: true
+   * @bodyParam  special boolean If is special the card type. Example: true
+	 */
   public function update(Request $request){
     $messages = [
-      // name
-
+      'id.required'=>'Introduce el id.',
+      'id.integer'=>'El id debe ser un integer.',
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 50 caracteres.',
-
     ];
 
     $this->validate($request, [

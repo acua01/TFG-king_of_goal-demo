@@ -4,8 +4,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
+/**
+ * @authenticated
+ * 
+ * @group Pack Management
+ *
+ * APIs for managing packs
+ */
 class PacksController extends Controller{
 
+  /**
+	 * Get all packs
+	 */
   public function getAll(){
     try{
       $packs = Controller::getAllPacks();
@@ -16,6 +26,11 @@ class PacksController extends Controller{
     }
   }
 
+  /**
+	 * Get pack by id
+	 *
+   * @bodyParam  id int required Id of the pack. Example: 1
+	 */
   public function getById(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -39,24 +54,27 @@ class PacksController extends Controller{
     }
   }
 
+  /**
+	 * Insert pack
+	 *
+   * @bodyParam  name string required Name of the pack. Example: Sobre premium
+   * @bodyParam  description string Description of the pack. Example: Descripcion
+   * @bodyParam  numberPlayers int Number of players of the pack. Example: 6
+   * @bodyParam  price int required Price of players of the pack. Example: 5000
+   * @bodyParam  image string Base64 image of the pack. Example: base64
+	 */
   public function insert(Request $request){
     $messages = [
-      // name
-
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 50 caracteres.',
-
       'description.string'=>'La descripción debe ser una cadena.',
-
       'numberPlayers.required'=>'Introduce el número de jugadores.',
-      'numberPlayers.string'=>'El número de jugadores debe ser un integer.',
+      'numberPlayers.integer'=>'El número de jugadores debe ser un integer.',
       'numberPlayers.min'=>'El número de jugadores debe ser mínimo 1.',
-
       'price.required'=>'Introduce el precio.',
       'price.string'=>'El precio debe ser un integer.',
       'price.min'=>'El precio debe ser mínimo 0.',
-
     ];
 
     $this->validate($request, [
@@ -105,6 +123,11 @@ class PacksController extends Controller{
 
   }
 
+  /**
+	 * Delete pack
+	 *
+   * @bodyParam  id int required Id of the pack. Example: 1
+	 */
   public function delete(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -131,14 +154,21 @@ class PacksController extends Controller{
 
   }
 
+  /**
+	 * Insert pack
+	 *
+   * @bodyParam  id int required Id of the pack. Example: 1
+   * @bodyParam  name string required Name of the pack. Example: Sobre premium
+   * @bodyParam  description string Description of the pack. Example: Descripcion
+   * @bodyParam  numberPlayers int Number of players of the pack. Example: 6
+   * @bodyParam  price int required Price of the pack. Example: 5000
+   * @bodyParam  image string Base64 image of the pack. Example: base64
+	 */
   public function update(Request $request){
     $messages = [
-      // name
-
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 50 caracteres.',
-
     ];
 
     $this->validate($request, [
@@ -189,6 +219,13 @@ class PacksController extends Controller{
     }
   }
 
+  /**
+	 * Open pack
+	 *
+   * @bodyParam  idClub int required Id of the club. Example: 1
+   * @bodyParam  numberPlayers int Number of players of the pack. Example: 6
+   * @bodyParam  packPrice int required Price of the pack. Example: 5000
+	 */
   public function openPack(Request $request){
 
     $idClub = $request['idClub'];
@@ -255,8 +292,6 @@ class PacksController extends Controller{
           --$i;
         }
       }     
-      
-      //$result = array_slice($cards, 0, $numberPlayers);
 
       return response()->json(['club'=>$club, 'cards'=>$result, 'rating_array'=>$ratings_array], 200);
     }catch(\Exception $e){

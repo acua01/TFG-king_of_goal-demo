@@ -120,6 +120,10 @@ $app->middleware([
 
 $app->register(Spatie\Cors\CorsServiceProvider::class);
 
+$app->register(\Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class);
+
+$app->configure('apidoc');
+
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {

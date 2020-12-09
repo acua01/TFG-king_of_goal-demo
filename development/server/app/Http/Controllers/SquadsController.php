@@ -4,8 +4,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
+/**
+ * @authenticated
+ * 
+ * @group Squad Management
+ *
+ * APIs for managing squads
+ */
 class SquadsController extends Controller{
 
+  /**
+	 * Get all squads by id club
+	 *
+   * @bodyParam  idClub int required Id club of the squad. Example: 1
+	 */
   public function getAllByClub(Request $request){
 
     $idClub = $request['idClub'];
@@ -19,6 +31,11 @@ class SquadsController extends Controller{
     }
   }
 
+  /**
+	 * Get squad by id
+	 *
+   * @bodyParam  id int required Id of the squad. Example: 1
+	 */
   public function getById(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -42,14 +59,17 @@ class SquadsController extends Controller{
     }
   }
 
+  /**
+	 * Insert squad
+	 *
+   * @bodyParam  name string required Name of the squad. Example: Cadiz
+   * @bodyParam  idClub int required Id club of the squad. Example: 1
+	 */
   public function insert(Request $request){
     $messages = [
-      // name
-
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 50 caracteres.',
-
     ];
 
     $this->validate($request, [
@@ -95,6 +115,11 @@ class SquadsController extends Controller{
 
   }
 
+  /**
+	 * Delete squad
+	 *
+   * @bodyParam  id int required Id of the squad. Example: 1
+	 */
   public function delete(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -126,14 +151,20 @@ class SquadsController extends Controller{
 
   }
 
+  /**
+	 * Update squad
+	 *
+   * @bodyParam  id int required Id of the squad. Example: 1
+   * @bodyParam  name string required Name of the squad. Example: Cadiz
+   * @bodyParam  idClub int required Id club of the squad. Example: 1
+   * @bodyParam  rating int required Rating of the squad. Example: 90
+   * @bodyParam  chemistry int required Chemistry of the squad. Example: 90
+	 */
   public function update(Request $request){
     $messages = [
-      // name
-
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 50 caracteres.',
-
     ];
 
     $this->validate($request, [
@@ -163,6 +194,11 @@ class SquadsController extends Controller{
     }
   }
 
+  /**
+	 * Get all squad cards by id squad
+	 *
+   * @bodyParam  idSquad int required Id squad. Example: 1
+	 */
   public function getAllSquadCards(Request $request){
 
     $idSquad = $request['idSquad'];
@@ -181,6 +217,12 @@ class SquadsController extends Controller{
     }
   }
 
+  /**
+	 * Update squad card
+	 *
+   * @bodyParam  idSquad int required Id squad. Example: 1
+   * @bodyParam  positions array required Array of positions. Example: 1
+	 */
   public function updateSquadCard(Request $request){
 
     $idSquad = $request['idSquad'];

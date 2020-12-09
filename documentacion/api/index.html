@@ -1,0 +1,3736 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/all.js"></script>
+
+
+          <script>
+        $(function() {
+            setupLanguages(["bash","javascript"]);
+        });
+      </script>
+      </head>
+
+  <body class="">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+        <img src="images/logo.png" />
+                    <div class="lang-selector">
+                                  <a href="#" data-language-name="bash">bash</a>
+                                  <a href="#" data-language-name="javascript">javascript</a>
+                            </div>
+                            <div class="search">
+              <input type="text" class="search" id="input-search" placeholder="Search">
+            </div>
+            <ul class="search-results"></ul>
+              <div id="toc">
+      </div>
+                    <ul class="toc-footer">
+                                  <li><a href='http://github.com/mpociot/documentarian'>Documentation Powered by Documentarian</a></li>
+                            </ul>
+            </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+          <!-- START_INFO -->
+<h1>Info</h1>
+<p>Welcome to the generated API reference.
+<a href="http://localhost/docs/collection.json">Get Postman Collection</a></p>
+<!-- END_INFO -->
+<h1>Authentication</h1>
+<p>APIs for authentication</p>
+<!-- START_7583c69bbb12e80377706f0a40ae5225 -->
+<h2>Logout user</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/logout" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"username":"acua"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/logout"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "username": "acua"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /logout</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>username</code></td>
+<td>string</td>
+<td>required</td>
+<td>Username of the user.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_7583c69bbb12e80377706f0a40ae5225 -->
+<!-- START_669c21a0ec50102c5d7a38fdaec7d34e -->
+<h2>Register user</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/register" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"username":"acua","email":"aaa@aaa.com","password":"pestillo","password2":"pestillo"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/register"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "username": "acua",
+    "email": "aaa@aaa.com",
+    "password": "pestillo",
+    "password2": "pestillo"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /register</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>username</code></td>
+<td>string</td>
+<td>required</td>
+<td>Username of the user.</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>string</td>
+<td>required</td>
+<td>Email of the user.</td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>string</td>
+<td>required</td>
+<td>Password of the user.</td>
+</tr>
+<tr>
+<td><code>password2</code></td>
+<td>string</td>
+<td>required</td>
+<td>Password repeat of the user.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_669c21a0ec50102c5d7a38fdaec7d34e -->
+<!-- START_dd217657c6d30db33bd0158a8815a014 -->
+<h2>Login user</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/login" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"email":"aaa@aaa.com","password":"pestillo"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/login"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "email": "aaa@aaa.com",
+    "password": "pestillo"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /login</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>email</code></td>
+<td>string</td>
+<td>required</td>
+<td>Email of the user.</td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>string</td>
+<td>required</td>
+<td>Password of the user.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_dd217657c6d30db33bd0158a8815a014 -->
+<h1>Card Management</h1>
+<p>APIs for managing cards</p>
+<!-- START_13858f85d5bfee6c6abe6c6d025a3e39 -->
+<h2>Get all cards</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/cards" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/cards"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /cards</code></p>
+<!-- END_13858f85d5bfee6c6abe6c6d025a3e39 -->
+<!-- START_f9e892755a248fae21b1ee6d0eb3d12c -->
+<h2>Get card by id</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/card_by_id" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/card_by_id"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /card_by_id</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the card.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_f9e892755a248fae21b1ee6d0eb3d12c -->
+<!-- START_abd588476cdf2b31ec5489a89922490d -->
+<h2>Insert card</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/insert_card" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"rating":99,"value":500,"pace":99,"shooting":99,"passing":99,"dribbling":99,"defending":99,"physicality":99,"goodLeg":"Derecha","skills":5,"badLeg":5,"idType":1,"idPlayer":1,"idTeam":1,"idCountry":1,"idPosition":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/insert_card"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "rating": 99,
+    "value": 500,
+    "pace": 99,
+    "shooting": 99,
+    "passing": 99,
+    "dribbling": 99,
+    "defending": 99,
+    "physicality": 99,
+    "goodLeg": "Derecha",
+    "skills": 5,
+    "badLeg": 5,
+    "idType": 1,
+    "idPlayer": 1,
+    "idTeam": 1,
+    "idCountry": 1,
+    "idPosition": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /insert_card</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rating</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Rating of the card.</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Value of the card.</td>
+</tr>
+<tr>
+<td><code>pace</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Pace of the card.</td>
+</tr>
+<tr>
+<td><code>shooting</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Shooting of the card.</td>
+</tr>
+<tr>
+<td><code>passing</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Pasing of the card.</td>
+</tr>
+<tr>
+<td><code>dribbling</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Dribbling of the card.</td>
+</tr>
+<tr>
+<td><code>defending</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Defending of the card.</td>
+</tr>
+<tr>
+<td><code>physicality</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Physicality of the card.</td>
+</tr>
+<tr>
+<td><code>goodLeg</code></td>
+<td>string</td>
+<td>required</td>
+<td>Good leg of the card.</td>
+</tr>
+<tr>
+<td><code>skills</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Skills of the card.</td>
+</tr>
+<tr>
+<td><code>badLeg</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Bad leg of the card.</td>
+</tr>
+<tr>
+<td><code>idType</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id type of the card.</td>
+</tr>
+<tr>
+<td><code>idPlayer</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id player of the card.</td>
+</tr>
+<tr>
+<td><code>idTeam</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id team of the card.</td>
+</tr>
+<tr>
+<td><code>idCountry</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id country of the card.</td>
+</tr>
+<tr>
+<td><code>idPosition</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id position of the card.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_abd588476cdf2b31ec5489a89922490d -->
+<!-- START_20a084376afa7a501ce0232886f7db1c -->
+<h2>Delete card</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/delete_card" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/delete_card"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /delete_card</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the card.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_20a084376afa7a501ce0232886f7db1c -->
+<!-- START_3d5991eefdaab79da3a19f5e8ecf4bd1 -->
+<h2>Update card</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/update_card" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"rating":99,"value":500,"pace":99,"shooting":99,"passing":99,"dribbling":99,"defending":99,"physicality":99,"goodLeg":"Derecha","skills":5,"badLeg":5,"idType":1,"idPlayer":1,"idTeam":1,"idCountry":1,"idPosition":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/update_card"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1,
+    "rating": 99,
+    "value": 500,
+    "pace": 99,
+    "shooting": 99,
+    "passing": 99,
+    "dribbling": 99,
+    "defending": 99,
+    "physicality": 99,
+    "goodLeg": "Derecha",
+    "skills": 5,
+    "badLeg": 5,
+    "idType": 1,
+    "idPlayer": 1,
+    "idTeam": 1,
+    "idCountry": 1,
+    "idPosition": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /update_card</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the card.</td>
+</tr>
+<tr>
+<td><code>rating</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Rating of the card.</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Value of the card.</td>
+</tr>
+<tr>
+<td><code>pace</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Pace of the card.</td>
+</tr>
+<tr>
+<td><code>shooting</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Shooting of the card.</td>
+</tr>
+<tr>
+<td><code>passing</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Pasing of the card.</td>
+</tr>
+<tr>
+<td><code>dribbling</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Dribbling of the card.</td>
+</tr>
+<tr>
+<td><code>defending</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Defending of the card.</td>
+</tr>
+<tr>
+<td><code>physicality</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Physicality of the card.</td>
+</tr>
+<tr>
+<td><code>goodLeg</code></td>
+<td>string</td>
+<td>required</td>
+<td>Good leg of the card.</td>
+</tr>
+<tr>
+<td><code>skills</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Skills of the card.</td>
+</tr>
+<tr>
+<td><code>badLeg</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Bad leg of the card.</td>
+</tr>
+<tr>
+<td><code>idType</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id type of the card.</td>
+</tr>
+<tr>
+<td><code>idPlayer</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id player of the card.</td>
+</tr>
+<tr>
+<td><code>idTeam</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id team of the card.</td>
+</tr>
+<tr>
+<td><code>idCountry</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id country of the card.</td>
+</tr>
+<tr>
+<td><code>idPosition</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id position of the card.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_3d5991eefdaab79da3a19f5e8ecf4bd1 -->
+<h1>Card Type Management</h1>
+<p>APIs for managing cards types</p>
+<!-- START_25da400d9de5baa93b89cc655853253d -->
+<h2>Get all cards types</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/cards_types" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/cards_types"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /cards_types</code></p>
+<!-- END_25da400d9de5baa93b89cc655853253d -->
+<!-- START_0c60c5758694e60d89d10aa2c9155dc9 -->
+<h2>Get card type by id</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/card_type_by_id" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/card_type_by_id"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /card_type_by_id</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the card type.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_0c60c5758694e60d89d10aa2c9155dc9 -->
+<!-- START_adaedad33618a7bdad77dd0cc559f711 -->
+<h2>Insert card type</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/insert_card_type" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"Oro","image":"base64","imageMini":"base64","textColor":"#ffffff","rare":true,"special":true}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/insert_card_type"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "Oro",
+    "image": "base64",
+    "imageMini": "base64",
+    "textColor": "#ffffff",
+    "rare": true,
+    "special": true
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /insert_card_type</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the card type.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image of the card type.</td>
+</tr>
+<tr>
+<td><code>imageMini</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image mini of the card type.</td>
+</tr>
+<tr>
+<td><code>textColor</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Text color of the card type.</td>
+</tr>
+<tr>
+<td><code>rare</code></td>
+<td>boolean</td>
+<td>optional</td>
+<td>If is rare the card type.</td>
+</tr>
+<tr>
+<td><code>special</code></td>
+<td>boolean</td>
+<td>optional</td>
+<td>If is special the card type.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_adaedad33618a7bdad77dd0cc559f711 -->
+<!-- START_f66869aedd1bce0fc7185a40e610defe -->
+<h2>Delete card type</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/delete_card_type" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/delete_card_type"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /delete_card_type</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the card type.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_f66869aedd1bce0fc7185a40e610defe -->
+<!-- START_81f035ba982ab88589a8c24b539042f1 -->
+<h2>Update card type</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/update_card_type" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"name":"Oro","image":"base64","imageMini":"base64","textColor":"#ffffff","rare":true,"special":true}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/update_card_type"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1,
+    "name": "Oro",
+    "image": "base64",
+    "imageMini": "base64",
+    "textColor": "#ffffff",
+    "rare": true,
+    "special": true
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /update_card_type</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the card type.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the card type.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image of the card type.</td>
+</tr>
+<tr>
+<td><code>imageMini</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image mini of the card type.</td>
+</tr>
+<tr>
+<td><code>textColor</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Text color of the card type.</td>
+</tr>
+<tr>
+<td><code>rare</code></td>
+<td>boolean</td>
+<td>optional</td>
+<td>If is rare the card type.</td>
+</tr>
+<tr>
+<td><code>special</code></td>
+<td>boolean</td>
+<td>optional</td>
+<td>If is special the card type.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_81f035ba982ab88589a8c24b539042f1 -->
+<h1>Club Management</h1>
+<p>APIs for managing clubs</p>
+<!-- START_781f14d9580680ac571f7566ccebf66a -->
+<h2>Insert club</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/create_club" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"Espa\u00f1a","image":"image_name","username":"acua"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/create_club"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "Espa\u00f1a",
+    "image": "image_name",
+    "username": "acua"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /create_club</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the club.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>image of the club.</td>
+</tr>
+<tr>
+<td><code>username</code></td>
+<td>string</td>
+<td>required</td>
+<td>Username of the club.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_781f14d9580680ac571f7566ccebf66a -->
+<!-- START_a217e49e7a1e2159994106f4d008cde0 -->
+<h2>Update club</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/update_club" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"Espa\u00f1a","image":"image_name","username":"acua"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/update_club"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "Espa\u00f1a",
+    "image": "image_name",
+    "username": "acua"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /update_club</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the club.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>image of the club.</td>
+</tr>
+<tr>
+<td><code>username</code></td>
+<td>string</td>
+<td>required</td>
+<td>Username of the club.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_a217e49e7a1e2159994106f4d008cde0 -->
+<!-- START_42cc092116414ea8d398eaabcc512fc9 -->
+<h2>Delete club</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/delete_club" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/delete_club"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /delete_club</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the club.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_42cc092116414ea8d398eaabcc512fc9 -->
+<!-- START_1a20c087a0b594c589d3dd90f5b8ecbc -->
+<h2>Sell Card</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/sell_card" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"idClub":1,"idClubCard":1,"cardValue":500}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/sell_card"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "idClub": 1,
+    "idClubCard": 1,
+    "cardValue": 500
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /sell_card</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>idClub</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the club.</td>
+</tr>
+<tr>
+<td><code>idClubCard</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the club card.</td>
+</tr>
+<tr>
+<td><code>cardValue</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Value of the club card.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_1a20c087a0b594c589d3dd90f5b8ecbc -->
+<!-- START_bee3001a087936e5d22ba2b14d3d6175 -->
+<h2>Save Cards</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/save_cards" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"idClub":1,"idCards":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/save_cards"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "idClub": 1,
+    "idCards": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /save_cards</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>idClub</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the club.</td>
+</tr>
+<tr>
+<td><code>idCards</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Array of id of club cards.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_bee3001a087936e5d22ba2b14d3d6175 -->
+<!-- START_bd5cd316236e8077e0cd3ca51e0e362b -->
+<h2>Save Cards</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/update_coins" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"idClub":1,"coins":500}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/update_coins"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "idClub": 1,
+    "coins": 500
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /update_coins</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>idClub</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the club.</td>
+</tr>
+<tr>
+<td><code>coins</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Coins.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_bd5cd316236e8077e0cd3ca51e0e362b -->
+<h1>Country Management</h1>
+<p>APIs for managing countries</p>
+<!-- START_972cabf3b36d76ec0e7a7938d621707c -->
+<h2>Get all countries</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/countries" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/countries"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /countries</code></p>
+<!-- END_972cabf3b36d76ec0e7a7938d621707c -->
+<!-- START_4d7f896c2faa83801bfe6ba74ce7561c -->
+<h2>Get country by id</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/country_by_id" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/country_by_id"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /country_by_id</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the country.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_4d7f896c2faa83801bfe6ba74ce7561c -->
+<!-- START_0117b8f948eb688b95f64654d138b6a4 -->
+<h2>Insert country</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/insert_country" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"Espa\u00f1a","image":"base64"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/insert_country"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "Espa\u00f1a",
+    "image": "base64"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /insert_country</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the country.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image of the country.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_0117b8f948eb688b95f64654d138b6a4 -->
+<!-- START_3fbf8b601e75f06440f9ed5fcfb2fe19 -->
+<h2>Delete country</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/delete_country" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/delete_country"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /delete_country</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the country.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_3fbf8b601e75f06440f9ed5fcfb2fe19 -->
+<!-- START_b45ea240a9cf137d6d978035e26e9d9a -->
+<h2>Update country</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/update_country" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"name":"Espa\u00f1a","image":"base64"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/update_country"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1,
+    "name": "Espa\u00f1a",
+    "image": "base64"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /update_country</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the country.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the country.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image of the country.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_b45ea240a9cf137d6d978035e26e9d9a -->
+<h1>First Load</h1>
+<p>APIs for first load</p>
+<!-- START_3156d52667c29bb0913b88670212e3e0 -->
+<h2>Get all info of first load</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/first_load" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"idClub":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/first_load"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "idClub": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /first_load</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>idClub</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the club.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_3156d52667c29bb0913b88670212e3e0 -->
+<h1>League Management</h1>
+<p>APIs for managing leagues</p>
+<!-- START_7a93de16ec84c980948dee3543888b07 -->
+<h2>Get league by id</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/league_by_id" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/league_by_id"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /league_by_id</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the league.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_7a93de16ec84c980948dee3543888b07 -->
+<!-- START_e9b839688612934b7a642b59a8cdd0a1 -->
+<h2>Insert league</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/insert_league" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"La Liga","image":"base64"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/insert_league"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "La Liga",
+    "image": "base64"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /insert_league</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the league.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image of the league.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_e9b839688612934b7a642b59a8cdd0a1 -->
+<!-- START_84c7a3231c579f587f3fa26d2d94236b -->
+<h2>Delete league</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/delete_league" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/delete_league"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /delete_league</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the league.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_84c7a3231c579f587f3fa26d2d94236b -->
+<!-- START_10aaf2245f7dcce7e389be86b9a7cb88 -->
+<h2>Update league</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/update_league" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"name":"La Liga","image":"base64"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/update_league"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1,
+    "name": "La Liga",
+    "image": "base64"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /update_league</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the league.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the league.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image of the league.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_10aaf2245f7dcce7e389be86b9a7cb88 -->
+<!-- START_aa9f5a7642631a7f2f637aa5ed6ba061 -->
+<h2>Get all leagues</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/leagues" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/leagues"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /leagues</code></p>
+<!-- END_aa9f5a7642631a7f2f637aa5ed6ba061 -->
+<h1>Pack Management</h1>
+<p>APIs for managing packs</p>
+<!-- START_3e8f7ace4cd9bb290f3ac8e9661eb16d -->
+<h2>Open pack</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/open_pack" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"idClub":1,"numberPlayers":6,"packPrice":5000}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/open_pack"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "idClub": 1,
+    "numberPlayers": 6,
+    "packPrice": 5000
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /open_pack</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>idClub</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the club.</td>
+</tr>
+<tr>
+<td><code>numberPlayers</code></td>
+<td>integer</td>
+<td>optional</td>
+<td>Number of players of the pack.</td>
+</tr>
+<tr>
+<td><code>packPrice</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Price of the pack.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_3e8f7ace4cd9bb290f3ac8e9661eb16d -->
+<!-- START_6ce415c19dacfa0e2ea66189f82d00c0 -->
+<h2>Get all packs</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/packs" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/packs"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /packs</code></p>
+<!-- END_6ce415c19dacfa0e2ea66189f82d00c0 -->
+<!-- START_977e89b482320f0000bdc0a7b62d23b0 -->
+<h2>Get pack by id</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/pack_by_id" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/pack_by_id"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /pack_by_id</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the pack.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_977e89b482320f0000bdc0a7b62d23b0 -->
+<!-- START_3c3b79f8db830ec94df5a66efc6c3a50 -->
+<h2>Insert pack</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/insert_pack" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"Sobre premium","description":"Descripcion","numberPlayers":6,"price":5000,"image":"base64"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/insert_pack"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "Sobre premium",
+    "description": "Descripcion",
+    "numberPlayers": 6,
+    "price": 5000,
+    "image": "base64"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /insert_pack</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the pack.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Description of the pack.</td>
+</tr>
+<tr>
+<td><code>numberPlayers</code></td>
+<td>integer</td>
+<td>optional</td>
+<td>Number of players of the pack.</td>
+</tr>
+<tr>
+<td><code>price</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Price of players of the pack.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image of the pack.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_3c3b79f8db830ec94df5a66efc6c3a50 -->
+<!-- START_fde63a885bf4056e640918147d5c3272 -->
+<h2>Delete pack</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/delete_pack" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/delete_pack"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /delete_pack</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the pack.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_fde63a885bf4056e640918147d5c3272 -->
+<!-- START_cf4cadbda50f95be2c023b017e0d6e45 -->
+<h2>Insert pack</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/update_pack" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"name":"Sobre premium","description":"Descripcion","numberPlayers":6,"price":5000,"image":"base64"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/update_pack"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1,
+    "name": "Sobre premium",
+    "description": "Descripcion",
+    "numberPlayers": 6,
+    "price": 5000,
+    "image": "base64"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /update_pack</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the pack.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the pack.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Description of the pack.</td>
+</tr>
+<tr>
+<td><code>numberPlayers</code></td>
+<td>integer</td>
+<td>optional</td>
+<td>Number of players of the pack.</td>
+</tr>
+<tr>
+<td><code>price</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Price of the pack.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image of the pack.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_cf4cadbda50f95be2c023b017e0d6e45 -->
+<h1>Permission Management</h1>
+<p>APIs for managing permissions</p>
+<!-- START_ed0659c05b416e4ae36e791a99cfc3e5 -->
+<h2>Get all permissions</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/permissions" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/permissions"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /permissions</code></p>
+<!-- END_ed0659c05b416e4ae36e791a99cfc3e5 -->
+<!-- START_eef87a146d57c2c6f45bfa4309112bc1 -->
+<h2>Get permission by id</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/permission_by_id" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/permission_by_id"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /permission_by_id</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the permission.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_eef87a146d57c2c6f45bfa4309112bc1 -->
+<!-- START_e03fc7dd6986055a9ee81f31c298c15d -->
+<h2>Insert permission</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/insert_permission" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"Permiso"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/insert_permission"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "Permiso"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /insert_permission</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the permission.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_e03fc7dd6986055a9ee81f31c298c15d -->
+<!-- START_804d4524ef928087333b514710e2d15a -->
+<h2>Delete permission</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/delete_permission" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/delete_permission"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /delete_permission</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the permission.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_804d4524ef928087333b514710e2d15a -->
+<!-- START_9873f9cd0d51e11c5799912b700bed68 -->
+<h2>Update permission</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/update_permission" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"name":"Espa\u00f1a"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/update_permission"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1,
+    "name": "Espa\u00f1a"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /update_permission</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the permission.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the permission.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_9873f9cd0d51e11c5799912b700bed68 -->
+<h1>Player Management</h1>
+<p>APIs for managing players</p>
+<!-- START_ddd8a08cc3821751ee6267c298fcb606 -->
+<h2>Get all players</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/players" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/players"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /players</code></p>
+<!-- END_ddd8a08cc3821751ee6267c298fcb606 -->
+<!-- START_91535cd42155126643ed689590a918b8 -->
+<h2>Get player by id</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/player_by_id" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/player_by_id"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /player_by_id</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the player.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_91535cd42155126643ed689590a918b8 -->
+<!-- START_fe2d93116bd1e3659bc946fa9d64e5fa -->
+<h2>Insert player</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/insert_player" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"El Choco","full_name":"El Choco Lozano","image":"base64","height":175,"birth":"26\/10\/1998"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/insert_player"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "El Choco",
+    "full_name": "El Choco Lozano",
+    "image": "base64",
+    "height": 175,
+    "birth": "26\/10\/1998"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /insert_player</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the player.</td>
+</tr>
+<tr>
+<td><code>full_name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Full name of the player.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image of the player.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Height of the player.</td>
+</tr>
+<tr>
+<td><code>birth</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Birth of the player.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_fe2d93116bd1e3659bc946fa9d64e5fa -->
+<!-- START_b756ca2417dd958a4b07db12b0d74e97 -->
+<h2>Delete player</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/delete_player" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/delete_player"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /delete_player</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the player.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_b756ca2417dd958a4b07db12b0d74e97 -->
+<!-- START_9a99415912d7cc1bddc53546c719e39c -->
+<h2>Update player</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/update_player" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"name":"El Choco","full_name":"El Choco Lozano","image":"base64","height":175,"birth":"26\/10\/1998"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/update_player"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1,
+    "name": "El Choco",
+    "full_name": "El Choco Lozano",
+    "image": "base64",
+    "height": 175,
+    "birth": "26\/10\/1998"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /update_player</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the player.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the player.</td>
+</tr>
+<tr>
+<td><code>full_name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Full name of the player.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image of the player.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Height of the player.</td>
+</tr>
+<tr>
+<td><code>birth</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Birth of the player.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_9a99415912d7cc1bddc53546c719e39c -->
+<h1>Position Management</h1>
+<p>APIs for managing positions</p>
+<!-- START_08284f54528f53a15b93fe57e08a12a4 -->
+<h2>Get all positions</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/positions" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/positions"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /positions</code></p>
+<!-- END_08284f54528f53a15b93fe57e08a12a4 -->
+<!-- START_9da7c81f03d517fd812a4f2afca8d6d0 -->
+<h2>Get position by id</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/position_by_id" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/position_by_id"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /position_by_id</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the position.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_9da7c81f03d517fd812a4f2afca8d6d0 -->
+<h1>Squad Management</h1>
+<p>APIs for managing squads</p>
+<!-- START_0c8b939137e9ea4578d8d0bd0617d87f -->
+<h2>Get all squads by id club</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/squads_by_club" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"idClub":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/squads_by_club"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "idClub": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /squads_by_club</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>idClub</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id club of the squad.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_0c8b939137e9ea4578d8d0bd0617d87f -->
+<!-- START_29a174d12a30eb89a345c08dd0acda2b -->
+<h2>Get squad by id</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/squad_by_id" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/squad_by_id"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /squad_by_id</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the squad.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_29a174d12a30eb89a345c08dd0acda2b -->
+<!-- START_ede361ad5209c24b70b525325556639b -->
+<h2>Insert squad</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/create_squad" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"Cadiz","idClub":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/create_squad"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "Cadiz",
+    "idClub": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /create_squad</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the squad.</td>
+</tr>
+<tr>
+<td><code>idClub</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id club of the squad.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_ede361ad5209c24b70b525325556639b -->
+<!-- START_db78e3052c89ab69c676df792ed820a7 -->
+<h2>Delete squad</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/delete_squad" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/delete_squad"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /delete_squad</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the squad.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_db78e3052c89ab69c676df792ed820a7 -->
+<!-- START_81f555f37a3866b8d471ed8c58c55158 -->
+<h2>Update squad</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/update_squad" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"name":"Cadiz","idClub":1,"rating":90,"chemistry":90}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/update_squad"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1,
+    "name": "Cadiz",
+    "idClub": 1,
+    "rating": 90,
+    "chemistry": 90
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /update_squad</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the squad.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the squad.</td>
+</tr>
+<tr>
+<td><code>idClub</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id club of the squad.</td>
+</tr>
+<tr>
+<td><code>rating</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Rating of the squad.</td>
+</tr>
+<tr>
+<td><code>chemistry</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Chemistry of the squad.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_81f555f37a3866b8d471ed8c58c55158 -->
+<!-- START_1c8dcb504b5b642e892e1af211e9a55a -->
+<h2>Get all squad cards by id squad</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/squad_cards" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"idSquad":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/squad_cards"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "idSquad": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /squad_cards</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>idSquad</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id squad.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_1c8dcb504b5b642e892e1af211e9a55a -->
+<!-- START_1b3e801cd2626ffd568adef529f27f72 -->
+<h2>Update squad card</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/update_squad_card" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"idSquad":1,"positions":"1"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/update_squad_card"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "idSquad": 1,
+    "positions": "1"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /update_squad_card</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>idSquad</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id squad.</td>
+</tr>
+<tr>
+<td><code>positions</code></td>
+<td>array</td>
+<td>required</td>
+<td>Array of positions.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_1b3e801cd2626ffd568adef529f27f72 -->
+<h1>Team Management</h1>
+<p>APIs for managing teams</p>
+<!-- START_c6f35ce681d98f48feec0a8e10e74ecb -->
+<h2>Get team by id</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/team_by_id" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/team_by_id"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /team_by_id</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the team.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_c6f35ce681d98f48feec0a8e10e74ecb -->
+<!-- START_353f52220edb37ad966c19c43ded9230 -->
+<h2>Insert team</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/insert_team" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"Cadiz","idLeague":"1","image":"base64"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/insert_team"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "Cadiz",
+    "idLeague": "1",
+    "image": "base64"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /insert_team</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the team.</td>
+</tr>
+<tr>
+<td><code>idLeague</code></td>
+<td>string</td>
+<td>required</td>
+<td>Id of the league.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image of the team.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_353f52220edb37ad966c19c43ded9230 -->
+<!-- START_65ee071434c83b45e1038b5e918216ee -->
+<h2>Delete team</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/delete_team" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/delete_team"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /delete_team</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the team.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_65ee071434c83b45e1038b5e918216ee -->
+<!-- START_3a03d2422bb7b384a2aa2b627865c9aa -->
+<h2>Update team</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/update_team" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"id":1,"name":"Cadiz","idLeague":"1","image":"base64"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/update_team"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1,
+    "name": "Cadiz",
+    "idLeague": "1",
+    "image": "base64"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /update_team</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>integer</td>
+<td>required</td>
+<td>Id of the team.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>Name of the team.</td>
+</tr>
+<tr>
+<td><code>idLeague</code></td>
+<td>string</td>
+<td>required</td>
+<td>Id of the league.</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>optional</td>
+<td>Base64 image of the team.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_3a03d2422bb7b384a2aa2b627865c9aa -->
+<!-- START_f20db0e60a341f12dc3d3b69febcc163 -->
+<h2>Get all teams</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small></p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/teams" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/teams"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST /teams</code></p>
+<!-- END_f20db0e60a341f12dc3d3b69febcc163 -->
+      </div>
+      <div class="dark-box">
+                        <div class="lang-selector">
+                                    <a href="#" data-language-name="bash">bash</a>
+                                    <a href="#" data-language-name="javascript">javascript</a>
+                              </div>
+                </div>
+    </div>
+  </body>
+</html>

@@ -4,8 +4,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
+/**
+ * @authenticated
+ * 
+ * @group First Load
+ *
+ * APIs for first load
+ */
 class FirstLoadController extends Controller{
 
+  /**
+	 * Get all info of first load
+   * 
+   * @bodyParam  idClub int required Id of the club. Example: 1
+	 */
   public function getAll(Request $request){
     $idClub = $request['idClub'];
     try{

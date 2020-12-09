@@ -4,8 +4,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
+/**
+ * @authenticated
+ * 
+ * @group Team Management
+ *
+ * APIs for managing teams
+ */
 class TeamsController extends Controller{
 
+  /**
+	 * Get all teams
+	 */
   public function getAll(){
     try{
       $teams = Controller::getAllTeams();
@@ -16,6 +26,11 @@ class TeamsController extends Controller{
     }
   }
 
+  /**
+	 * Get team by id
+	 *
+   * @bodyParam  id int required Id of the team. Example: 1
+	 */
   public function getById(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -39,19 +54,20 @@ class TeamsController extends Controller{
     }
   }
 
+  /**
+	 * Insert team
+	 *
+   * @bodyParam  name string required Name of the team. Example: Cadiz
+   * @bodyParam  idLeague string required Id of the league. Example: 1
+   * @bodyParam  image string Base64 image of the team. Example: base64
+	 */
   public function insert(Request $request){
     $messages = [
-      // name
-
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 50 caracteres.',
-
-      // league
-
       'idLeague.required'=>'Introduce la liga.',
       'idLeague.integer'=>'El id debe ser un integer.',
-
     ];
 
     $this->validate($request, [
@@ -94,6 +110,11 @@ class TeamsController extends Controller{
 
   }
 
+  /**
+	 * Delete team
+	 *
+   * @bodyParam  id int required Id of the team. Example: 1
+	 */
   public function delete(Request $request){
     $messages = [
       'id.required'=>'Introduce el id.',
@@ -120,17 +141,21 @@ class TeamsController extends Controller{
 
   }
 
+  /**
+	 * Update team
+	 *
+   * @bodyParam  id int required Id of the team. Example: 1
+   * @bodyParam  name string required Name of the team. Example: Cadiz
+   * @bodyParam  idLeague string required Id of the league. Example: 1
+   * @bodyParam  image string Base64 image of the team. Example: base64
+	 */
   public function update(Request $request){
     $messages = [
-      // name
-
       'name.required'=>'Introduce el nombre.',
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 50 caracteres.',
-
       'idLeague.required'=>'Introduce la liga.',
       'idLeague.integer'=>'El id debe ser un integer.',
-
     ];
 
     $this->validate($request, [

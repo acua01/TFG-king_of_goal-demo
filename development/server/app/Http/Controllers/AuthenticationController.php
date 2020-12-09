@@ -7,15 +7,26 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\User;
 
+/**
+ * @authenticated
+ * 
+ * @group Authentication
+ *
+ * APIs for authentication
+ */
 class AuthenticationController extends Controller{
 
-  // Register users
-
+  /**
+	 * Register user
+	 *
+   * @bodyParam  username string required Username of the user. Example: acua
+   * @bodyParam  email string required Email of the user. Example: aaa@aaa.com
+   * @bodyParam  password string required Password of the user. Example: pestillo
+   * @bodyParam  password2 string required Password repeat of the user. Example: pestillo
+	 */
   public function register(Request $request){
 
     $messages = [
-
-      // username
 
       'username.required'=>'Introduce un nick.',
       'username.string'=>'El nick debe ser una cadena.',
@@ -24,21 +35,15 @@ class AuthenticationController extends Controller{
       'username.unique'=>'El nick introducido ya está en uso.',
       'username.regex'=>'Introduce un nick con caracteres alfanuméricos.',
 
-      // email
-
       'email.required'=>'Introduce un email.',
       'email.string'=>'El email debe ser una cadena.',
       'email.unique'=>'El email introducido ya está en uso.',
       'email.email'=>'Introduce un email válido.',
 
-      // password
-
       'password.required'=>'Introduce una contraseña.',
       'password.string'=>'La contraseña debe ser una cadena.',
       'password.min'=>'La contraseña debe tener un mínimo de 5 caracteres.',
       'password.max'=>'La contraseña debe tener un máximo de 20 caracteres.',
-
-      // password 2
 
       'password.required'=>'Las contraseñas no coinciden.',
       'password.string'=>'Las contraseñas no coinciden.',
@@ -69,18 +74,17 @@ class AuthenticationController extends Controller{
     }
   }
 
-  // Login users
-
+  /**
+	 * Login user
+	 *
+   * @bodyParam  email string required Email of the user. Example: aaa@aaa.com
+   * @bodyParam  password string required Password of the user. Example: pestillo
+	 */
   public function login(Request $request){
 
     $messages = [
-
-      // email
-
       'email.required'=>'Introduce el email.',
       'email.string'=>'El email debe ser una cadena.',
-
-      // password
 
       'password.required'=>'Introduce la contraseña.',
       'password.string'=>'La contraseña debe ser una cadena.',
@@ -128,8 +132,11 @@ class AuthenticationController extends Controller{
     }
   }
 
-  // Logout
-
+  /**
+	 * Logout user
+	 *
+   * @bodyParam  username string required Username of the user. Example: acua
+	 */
   public function logout(Request $request){
     $username = $request['username'];
 

@@ -4,15 +4,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
+/**
+ * @authenticated
+ * 
+ * @group Club Management
+ *
+ * APIs for managing clubs
+ */
 class ClubsController extends Controller{
 
+  /**
+	 * Insert club
+	 *
+   * @bodyParam  name string required Name of the club. Example: España
+   * @bodyParam  image string image of the club. Example: image_name
+   * @bodyParam  username string required Username of the club. Example: acua
+	 */
   public function insert(Request $request){
     $messages = [
-      // name
-
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 30 caracteres.',
-
     ];
 
     $this->validate($request, [
@@ -50,13 +61,17 @@ class ClubsController extends Controller{
 
   }
 
+  /**
+	 * Update club
+	 *
+   * @bodyParam  name string required Name of the club. Example: España
+   * @bodyParam  image string image of the club. Example: image_name
+   * @bodyParam  username string required Username of the club. Example: acua
+	 */
   public function update(Request $request){
     $messages = [
-      // name
-
       'name.string'=>'El nombre debe ser una cadena.',
       'name.max'=>'El nombre debe tener un máximo de 30 caracteres.',
-
     ];
 
     $this->validate($request, [
@@ -89,6 +104,11 @@ class ClubsController extends Controller{
     }
   }
 
+  /**
+	 * Delete club
+	 *
+   * @bodyParam  id int required Id of the club. Example: 1
+	 */
   public function delete(Request $request){
     $id = $request['id'];
 
@@ -104,6 +124,13 @@ class ClubsController extends Controller{
     }
   }
 
+  /**
+	 * Sell Card
+	 *
+   * @bodyParam  idClub int required Id of the club. Example: 1
+   * @bodyParam  idClubCard int required Id of the club card. Example: 1
+   * @bodyParam  cardValue int required Value of the club card. Example: 500
+	 */
   public function sellCard(Request $request){
     $idClub = $request['idClub'];
     $idClubCard = $request['idClubCard'];
@@ -132,6 +159,12 @@ class ClubsController extends Controller{
     }
   }
 
+  /**
+	 * Save Cards
+	 *
+   * @bodyParam  idClub int required Id of the club. Example: 1
+   * @bodyParam  idCards int required Array of id of club cards. Example: 1
+	 */
   public function saveCards(Request $request){
     $idClub = $request['idClub'];
     $idCards = $request['idCards'];
@@ -157,6 +190,12 @@ class ClubsController extends Controller{
     }
   }
 
+  /**
+	 * Save Cards
+	 *
+   * @bodyParam  idClub int required Id of the club. Example: 1
+   * @bodyParam  coins int required Coins. Example: 500
+	 */
   public function updateCoins(Request $request){
     $idClub = $request['idClub'];
     $coins = $request['coins'];
