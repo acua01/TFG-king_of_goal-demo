@@ -1,2 +1,2 @@
-# king_of_goall
+# king_of_goal
 
