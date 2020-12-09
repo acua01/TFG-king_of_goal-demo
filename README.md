@@ -1,6 +1,6 @@
 # king_of_goal
 
-## Despliegue 🚀:trollface:
+## Despliegue 🚀📹
 
 1) Descargamos el fichero despliegue.zip aquí.
 
@@ -11,3 +11,7 @@ docker-compose up
 ```
 
 3) Nos dirigimos al navegador y comprobamos que se ha desplegado correctamente en localhost:8000.
+
+## Presentación 📹
+
+Descarga la presentación aquí.
