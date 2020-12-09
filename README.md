@@ -1,6 +1,6 @@
 # king_of_goal
 
-## Despliegue 🚀📹
+## Despliegue 🚀
 
 1) Descargamos el fichero **despliegue.zip** [aquí](https://drive.google.com/file/d/1AVn3B_CMtO3ENyqscGZ_526VtozpFXCx/view?usp=sharing).
 
